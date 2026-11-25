@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.2 · Mesures de dispersion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=6">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 2 · Statistiques descriptives</div>
+    <h1>2.2 · Mesures de dispersion</h1>
+    <p class="lead">Deux groupes peuvent avoir la même moyenne et ne pas se ressembler du tout.</p>
+    <div class="code"><span><i class="sw o"></i>les données</span><span><i class="sw r"></i>les écarts à la moyenne</span><span><i class="sw t"></i>l'écart type</span></div>
+  </div>
+
+  <section class="part">
+    <h2>L'étendue : du plus petit au plus grand</h2>
+    <p class="lead">Notes d'un examen dans deux groupes de 10 étudiants. Même moyenne : 70 %.</p>
+    <figure>
+      <div class="tools"><button id="xe">Ajouter un étudiant à 20 % dans le groupe A</button></div>
+      <div class="fig" style="--h:220px"><svg id="f22a" role="img" aria-label="Étendue de deux groupes"></svg></div>
+      <figcaption id="c22a"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>L'écart type, en carrés</h2>
+    <p class="lead">Chaque écart à la moyenne devient un carré. L'écart type est le côté du carré « moyen ».</p>
+    <figure>
+      <div class="tools"><div class="seg" id="gr"><button data-g="0" aria-pressed="true">Groupe A (serré)</button><button data-g="1">Groupe B (étalé)</button></div></div>
+      <div class="fig" style="--h:400px;--hm:340px"><svg id="f22b" role="img" aria-label="Carrés des écarts et carré moyen"></svg></div>
+      <figcaption id="c22b"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Le coefficient de variation : un écart, relatif à quoi?</h2>
+    <p class="lead">Deux dépenses mensuelles d'étudiants, avec exactement le même écart type : 50 $.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="ech"><button data-e="d" aria-pressed="true">Même échelle (en $)</button><button data-e="m">Chacun à l'échelle de sa moyenne</button></div></div>
+      <div class="fig" style="--h:300px"><svg id="f22c" role="img" aria-label="Épicerie et loyer"></svg></div>
+      <figcaption id="c22c"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>Étendue : max − min. Simple, mais une seule valeur extrême la change.</p><p>Écart type : la taille typique d'un écart à la moyenne, dans les unités des données.</p><p>Coefficient de variation : l'écart type exprimé en pourcentage de la moyenne, pour comparer des dispersions.</p></div>
+    <table class="stack"><thead><tr><th>Mesure</th><th>Formule</th></tr></thead><tbody>
+      <tr><td>Étendue</td><td class="fm">E = x<sub>max</sub> − x<sub>min</sub></td></tr>
+      <tr><td>Variance (échantillon)</td><td class="fm">s² = Σ(x − x̄)² / (n − 1)</td></tr>
+      <tr><td>Écart type (échantillon)</td><td class="fm">s = √s²</td></tr>
+      <tr><td>Écart type (population)</td><td class="fm">σ = √[Σ(x − μ)² / N]</td></tr>
+      <tr><td>Coefficient de variation</td><td class="fm">CV = (s / x̄) × 100 %</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:22px">Pièges</h3>
+    <ul><li>On met les écarts au carré parce qu'autrement, ils s'annulent : Σ(x − x̄) = 0.</li><li>L'écart type de notes en pourcentage s'écrit en % : s = 12 %, pas « 12 points ».</li><li>Un CV d'environ 15 % ou moins indique en général des données homogènes.</li></ul>
+  </section>
+  <div class="foot">Données fictives, construites pour illustrer chaque situation.</div>
+</div></main>
+<script src="assets/commun.js?v=6"></script>
+<script src="assets/s2-2.js?v=6"></script>
+</body>
+</html>

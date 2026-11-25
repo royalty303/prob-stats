@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.3 · Mesures de position</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=6">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 2 · Statistiques descriptives</div>
+    <h1>2.3 · Mesures de position</h1>
+    <p class="lead">Où se situe une donnée par rapport aux autres?</p>
+    <div class="code"><span><i class="sw o"></i>les données</span><span><i class="sw t"></i>le pourcentage visé</span><span><i class="sw r"></i>le quantile trouvé</span></div>
+  </div>
+
+  <section class="part">
+    <h2>Les quantiles, données groupées par valeur</h2>
+    <p class="lead">Nombre de cafés achetés par semaine, 120 étudiants. On monte l'escalier des pourcentages cumulés jusqu'au pourcentage visé.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="qv"></div></div>
+      <div class="pair">
+        <div class="scroll"><table class="qt" id="tq"></table></div>
+        <div class="fig" style="--h:300px"><svg id="f23a" role="img" aria-label="Pourcentages cumulés en escalier"></svg></div>
+      </div>
+      <figcaption id="c23a"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Données groupées par classe : la pince de crabe</h2>
+    <p class="lead">Durée du trajet vers le cégep, 250 étudiants. Choisissez le quantile cherché.</p>
+    <figure>
+      <div class="slider"><label for="slk">Pourcentage visé</label><input type="range" id="slk" min="1" max="99" value="80"><output id="ok"></output></div>
+      <div class="pair">
+        <div class="scroll"><table class="qt" id="tc"></table></div>
+        <div class="fig" style="--h:300px"><svg id="f23b" role="img" aria-label="La pince de crabe"></svg></div>
+      </div>
+      <p class="calc" id="pcalc"></p>
+      <figcaption><span class="fn">Figure 2.3-b</span>On repère la première classe dont le pourcentage cumulé dépasse le pourcentage visé. En haut, les bornes de la classe; en bas, les pourcentages cumulés au début et à la fin de la classe. Les deux pinces sont proportionnelles : on règle le tout par une règle de trois. Le résultat est une estimation, puisque les données sont groupées.</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>La cote z : combien d'écarts types au-dessus de la moyenne?</h2>
+    <p class="lead">Une étudiante obtient 80 % en mathématiques et 84 % en chimie. Dans quelle matière se démarque-t-elle le plus?</p>
+    <figure>
+      <div class="slider"><label for="zm">Note en mathématiques</label><input type="range" id="zm" min="40" max="100" value="80"><output id="ozm"></output></div>
+      <div class="slider"><label for="zc">Note en chimie</label><input type="range" id="zc" min="40" max="100" value="84"><output id="ozc"></output></div>
+      <div class="fig" style="--h:260px"><svg id="f23c" role="img" aria-label="Règles graduées en écarts types"></svg></div>
+      <figcaption id="c23c"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>Un quantile partage les données ordonnées : Q₁ (25 %), médiane (50 %), Q₃ (75 %), déciles, centiles.</p><p>Par classe, la pince de crabe estime le quantile par une règle de trois.</p><p>La cote z mesure la distance à la moyenne en écarts types : elle permet de comparer des données de groupes différents.</p></div>
+    <table class="stack"><thead><tr><th>Situation</th><th>Méthode</th></tr></thead><tbody>
+      <tr><td>Données groupées par valeur</td><td>première valeur dont le pourcentage cumulé dépasse le pourcentage visé; s'il l'atteint exactement, moyenne de cette valeur et de la suivante</td></tr>
+      <tr><td>Données groupées par classe</td><td>pince de crabe : x / amplitude = (% visé − % au début) / (% à la fin − % au début), puis borne inférieure + x</td></tr>
+      <tr><td>Cote z</td><td class="fm">z = (x − x̄) / s</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:22px">Pièges</h3>
+    <ul><li>Le pourcentage « au début » de la classe est le cumulé de la classe <i>précédente</i>.</li><li>Une cote z négative indique une donnée sous la moyenne, pas une erreur.</li></ul>
+  </section>
+  <div class="foot">Données fictives, construites pour illustrer chaque méthode.</div>
+</div></main>
+<script src="assets/commun.js?v=6"></script>
+<script src="assets/s2-3.js?v=6"></script>
+</body>
+</html>

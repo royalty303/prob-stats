@@ -42,8 +42,8 @@ const ftree=fig('tree',(W,H,m)=>{const rx=W/2,ry=22,ly=H*.36,fy=H*.72,kx=k=>W*(k
   const ln=(x1,y1,x2,y2,on)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${on?C.blue:C.line}" stroke-width="${on?4:2.5}"/>`;
   K.forEach(([n,p,e],k)=>{s+=ln(rx,ry,kx(k),ly,onK(k))+ln(kx(k),ly,lx(k,0),fy,onEp(k))+ln(kx(k),ly,lx(k,1),fy,onE(k));
     s+=txt((rx+kx(k))/2+(k===1?8:0),(ry+ly)/2-(k===1?0:6),m?fx(p,1):`P(${n}) = ${fx(p,1)}`,{a:k===0?'end':k===2?'start':'start',fs:13,w:700,c:onK(k)?C.blue:C.mute,halo:1});
-    s+=txt((kx(k)+lx(k,0))/2-4,(ly+fy)/2,fx(1-e,2),{a:'end',fs:12,c:onEp(k)?C.blue:C.mute,halo:1});
-    s+=txt((kx(k)+lx(k,1))/2+4,(ly+fy)/2,fx(e,2),{fs:12,w:700,c:onE(k)?C.blue:C.mute,halo:1});
+    s+=txt((kx(k)+lx(k,0))/2-4,(ly+fy)/2,m?fx(1-e,2):`P(E′|${n}) = ${fx(1-e,2)}`,{a:'end',fs:12,c:onEp(k)?C.blue:C.mute,halo:1});
+    s+=txt((kx(k)+lx(k,1))/2+4,(ly+fy)/2,m?fx(e,2):`P(E|${n}) = ${fx(e,2)}`,{fs:12,w:700,c:onE(k)?C.blue:C.mute,halo:1});
     s+=`<circle cx="${kx(k)}" cy="${ly}" r="8" fill="${C.ink}"/>`+txt(kx(k)+12,ly+5,n,{fs:16,w:700,halo:1});
     [[0,'E′'],[1,'E']].forEach(([ee,l])=>{const x=lx(k,ee),id=2*k+ee;s+=`<circle cx="${x}" cy="${fy}" r="8" fill="${ee?C.org:C.ink}"/>`+txt(x,fy+24,l,{a:'middle',fs:14,w:700,c:ee?C.org:C.ink,halo:1})+`<rect x="${x-26}" y="${fy-30}" width="52" height="64" fill="transparent" data-l="${id}" style="cursor:pointer"/>`})});
   s+=`<circle cx="${rx}" cy="${ry}" r="8" fill="${C.ink}"/>`;
@@ -75,11 +75,11 @@ function carre(W,H,m){const pl=6,pt=24,pb=30,Wd=W-2*pl,Hd=H-pt-pb;let s='',x=pl;
 function pile(W,H,m){const pt=24,pb=30,Hd=H-pt-pb,cw=Math.min(76,W*.6),x=(W-cw)/2,sc=Hd*.8/PE;let s='',y=pt+Hd;
   K.forEach(([n,w,r])=>{const h=w*r*sc;y-=h;s+=`<rect x="${x}" y="${y}" width="${cw}" height="${h}" fill="${C.org}" stroke="var(--bg)" stroke-width="2"/>`+(h>14?txt(x+cw/2,y+h/2+4,`${n} ∩ E`,{a:'middle',fs:11,w:700,c:'#fff'}):'')});
   s+=txt(W/2,y-8,`P(E) = ${fx(PE,3)}`,{a:'middle',fs:13,w:700,halo:1});return s}
-const ff=fig('f13f',(W,H,m)=>view==='c'?carre(W,H,m):ovale(W,H,{labels:true})+txt(W-6,H-8,'dans l\'ovale, les aires ne sont pas à l\'échelle',{a:'end',fs:11,c:C.mute}));
+const ff=fig('f13f',(W,H,m)=>ovale(W,H,{labels:true})+txt(W-6,H-8,'dans l\'ovale, les aires ne sont pas à l\'échelle',{a:'end',fs:11,c:C.mute}));
 const ff2=fig('f13f2',(W,H,m)=>pile(W,H,m));
-function upf(){document.querySelectorAll('#vw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===view));
-  $('c13f').innerHTML=`<span class="fn">Figure 1.3-d</span>${view==='o'?'Les kiosques forment une partition : ils couvrent toutes les commandes, sans chevauchement. La partition découpe E en trois zones, A ∩ E, B ∩ E et C ∩ E, qui ne se chevauchent pas : ensemble, elles reconstituent E.':'Redressée, chaque zone A ∩ E, B ∩ E, C ∩ E devient un rectangle : largeur P(kiosque) × hauteur P(E | kiosque). On les empile : <b>P(E) = 0,010 + 0,015 + 0,002 = 0,027</b>.'}`;ff();ff2()}
-$('vw').onclick=e=>{const v=e.target.dataset.v;if(v){view=v;upf()}};upf();
+function upf(){
+  $('c13f').innerHTML=`<span class="fn">Figure 1.3-d</span>${true?'Les kiosques forment une partition : ils couvrent toutes les commandes, sans chevauchement. La partition découpe E en trois zones, A ∩ E, B ∩ E et C ∩ E, qui ne se chevauchent pas : ensemble, elles reconstituent E.':'Redressée, chaque zone A ∩ E, B ∩ E, C ∩ E devient un rectangle : largeur P(kiosque) × hauteur P(E | kiosque). On les empile : <b>P(E) = 0,010 + 0,015 + 0,002 = 0,027</b>.'}`;ff();ff2()}
+upf();
 
 /* ================= e : Bayes ================= */
 let bsel=1;
