@@ -2,13 +2,14 @@
 const {fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area}=SITE;
 /* ================= accueil ================= */
 const PLAN=[
- ["1. Probabilités et analyse combinatoire",[["1.1","Notions de probabilité de base","1-1-notions-probabilite.html"],["1.2","Analyse combinatoire"],["1.3","Probabilités conditionnelles"]]],
+ ["1. Probabilités et analyse combinatoire",[["1.1","Notions de probabilité de base","1-1-notions-probabilite.html"],["1.2","Analyse combinatoire","1-2-analyse-combinatoire.html"],["1.3","Probabilités conditionnelles"]]],
  ["2. Statistiques descriptives",[["2.1","Mesures de tendance centrale"],["2.2","Mesures de dispersion"],["2.3","Mesures de position"]]],
  ["3. Variables aléatoires discrètes",[["3.1","Introduction aux variables aléatoires"],["3.2","Loi binomiale"],["3.3","Loi de Poisson"]]],
  ["4. Variables aléatoires continues",[["4.1","Introduction aux variables aléatoires continues"],["4.2","Loi normale"]]],
  ["5. Estimation de paramètres",[["5.1","Introduction aux sondages","5-1-sondages.html"],["5.2","Théorème central limite","5-2-theoreme-central-limite.html"],["5.3","Intervalles de confiance sur une moyenne","5-3-intervalles-moyenne.html"],["5.4","Intervalles de confiance sur une proportion","5-4-intervalles-proportion.html"]]],
  ["6. Tests d'hypothèses",[["6.1","Tests sur une moyenne et sur une proportion","6-1-tests-hypotheses.html"],["6.2","Tests du khi-deux","6-2-khi-deux.html"]]]];
-$('plan').innerHTML=PLAN.map(([t,ss])=>`<div><h3>${t}</h3><ol>${ss.map(([n,l,h])=>h?`<li><a href="${h}">${n} · ${l}</a></li>`:`<li><span>${n} · ${l}</span><small>en préparation</small></li>`).join('')}</ol></div>`).join('');
+const TH={"1.1": "th7", "1.2": "th8", "5.1": "th6", "5.2": "th1", "5.3": "th4", "5.4": "th5", "6.1": "th2", "6.2": "th3"};
+$('plan').innerHTML=PLAN.map(([t,ss])=>`<div><h3>${t}</h3><ol>${ss.map(([n,l,h])=>h?`<li class="on"><a href="${h}">${n} · ${l}${TH[n]?`<svg class="pth" id="${TH[n]}" viewBox="0 0 300 120" aria-hidden="true"></svg>`:''}</a></li>`:`<li><span>${n} · ${l}</span><small>en préparation</small></li>`).join('')}</ol></div>`).join('');
 { // vignettes
   const X=x=>150+x*34,Y=y=>108-y*230;let a='';
   [-3,-2.5,-2,-1.5,-1,-.5,0,.5,1,1.5,2,2.5].forEach(x=>{const h=npdf(x+.25)*(0.85+0.3*Math.abs(Math.sin(x*7)));a+=`<rect x="${X(x)+1}" y="${Y(h)}" width="15" height="${108-Y(h)}" fill="var(--ink)"/>`});
@@ -19,6 +20,7 @@ $('plan').innerHTML=PLAN.map(([t,ss])=>`<div><h3>${t}</h3><ol>${ss.map(([n,l,h])
  const Xp=p=>20+p*260,Yp=v=>108-v*360;let d='';for(let i=0;i<=60;i++){const p=i/60;d+=(d?'L':'M')+Xp(p)+','+Yp(p*(1-p))}$('th5').innerHTML=`<path d="${d}" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-dasharray="6 4"/><circle cx="${Xp(.5)}" cy="${Yp(.25)}" r="6" fill="var(--ink)"/><line x1="${Xp(.5)}" x2="${Xp(.5)}" y1="${Yp(.25)}" y2="108" stroke="var(--ink)" stroke-dasharray="3 3"/><line x1="0" x2="300" y1="108" y2="108" stroke="var(--line)"/>`}
   {const X=v=>20+(v-36)/18*260,P=[[42,40,10],[48,64,14],[44,88,18]];$('th6').innerHTML=P.map(([v,y,r])=>`<circle cx="${X(v)}" cy="${y-18}" r="${r/1.6}" fill="var(--ink)"/>`).join('')+`<line x1="10" x2="290" y1="88" y2="88" stroke="var(--line)"/><path d="M${X(44.7)},96l9,9l-9,9l-9,-9z" fill="var(--org)"/>`}
   $('th7').innerHTML=`<rect x="20" y="8" width="260" height="104" rx="4" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="125" cy="60" r="42" fill="var(--blue)" opacity=".85"/><circle cx="175" cy="60" r="42" fill="var(--blue)" opacity=".85"/><circle cx="150" cy="60" r="0"/><path d="M150,25.6 A42,42 0 0 1 150,94.4 A42,42 0 0 1 150,25.6Z" fill="var(--org)"/><circle cx="125" cy="60" r="42" fill="none" stroke="var(--ink)" stroke-width="2"/><circle cx="175" cy="60" r="42" fill="none" stroke="var(--ink)" stroke-width="2"/>`;
+  $('th8').innerHTML=[5,4,3].map((v,i)=>`<rect x="${40+i*80}" y="40" width="60" height="60" rx="6" fill="var(--bg)" stroke="var(--ink)" stroke-width="2.5"/><text x="${70+i*80}" y="30" font-size="18" text-anchor="middle" fill="var(--blue)" font-weight="700">${v}</text><text x="${70+i*80}" y="81" font-size="26" text-anchor="middle" fill="var(--ink)" font-weight="700">${'ABC'[i]}</text>`).join('')+[0,1].map(i=>`<text x="${110+i*80}" y="78" font-size="22" text-anchor="middle" fill="var(--mute)">×</text>`).join('');
   $('th3').innerHTML=o.map((v,i)=>`<rect x="${20+i*70}" y="${108-v*1.5}" width="24" height="${v*1.5}" fill="var(--ink)"/><rect x="${46+i*70}" y="${108-32.3*1.5}" width="24" height="${32.3*1.5}" fill="var(--bluesoft)" stroke="var(--blue)" stroke-width="2" stroke-dasharray="4 3"/>`).join('')+`<line x1="0" x2="300" y1="108" y2="108" stroke="var(--line)"/>`;
 }
 }
