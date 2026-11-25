@@ -118,3 +118,15 @@ html{scroll-padding-top:70px}
 @media(max-width:700px){.sw3{grid-template-columns:minmax(0,1fr)}.fl{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.pc.flash{animation:none}}
 td.fm{font-family:'Source Serif 4',serif;font-size:17px}
+/* 5.1 */
+.anat .phr{font-family:"Source Serif 4",serif;font-size:clamp(20px,2.8vw,27px);line-height:1.7;max-width:none;margin:0 0 12px}
+.tg{border-bottom:3px solid var(--ink);padding:0 2px;position:relative}
+.tg::after{content:attr(data-n);position:absolute;top:-.9em;right:-.55em;font:700 12px "Public Sans",sans-serif;background:var(--ink);color:var(--bg);border-radius:50%;width:18px;height:18px;display:grid;place-items:center;line-height:1}
+.tg.o{border-color:var(--ink)}.tg.r{border-color:var(--org);color:var(--org)}.tg.r::after{background:var(--org)}.tg.b{border-color:var(--blue);color:var(--blue)}.tg.b::after{background:var(--blue)}
+.leg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 24px;font-size:15px;padding-left:1.4em;margin:0 0 6px}
+.wt td,.wt th{font-variant-numeric:tabular-nums;white-space:nowrap}
+.wt .off{opacity:.3}
+.mb{display:inline-block;width:70px;height:8px;background:var(--soft);border-radius:4px;margin-right:8px;vertical-align:middle;overflow:hidden}.mb i{display:block;height:100%}
+@media(max-width:600px){.leg{grid-template-columns:minmax(0,1fr)}.mb{width:36px}}
+.scroll{overflow-x:auto}
+.slider[hidden]{display:none}
