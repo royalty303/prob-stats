@@ -58,7 +58,12 @@ SITE.aiguillage=function(root,page,E,autre){
 
 /* ================= Navigation commune ================= */
 {
-const P=[['index.html','Plan du cours'],['1-1-notions-probabilite.html','1.1'],['5-1-sondages.html','5.1'],['5-2-theoreme-central-limite.html','5.2'],['5-3-intervalles-moyenne.html','5.3'],['5-4-intervalles-proportion.html','5.4'],['6-1-tests-hypotheses.html','6.1'],['6-2-khi-deux.html','6.2']];
+/* sections publiées, dans l'ordre du cours : à compléter au fil des ajouts */
+const P=[['1-1-notions-probabilite.html','1.1','Notions de probabilité de base'],['5-1-sondages.html','5.1','Introduction aux sondages'],['5-2-theoreme-central-limite.html','5.2','Théorème central limite'],['5-3-intervalles-moyenne.html','5.3','Intervalles de confiance sur une moyenne'],['5-4-intervalles-proportion.html','5.4','Intervalles de confiance sur une proportion'],['6-1-tests-hypotheses.html','6.1','Tests sur une moyenne et sur une proportion'],['6-2-khi-deux.html','6.2','Tests du khi-deux']];
 const here=location.pathname.split('/').pop()||'index.html',n=document.getElementById('nav');
-if(n)n.innerHTML=P.map(([h,l])=>`<a href="${h}"${h===here?' aria-current="page"':''}>${l}</a>`).join('');
+if(n)n.innerHTML=`<a href="index.html"${here==='index.html'?' aria-current="page"':''}>Plan du cours</a>`;
+const i=P.findIndex(x=>x[0]===here),w=document.querySelector('main .wrap');
+if(i>=0&&w){const pr=P[i-1],nx=P[i+1],f=w.querySelector('.foot');
+  const h=`<nav class="pn" aria-label="Sections voisines">${pr?`<a class="pv" href="${pr[0]}"><span>← Section précédente</span><b>${pr[1]} · ${pr[2]}</b></a>`:'<span></span>'}${nx?`<a class="nx" href="${nx[0]}"><span>Section suivante →</span><b>${nx[1]} · ${nx[2]}</b></a>`:'<span></span>'}</nav>`;
+  f?f.insertAdjacentHTML('beforebegin',h):w.insertAdjacentHTML('beforeend',h)}
 }
