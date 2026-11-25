@@ -6,7 +6,7 @@
 <title>4.2 · Loi normale</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=12">
+<link rel="stylesheet" href="assets/style.css?v=13">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -67,8 +67,8 @@
       <figcaption id="c42d"></figcaption></figure>
   </section>
   <section class="part">
-    <h2>Approximer la binomiale : le petit manteau</h2>
-    <p class="lead">Chaque valeur de la binomiale pèse une barre de largeur 1. Pour lui rendre tout son poids sous la cloche, on l'habille d'un manteau de −0,5 à +0,5.</p>
+    <h2>Approximer la binomiale : le terrain de chaque valeur</h2>
+    <p class="lead">Chaque valeur de la binomiale pèse une barre de largeur 1. Sous la cloche, chaque valeur possède son terrain, de −0,5 à +0,5. On prend le terrain entier de chaque valeur incluse, et rien du terrain des valeurs exclues.</p>
     <figure>
       <div class="tools">
         <div class="slider" style="margin:0"><label for="en">n</label><input type="range" id="en" min="10" max="60" value="30" style="min-width:120px"><output id="oen"></output></div>
@@ -80,7 +80,7 @@
       <div class="tools">
         <div class="slider" style="margin:0"><label for="ek">k</label><input type="range" id="ek" min="0" max="30" value="14" style="min-width:140px"><output id="oek"></output></div>
         <div class="slider" style="margin:0" id="sem" hidden><label for="em">m</label><input type="range" id="em" min="0" max="30" value="16" style="min-width:140px"><output id="oem"></output></div>
-        <div class="seg" id="ec"><button data-c="0">Sans manteau</button><button data-c="1" aria-pressed="true">Avec manteau</button></div>
+        <div class="seg" id="ec"><button data-c="0">Sans terrain</button><button data-c="1" aria-pressed="true">Avec terrain</button></div>
       </div>
       <div class="fig" style="--h:380px"><svg id="f42e" role="img" aria-label="Binomiale et loi normale avec correction de continuité"></svg></div>
       <div class="cmp3" id="e3"></div>
@@ -88,7 +88,7 @@
   </section>
   <section class="part">
     <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
-    <div class="retenir"><p>La loi normale est symétrique autour de μ; σ règle son étalement. L'aire totale vaut toujours 1.</p><p>La table donne l'aire entre 0 et z. Le reste se déduit par symétrie et avec 0,5 de chaque côté.</p><p>Toute loi normale se ramène à la centrée réduite par la cote z.</p><p>Binomiale vers normale : on habille chaque valeur incluse d'un manteau de ± 0,5.</p></div>
+    <div class="retenir"><p>La loi normale est symétrique autour de μ; σ règle son étalement. L'aire totale vaut toujours 1.</p><p>La table donne l'aire entre 0 et z. Le reste se déduit par symétrie et avec 0,5 de chaque côté.</p><p>Toute loi normale se ramène à la centrée réduite par la cote z.</p><p>Binomiale vers normale : chaque valeur possède son terrain, de −0,5 à +0,5; on prend le terrain entier des valeurs incluses.</p></div>
     <table class="stack"><thead><tr><th>Notion</th><th>Population</th><th>Échantillon</th></tr></thead><tbody>
       <tr><td>Cote z</td><td class="fm">z = (x − μ) / σ</td><td class="fm">z = (x − x̄) / s</td></tr>
       <tr><td>Retour à x</td><td class="fm">x = μ + z σ</td><td class="fm">x = x̄ + z s</td></tr>
@@ -101,14 +101,14 @@
     <table class="stack" style="margin-top:14px"><thead><tr><th>Binomiale ≈ normale</th><th>Formule</th></tr></thead><tbody>
       <tr><td>Paramètres</td><td class="fm">μ = np &nbsp;·&nbsp; σ = √(np(1 − p))</td></tr>
       <tr><td>Conditions</td><td class="fm">np ≥ 5 et n(1 − p) ≥ 5</td></tr>
-      <tr><td>Manteau</td><td class="fm">P(X ≥ 14) ≈ P(X ≥ 13,5) &nbsp;·&nbsp; P(X ≤ 14) ≈ P(X ≤ 14,5)</td></tr>
+      <tr><td>Terrain</td><td class="fm">P(X ≥ 14) ≈ P(X ≥ 13,5) &nbsp;·&nbsp; P(X ≤ 14) ≈ P(X ≤ 14,5)</td></tr>
     </tbody></table>
     <h3 style="margin-top:22px">Pièges</h3>
-    <ul><li>La table ne contient que des cotes z positives : pour z négatif, on utilise la symétrie.</li><li>Arrondir z à deux décimales avant d'entrer dans la table.</li><li>X &gt; 14 commence à 15 : le manteau part donc de 14,5, pas de 13,5.</li></ul>
+    <ul><li>La table ne contient que des cotes z positives : pour z négatif, on utilise la symétrie.</li><li>Arrondir z à deux décimales avant d'entrer dans la table.</li><li>X &gt; 14 commence à 15 : on part donc du début du terrain de 15, à 14,5, pas de 13,5.</li></ul>
   </section>
   <div class="foot">Examen et billes : exemples fictifs, simulés. QI : échelle construite pour avoir μ = 100 et σ = 15. Table calculée numériquement, arrondie à quatre décimales.</div>
 </div></main>
-<script src="assets/commun.js?v=12"></script>
-<script src="assets/s4-2.js?v=12"></script>
+<script src="assets/commun.js?v=13"></script>
+<script src="assets/s4-2.js?v=13"></script>
 </body>
 </html>
