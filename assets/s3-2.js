@@ -25,7 +25,7 @@ const fb=fig('f32b',(W,H,m)=>{const n=+$('ln').value,p=+$('lp').value/100,k=+$('
 function upb(){const n=+$('ln').value,p=+$('lp').value/100;$('lk').max=n;if(+$('lk').value>n)$('lk').value=n;const k=+$('lk').value;
   $('oln').textContent=n;$('olp').textContent=fx(p,2);$('olk').textContent=k;document.querySelectorAll('#lt button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===lt));
   let tot=0;for(let x=0;x<=n;x++)if(sel(lt,k,x))tot+=pmf(n,p,x);
-  const lab={eq:`P(X = ${k})`,le:`P(X ≤ ${k})`,ge:`P(X ≥ ${k})`}[lt],extra=lt==='ge'&&k>0?` On peut aussi passer par le complément : 1 − P(X ≤ ${k-1}).`:lt==='le'?` C'est ce qu'on additionne dans la table, ligne par ligne, de 0 à ${k}.`:'';
+  const lab={eq:`P(X = ${k})`,le:`P(X ≤ ${k})`,ge:`P(X ≥ ${k})`}[lt],extra=lt==='eq'?` Une seule case de la table.`:lt==='le'?` La table donne chaque P(X = k) : on additionne ${k+1} case${k?'s':''}, de P(X = 0) à P(X = ${k}).`:` La table donne chaque P(X = k) : on additionne les cases de P(X = ${k}) à P(X = ${n})${k>0?`, ou on passe par le complément 1 − P(X ≤ ${k-1}) si c'est plus court`:''}.`;
   $('c32b').innerHTML=`<span class="fn">Figure 3.2-b</span>n = ${n}, p = ${fx(p,2)}. <b>${lab} ≈ ${fx(tot,4)}</b> : la somme des barres orange.${extra} Espérance np = ${fx(n*p,2)}, variance np(1 − p) = ${fx(n*p*(1-p),2)}.`;fb()}
 ['ln','lp','lk'].forEach(id=>$(id).oninput=upb);$('lt').onclick=e=>{const t=e.target.dataset.t;if(t){lt=t;upb()}};upb();
 }
@@ -53,7 +53,7 @@ function upc(){const n=+$('vn').value;$('vk').max=n;if(+$('vk').value>n)$('vk').
   const xs=[...Array(n+1)].map((_,x)=>x).filter(x=>selX(vt,k,x)),lab={ge:'≥',gt:'>',le:'≤',lt:'<',eq:'='}[vt];
   let yq;if(!xs.length)yq='aucune valeur';else{const lo=n-Math.max(...xs),hi=n-Math.min(...xs);yq=lo===hi?`Y = ${lo}`:lo===0?`Y ≤ ${hi}`:hi===n?`Y ≥ ${lo}`:`${lo} ≤ Y ≤ ${hi}`}
   const v=xs.reduce((a,x)=>a+pmf(n,p,x),0);
-  $('v32c').innerHTML=xs.length?`P(X ${lab} ${k}) = <b>P(${yq})</b>, avec Y ~ B(${n} ; ${fx(q,2)}) : une probabilité qu'on trouve dans la table. Résultat ≈ ${fx(v,4)}`:`Aucune valeur de X ne respecte P(X ${lab} ${k}).`;
+  $('v32c').innerHTML=xs.length?`P(X ${lab} ${k}) = <b>P(${yq})</b>, avec Y ~ B(${n} ; ${fx(q,2)}).<br>Dans la table (colonne p = ${fx(q,2)}), on additionne ${xs.length} case${xs.length>1?'s':''} : ${xs.map(x=>`P(Y = ${n-x})`).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).join(' + ')} ≈ ${fx(v,4)}`:`Aucune valeur de X ne respecte P(X ${lab} ${k}).`;
   $('c32c').innerHTML=`<span class="fn">Figure 3.2-c</span>Sous chaque valeur de X, on écrit le nombre d'échecs qui va avec : sur ${n} lancers, ${xs.length?Math.min(...xs):k} paniers, c'est exactement ${n-(xs.length?Math.min(...xs):k)} ratés. Les deux séries décrivent la même joueuse, le même résultat; seule la façon de compter change. Les barres du bas sont celles du haut lues à l'envers : chaque probabilité se retrouve juste en dessous. Une série monte pendant que l'autre descend, d'où l'inégalité qui s'inverse.`;fc()}
 ['vn','vp','vk'].forEach(id=>$(id).oninput=upc);$('vt').onclick=e=>{const t=e.target.dataset.t;if(t){vt=t;upc()}};upc();
 }
