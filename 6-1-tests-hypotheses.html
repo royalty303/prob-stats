@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.1 · Tests sur une moyenne et sur une proportion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav><a href="index.html">Plan du cours</a><a href="5-2-theoreme-central-limite.html">5.2</a><a href="6-1-tests-hypotheses.html" aria-current="page">6.1</a><a href="6-2-khi-deux.html">6.2</a></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 6 · Tests d'hypothèses</div>
+    <h1>6.1 · Tests sur une moyenne et sur une proportion</h1>
+    <p class="lead">La question fixe le sens du test; le seuil fixe la borne; la cote décide.</p>
+    <div class="code"><span><i class="sw o"></i>ce qu'on observe (la cote)</span><span><i class="sw t"></i>le modèle si H₀ est vraie</span><span><i class="sw r"></i>la région de rejet</span></div>
+  </div>
+  <section class="part">
+    <h2>Le sens du test vient de la question</h2>
+    <p class="lead">Avant de voir les données : où chercher la preuve?</p>
+    <figure><div class="quiz">
+      <p class="q" id="q61"></p>
+      <div class="choices" id="ch61"></div>
+      <div class="fb" id="fb61"></div>
+      <div class="qnav"><button id="qp61">Précédente</button><span id="qn61"></span><button id="qs61">Suivante</button></div>
+    </div>
+    <figcaption><span class="fn">Figure 6.1-a</span>H₁ dit ce qu'on cherche à démontrer. « Moins que » : à gauche. « Plus que » : à droite. « Différent de » : des deux côtés.</figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>La cote franchit-elle la borne?</h2>
+    <p class="lead">Choisissez une situation, puis un seuil α. La région orange est la région de rejet.</p>
+    <figure>
+      <div class="tools">
+        <label>Situation<select id="sit61"><option value="sac">Sachets sous-remplis?</option><option value="ker">La pièce de Kerrich</option><option value="bat">Batteries (petit échantillon)</option></select></label>
+        <div><div style="font-size:14px;color:var(--mute);margin-bottom:4px">Seuil α</div><div class="seg" id="a61"></div></div>
+      </div>
+      <p id="d61" style="max-width:none;font-size:15px"></p>
+      <div class="fig" style="--h:330px"><svg id="f61b" role="img" aria-label="Courbe, région de rejet et cote"></svg></div>
+      <figcaption id="c61b"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>Kerrich a-t-il trouvé une pièce truquée?</h2>
+    <p class="lead">Prisonnier pendant la guerre, John Kerrich lance une pièce 10 000 fois : 5 067 faces, soit p = 0,5067. Une pièce parfaite fait-elle souvent pire?</p>
+    <figure><div class="fig" style="--h:330px"><svg id="f61c" role="img" aria-label="Proportions de faces dans des séries simulées de 10 000 lancers"></svg></div>
+      <div class="tools"><button class="go" id="b61c">Simuler 2 000 séries de 10 000 lancers</button></div>
+      <figcaption id="c61c"></figcaption></figure>
+  </section>
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>Les sept étapes</h2>
+    <ol class="steps"><li>H₀ et H₁ (le sens vient de la question)</li><li>Seuil α</li><li>n : loi normale ou de Student?</li><li>Valeur(s) critique(s)</li><li>Règle de décision</li><li>Calculer la cote</li><li>Décider et conclure dans le contexte</li></ol>
+    <table class="stack"><thead><tr><th></th><th>Cote</th><th>Quand</th></tr></thead><tbody>
+      <tr><td>Moyenne, n ≥ 30</td><td>z = (x̄ − μ) / (σ/√n), avec s si σ est inconnu</td><td>loi normale</td></tr>
+      <tr><td>Moyenne, n &lt; 30</td><td>t = (x̄ − μ) / (s/√n)</td><td>population normale, σ inconnu : Student, n − 1 ddl</td></tr>
+      <tr><td>Proportion</td><td>z = (p − π) / √(π(1 − π)/n)</td><td>nπ ≥ 5 et n(1 − π) ≥ 5</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:26px">Pièges</h3>
+    <ul><li>Une cote du « mauvais côté » ne peut jamais faire rejeter H₀ dans un test unilatéral.</li><li>Dans l'écart type d'une proportion, on utilise π de H₀, pas p.</li><li>Ne pas rejeter H₀ ne prouve pas H₀ : les données ne permettent simplement pas de conclure.</li><li>Un α plus petit éloigne la borne : il faut une preuve plus forte.</li></ul>
+  </section>
+  <div class="foot">Kerrich : J. E. Kerrich (1946), <i>An Experimental Introduction to the Theory of Probability</i>. Sachets et batteries : situations fictives.</div>
+</div></main>
+<script src="assets/commun.js"></script>
+<script src="assets/s6-1.js"></script>
+</body>
+</html>

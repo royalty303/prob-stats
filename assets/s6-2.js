@@ -1,0 +1,103 @@
+{
+const {fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area}=SITE;
+const T=[["1re classe","1re"],["2e classe","2e"],["3e classe","3e"],["Équipage","Équip."]],F=[[203,122],[118,167],[178,528],[212,673]];
+const S=F.reduce((a,r)=>a+r[0],0),D=F.reduce((a,r)=>a+r[1],0),N=S+D,col=[S,D],g=S/N;
+const cells=[];F.forEach((r,i)=>[0,1].forEach(j=>{const n=r[0]+r[1],t=n*col[j]/N;cells.push({i,j,o:r[j],t,n,c:(t-r[j])**2/t})}));
+const chi=cells.reduce((a,c)=>a+c.c,0);
+fig('fa',(W,H,m)=>{
+  const pl=m?62:96,pr=m?44:150,pt=40,pb=26,X=v=>pl+v/70*(W-pl-pr),rh=(H-pt-pb)/4;let s='';
+  [0,20,40,60].forEach(t=>s+=`<line x1="${X(t)}" x2="${X(t)}" y1="${pt}" y2="${H-pb}" stroke="${C.line}"/>`+txt(X(t),H-6,t+' %',{c:C.mute,fs:12,a:'middle'}));
+  s+=`<line x1="${X(g*100)}" x2="${X(g*100)}" y1="${pt-14}" y2="${H-pb}" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="6 5"/>`;
+  F.forEach((r,i)=>{const p=r[0]/(r[0]+r[1])*100,y=pt+i*rh+rh*.22,h=rh*.56;
+    s+=txt(pl-10,y+h/2+5,m?T[i][1]:T[i][0],{a:'end'})+`<rect x="${X(0)}" y="${y}" width="${X(p)-X(0)}" height="${h}" fill="${C.ink}" rx="2"/>`+txt(X(p)+8,y+h/2+5,fr(p,0)+' %',{w:700,halo:1})});
+  s+=txt(X(g*100)+8,pt-16,m?'H₀ : 32,3 %':'H₀ : 32,3 % pour tous',{c:C.blue,w:700});
+  if(!m){const p=F[0][0]/325*100;s+=txt(X(p)+60,pt+rh*.5+5,'presque le double',{it:1,c:C.org,fs:15})}
+  return s});
+let sel=0;
+const fb=fig('fb',(W,H,m)=>{
+  const pl=m?96:150,pr=24,pt=36,pb=28,max=700,X=v=>pl+v/max*(W-pl-pr),rh=(H-pt-pb)/8;let s='';
+  [0,200,400,600].forEach(t=>s+=`<line x1="${X(t)}" x2="${X(t)}" y1="${pt}" y2="${H-pb}" stroke="${C.line}"/>`+txt(X(t),H-8,t,{c:C.mute,fs:12,a:'middle'}));
+  s+=`<circle cx="${pl}" cy="14" r="6" fill="${C.ink}"/>`+txt(pl+12,19,'f<tspan baseline-shift="sub" font-size="10">o</tspan> observé')+`<circle cx="${pl+(m?96:120)}" cy="14" r="6" fill="none" stroke="${C.blue}" stroke-width="2" stroke-dasharray="3 2"/>`+txt(pl+(m?108:132),19,m?'f<tspan baseline-shift="sub" font-size="10">t</tspan> si H₀':'f<tspan baseline-shift="sub" font-size="10">t</tspan> si H₀ vraie',{c:C.blue});
+  cells.forEach((c,k)=>{const y=pt+k*rh+rh/2,lab=(m?T[c.i][1]:T[c.i][0])+(c.j?' · décès':' · survie');
+    if(k===sel)s+=`<rect x="0" y="${y-rh/2}" width="${W}" height="${rh}" fill="${C.soft}"/>`;
+    if(c.j===0&&k)s+=`<line x1="0" x2="${W}" y1="${y-rh/2}" y2="${y-rh/2}" stroke="${C.line}"/>`;
+    s+=txt(pl-12,y+5,lab,{a:'end',fs:m?12:13,w:k===sel?700:400});
+    s+=`<line x1="${X(c.t)}" x2="${X(c.o)}" y1="${y}" y2="${y}" stroke="${C.org}" stroke-width="${Math.min(8,1+c.c/12)}" stroke-linecap="round" opacity=".85"/>`;
+    s+=`<circle cx="${X(c.t)}" cy="${y}" r="7" fill="var(--bg)" stroke="${C.blue}" stroke-width="2.2" stroke-dasharray="3 2"/><circle cx="${X(c.o)}" cy="${y}" r="6" fill="${C.ink}"/>`;
+    s+=`<rect x="0" y="${y-rh/2}" width="${W}" height="${rh}" fill="transparent" data-k="${k}" style="cursor:pointer"/>`});
+  return s});
+function capB(){const c=cells[sel];$('fbcap').innerHTML=`<span class="fn">Figure 6.2-b</span>Le trait orange est l'écart entre f<sub>o</sub> et f<sub>t</sub>. Choisissez une ligne. <b>${T[c.i][0]}, ${c.j?'décès':'survie'}</b> : f<sub>t</sub> = ${c.n} × ${fr(col[c.j])} ÷ ${fr(N)} = ${fr(c.t)}, alors qu'on observe f<sub>o</sub> = ${c.o}.`}
+$('fb').addEventListener('click',e=>{const k=e.target.dataset.k;if(k!==undefined){sel=+k;fb();capB()}});capB();
+{let h='<div class="h l"></div><div class="h">Survie</div><div class="h">Décès</div><div class="h">Total</div>';
+F.forEach((r,i)=>{h+=`<div class="l">${T[i][0]}</div>`+(i<3?`<div class="free">?</div><div class="ded">déduit</div>`:`<div class="ded">déduit</div><div class="ded">déduit</div>`)+`<div class="tot">${r[0]+r[1]}</div>`});
+h+=`<div class="l"><b>Total</b></div><div class="tot">${S}</div><div class="tot">${fr(D)}</div><div class="tot">${fr(N)}</div>`;$('fd').innerHTML=h}
+fig('fc',(W,H,m)=>{
+  const pl=m?96:150,pr=m?44:60,pt=10,pb=40,max=95,X=v=>pl+v/max*(W-pl-pr),rh=(H-pt-pb)/8;let s='';
+  cells.forEach((c,k)=>{const y=pt+k*rh+rh*.2,h=rh*.6;
+    s+=txt(pl-12,y+h/2+5,(m?T[c.i][1]:T[c.i][0])+(c.j?' · décès':' · survie'),{a:'end',fs:m?12:13});
+    s+=`<rect x="${pl}" y="${y}" width="${Math.max(2,X(c.c)-pl)}" height="${h}" fill="${C.org}" rx="2"/>`+txt(X(c.c)+6,y+h/2+5,fr(c.c,1),{w:700})});
+  s+=`<line x1="${pl}" x2="${W-pr}" y1="${H-pb+8}" y2="${H-pb+8}" stroke="${C.ink}"/>`+txt(pl,H-8,`Total : χ² = ${fr(chi,1)}`,{w:700,fs:15});
+  if(!m)s+=txt(X(cells[0].c)-8,pt+rh*1.45,'91,5 sur 190,4',{it:1,c:C.org,a:'end',fs:15});
+  return s});
+fig('fe',(W,H,m)=>{
+  const pl=20,pr=m?20:40,pt=30,pb=30,xm=16,ym=.26,X=v=>pl+v/xm*(W-pl-pr),Y=v=>pt+(1-Math.min(v,ym)/ym)*(H-pt-pb),cr=7.815,f=x=>cpdf(x,3);let s='';
+  s+=`<path d="${area(f,X,Y,cr,xm)}" fill="${C.org}" opacity=".35"/>`;
+  s+=`<path d="${path(f,X,Y,.04,xm,240)}" fill="none" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/>`;
+  s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="${C.ink}"/>`;
+  [0,4,8,12,16].forEach(t=>s+=txt(X(t),H-8,t,{c:C.mute,fs:12,a:'middle'}));
+  s+=`<line x1="${X(cr)}" x2="${X(cr)}" y1="${pt+20}" y2="${Y(0)}" stroke="${C.org}" stroke-width="2" stroke-dasharray="5 4"/>`+txt(X(cr),pt+12,'7,81',{c:C.org,w:700,a:'middle'});
+  s+=txt(X(10.5),Y(.03)-8,'5 %',{c:C.org,w:700,a:'middle'});
+  s+=txt(X(2.2),Y(.24)-4,m?'loi du χ², 3 ddl':'loi du χ² à 3 ddl (si H₀ est vraie)',{c:C.blue});
+  const ay=Y(.12);s+=`<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="${C.ink}"/></marker></defs><line x1="${X(12)}" x2="${W-pr+(m?8:24)}" y1="${ay}" y2="${ay}" stroke="${C.ink}" stroke-width="2" marker-end="url(#ar)"/>`;
+  s+=txt(W-pr,ay-10,m?'χ² = 190,4 →':'notre χ² = 190,4, très loin →',{a:'end',w:700,it:1,fs:15});
+  return s});
+const O=[109,65,22,3,1],lam=.61,Pp=[0,1,2,3].map(k=>{let f=1;for(let i=2;i<=k;i++)f*=i;return Math.exp(-lam)*lam**k/f});Pp.push(1-Pp.reduce((a,b)=>a+b,0));
+const Ft=Pp.map(p=>200*p);
+const ST=[{c:[[0],[1],[2],[3],[4]],b:'Regrouper 3 et 4 ou plus',t:'Deux classes ont f<sub>t</sub> &lt; 5 : on ne peut pas encore lire la table.'},
+ {c:[[0],[1],[2],[3,4]],b:'Regrouper 2 et plus',t:'Regroupées : 4,11 + 0,71 = 4,82. <b>Encore sous 5</b> : on revérifie toujours après un regroupement.'},
+ {c:[[0],[1],[2,3,4]],b:'Revenir au départ',t:''}];
+const lab=c=>c.length>1||c[0]===4?`${c[0]} ou +`:String(c[0]);
+let ps=0;
+const ff=fig('ff',(W,H,m)=>{
+  const st=ST[ps],R=st.c.map(c=>({l:lab(c),o:c.reduce((a,k)=>a+O[k],0),t:c.reduce((a,k)=>a+Ft[k],0)}));
+  const pl=36,pr=10,pt=36,pb=48,ym=120,Y=v=>pt+(1-v/ym)*(H-pt-pb),gw=(W-pl-pr)/5,bw=Math.min(46,gw*.32);let s='';
+  [0,50,100].forEach(t=>s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(t)}" y2="${Y(t)}" stroke="${C.line}"/>`+txt(pl-6,Y(t)+4,t,{c:C.mute,fs:12,a:'end'}));
+  R.forEach((r,i)=>{const cx=pl+gw*i+gw/2,warn=r.t<5;
+    s+=`<rect x="${cx-bw-2}" y="${Y(r.o)}" width="${bw}" height="${Y(0)-Y(r.o)}" fill="${C.ink}" rx="2"/>`;
+    s+=`<rect x="${cx+2}" y="${Y(r.t)}" width="${bw}" height="${Math.max(1,Y(0)-Y(r.t))}" fill="${warn?'var(--orgsoft)':'var(--bluesoft)'}" stroke="${warn?C.org:C.blue}" stroke-width="2" stroke-dasharray="4 3" rx="2"/>`;
+    s+=txt(cx-bw/2-2,Y(r.o)-(m?20:6),r.o,{a:'middle',fs:12,w:600});
+    s+=txt(cx+bw/2+2,Y(r.t)-6,fr(r.t,warn?2:1),{a:'middle',fs:12,w:700,c:warn?C.org:C.blue});
+    s+=txt(cx,H-pb+20,r.l,{a:'middle',fs:14,w:600});
+    if(warn&&!m)s+=txt(cx,Y(r.t)-24,'< 5',{a:'middle',it:1,c:C.org,fs:15})});
+  s+=txt(W/2,H-6,'décès par corps-année',{a:'middle',c:C.mute});
+  return s});
+function capF(){const st=ST[ps];$('pbtn').textContent=st.b;let t=st.t;
+  if(ps===2){const R=st.c.map(c=>({o:c.reduce((a,k)=>a+O[k],0),t:c.reduce((a,k)=>a+Ft[k],0)}));const x=R.reduce((a,r)=>a+(r.t-r.o)**2/r.t,0);
+    t=`Toutes les f<sub>t</sub> ≥ 5. ddl = 3 classes − 1 − 1 (λ estimé) = 1. χ² = ${fr(x,3)} &lt; 3,84 (α = 5 %) : <b>on ne rejette pas H₀</b>, les données collent à une Poisson.`}
+  $('ffcap').innerHTML=`<span class="fn">Figure 6.2-f</span>${t}`}
+$('pbtn').addEventListener('click',()=>{ps=(ps+1)%3;ff();capF()});capF();
+let vals=[],cur={};
+const fg=fig('fg',(W,H,m)=>{
+  if(!vals.length)return'';const {cr,a,r,n}=cur,xm=12,nb=48,bw=xm/nb,ym=.8,pl=20,pr=12,pt=64,pb=30,X=v=>pl+v/xm*(W-pl-pr),Y=v=>pt+(1-Math.min(v,ym)/ym)*(H-pt-pb);
+  const cnt=new Array(nb).fill(0);let out=0;for(const v of vals){const b=Math.floor(v/bw);b<nb?cnt[b]++:out++}
+  let s='';
+  cnt.forEach((c,b)=>{if(!c)return;const d=c/(vals.length*bw),x0=b*bw,hot=x0+bw>cr;
+    s+=`<rect x="${X(x0)+.5}" y="${Y(d)}" width="${Math.max(2,X(bw)-X(0)-1)}" height="${Y(0)-Y(d)}" fill="${hot?C.org:C.ink}"/>`;
+    if(d>ym)s+=txt(X(x0)+4,Y(ym)+14,`↑ ${fr(c/vals.length*100,0)} %`,{fs:12,w:700,halo:1})});
+  s+=`<path d="${path(x=>cpdf(x,1),X,Y,.04,xm,240,ym*1.3)}" fill="none" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/>`;
+  s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="${C.ink}"/>`;
+  [0,4,8,12].forEach(t=>s+=txt(X(t),H-8,t,{c:C.mute,fs:12,a:'middle'}));
+  s+=`<line x1="${X(cr)}" x2="${X(cr)}" y1="${pt}" y2="${Y(0)}" stroke="${C.org}" stroke-width="2" stroke-dasharray="5 4"/>`+txt(X(cr)+6,pt+14,'valeur critique '+fr(cr,2),{c:C.org,fs:12});
+  s+=txt(pl,24,'annoncé',{c:C.mute})+txt(pl,52,a+' %',{fs:28,w:700});
+  s+=txt(pl+(m?100:130),24,'réel',{c:C.mute})+txt(pl+(m?100:130),52,fr(r,1)+' %',{fs:28,w:700,c:Math.abs(r-a)>a*.4?C.org:C.ink});
+  if(!m)s+=txt(W-pr,24,'courbe pointillée : ce que la table suppose',{a:'end',c:C.blue});
+  if(n===10&&!m){const x=X(8.5)+6;s+=txt(x,Y(.3),'← 1 colis abîmé sur 10',{it:1,c:C.org,fs:15})+txt(x+14,Y(.3)+18,'χ² = 8,18 : rejet',{it:1,c:C.org,fs:15})}
+  if(out)s+=txt(W-pr,pt+14,`+ ${fr(out/vals.length*100,1)} % au-delà de 12`,{a:'end',c:C.org,fs:12});
+  return s});
+function sim(){
+  const n=+$('sn').value,a=+$('sa').value,ft=[.01*n,.99*n],cr=a===1?6.635:3.841,R=5000;let rej=0;vals=new Float64Array(R);
+  for(let i=0;i<R;i++){let k=0;for(let j=0;j<n;j++)if(Math.random()<.01)k++;const x=(ft[0]-k)**2/ft[0]+(ft[1]-(n-k))**2/ft[1];vals[i]=x;if(x>cr)rej++}
+  cur={n,a,cr,r:rej/R*100};fg();
+  $('fgcap').innerHTML=`<span class="fn">Figure 6.2-g</span>Chaque barre regroupe des commandes où le fabricant dit vrai. En orange, celles où le test l'accuse quand même. Avec f<sub>t</sub> = ${fr(ft[0])} ${ft[0]<5?'<b>(sous 5)</b>':'(5 ou plus)'}, le risque réel est de ${fr(cur.r,1)} % pour un risque annoncé de ${a} %.`}
+$('sn').addEventListener('change',sim);$('sa').addEventListener('change',sim);$('resim').addEventListener('click',sim);sim();
+}

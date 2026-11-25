@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6.2 · Tests du khi-deux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav><a href="index.html">Plan du cours</a><a href="5-2-theoreme-central-limite.html">5.2</a><a href="6-1-tests-hypotheses.html">6.1</a><a href="6-2-khi-deux.html" aria-current="page">6.2</a></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 6 · Tests d'hypothèses</div>
+    <h1>6.2 · Tests du khi-deux</h1>
+    <p class="lead">Comparer ce qu'on observe à ce que H₀ prédit.</p>
+    <div class="code"><span><i class="sw o"></i>observé (f<sub>o</sub>)</span><span><i class="sw t"></i>modèle, H₀ (f<sub>t</sub>)</span><span><i class="sw r"></i>écart qui compte, rejet</span></div>
+  </div>
+  <section class="part">
+    <div class="kick">Test d'indépendance</div>
+    <h2>La survie dépendait-elle de la classe?</h2>
+    <p class="lead">Titanic, 15 avril 1912 : 2 201 personnes à bord.</p>
+    <figure><div class="fig" style="--h:300px"><svg id="fa" role="img" aria-label="Taux de survie par statut à bord, comparés à 32,3 %"></svg></div>
+      <figcaption><span class="fn">Figure 6.2-a</span>Si la survie ne dépendait pas de la classe (H₀), toutes les barres s'arrêteraient au pointillé.</figcaption></figure>
+    <figure><div class="fig" style="--h:420px"><svg id="fb" role="img" aria-label="Fréquences observées et théoriques pour chaque case"></svg></div>
+      <figcaption id="fbcap"></figcaption></figure>
+    <figure><div class="grid" id="fd" aria-label="Tableau à totaux fixés"></div>
+      <figcaption><span class="fn">Figure 6.2-c</span>Les totaux étant fixés, 3 cases suffisent : les autres s'en déduisent. (4 − 1)(2 − 1) = <b>3 degrés de liberté</b>.</figcaption></figure>
+    <figure><div class="fig" style="--h:360px"><svg id="fc" role="img" aria-label="Contribution de chaque case au khi-deux"></svg></div>
+      <figcaption><span class="fn">Figure 6.2-d</span>Chaque case ajoute (f<sub>t</sub> − f<sub>o</sub>)² / f<sub>t</sub>. Les survivants de 1<sup>re</sup> classe pèsent presque la moitié du total.</figcaption></figure>
+    <figure><div class="fig" style="--h:300px"><svg id="fe" role="img" aria-label="Loi du khi-deux à 3 degrés de liberté et valeur observée"></svg></div>
+      <figcaption><span class="fn">Figure 6.2-e</span>Sous H₀, le χ² dépasse 7,81 seulement 5 % du temps. On obtient 190,4 : <b>on rejette H₀</b>, la survie est liée au statut à bord.</figcaption></figure>
+  </section>
+  <section class="part">
+    <div class="kick">Test d'ajustement</div>
+    <h2>Les ruades de cheval suivent-elles une loi de Poisson?</h2>
+    <p class="lead">Cavalerie prussienne, 1875 à 1894 : décès par ruade dans 10 corps d'armée pendant 20 ans, soit 200 corps-années. λ estimé = 122 ÷ 200 = 0,61.</p>
+    <figure><div class="fig" style="--h:360px"><svg id="ff" role="img" aria-label="Fréquences observées et de Poisson"></svg></div>
+      <div class="tools"><button class="go" id="pbtn"></button></div>
+      <figcaption id="ffcap"></figcaption></figure>
+  </section>
+  <section class="part">
+    <div class="kick">La règle des 5</div>
+    <h2>Pourquoi des f<sub>t</sub> d'au moins 5?</h2>
+    <p class="lead">Un fabricant affirme que 1 % de ses colis arrivent abîmés. On simule 5 000 commandes où il dit vrai, puis on fait le test chaque fois.</p>
+    <figure>
+      <div class="tools">
+        <label>Colis par commande<select id="sn"><option>10</option><option>50</option><option>100</option><option>500</option></select></label>
+        <label>Seuil α<select id="sa"><option value="1">1 %</option><option value="5">5 %</option></select></label>
+        <button id="resim">Relancer</button>
+      </div>
+      <div class="fig" style="--h:380px"><svg id="fg" role="img" aria-label="Distribution simulée du khi-deux sous H₀"></svg></div>
+      <figcaption id="fgcap"></figcaption></figure>
+  </section>
+  <section class="part">
+    <div class="kick">Aide-mémoire</div>
+    <h2>À retenir</h2>
+    <div class="retenir"><p>Le χ² mesure l'écart entre ce qu'on observe et ce que H₀ prédit.</p><p>On rejette seulement à droite : un grand χ² veut dire un grand écart.</p><p>Les f<sub>t</sub> doivent valoir au moins 5, sinon le risque annoncé n'est plus le vrai.</p></div>
+    <ol class="steps"><li>H₀ et H₁</li><li>Seuil α</li><li class="k">Calculer les f<sub>t</sub>, vérifier f<sub>t</sub> ≥ 5</li><li class="k">ddl et valeur critique</li><li>Règle de décision</li><li class="k">Calculer χ² = Σ (f<sub>t</sub> − f<sub>o</sub>)² / f<sub>t</sub></li><li>Décider et conclure</li></ol>
+    <table class="stack"><thead><tr><th></th><th>Indépendance</th><th>Ajustement</th></tr></thead><tbody>
+      <tr><td>H₀</td><td>Les deux variables sont indépendantes.</td><td>La variable suit le modèle proposé.</td></tr>
+      <tr><td>f<sub>t</sub></td><td>total de ligne × total de colonne ÷ grand total</td><td>n × probabilité du modèle</td></tr>
+      <tr><td>ddl</td><td>(lignes − 1)(colonnes − 1)</td><td>classes − 1 − paramètres estimés</td></tr>
+      <tr><td>Si f<sub>t</sub> &lt; 5</td><td>fusionner des lignes ou des colonnes qui ont un sens ensemble</td><td>réunir des classes voisines, puis revérifier</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:26px">Pièges</h3>
+    <ul><li>La règle des 5 porte sur f<sub>t</sub>, jamais sur f<sub>o</sub>.</li><li>Chaque paramètre estimé retire 1 ddl : λ (Poisson), p (binomiale), μ et σ (normale, donc 2).</li><li>Ajustement à une normale : ouvrir les classes extrêmes jusqu'à −∞ et +∞.</li><li>Rejeter l'indépendance ne dit pas <i>pourquoi</i> les variables sont liées.</li></ul>
+  </section>
+  <div class="foot">Données : R. J. M. Dawson (1995), « The “Unusual Episode” Data Revisited », <i>Journal of Statistics Education</i>, 3(3) · L. von Bortkiewicz (1898), <i>Das Gesetz der kleinen Zahlen</i>. Colis : situation fictive, simulée.</div>
+</div></main>
+<script src="assets/commun.js"></script>
+<script src="assets/s6-2.js"></script>
+</body>
+</html>

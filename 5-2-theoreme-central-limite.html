@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.2 · Théorème central limite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav><a href="index.html">Plan du cours</a><a href="5-2-theoreme-central-limite.html" aria-current="page">5.2</a><a href="6-1-tests-hypotheses.html">6.1</a><a href="6-2-khi-deux.html">6.2</a></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 5 · Estimation de paramètres</div>
+    <h1>5.2 · Théorème central limite</h1>
+    <p class="lead">Des observations très inégales donnent des moyennes régulières, en forme de cloche.</p>
+    <div class="code"><span><i class="sw o"></i>ce qu'on observe (données, moyennes)</span><span><i class="sw t"></i>le modèle (population, loi normale)</span></div>
+  </div>
+  <section class="part">
+    <h2>Un échantillon donne une seule moyenne</h2>
+    <p class="lead">Une clinique : on note 3 temps d'attente et on calcule leur moyenne. On recommence.</p>
+    <figure><div class="fig" style="--h:330px"><svg id="f52a" role="img" aria-label="Trois temps d'attente et leur moyenne, ajoutée au graphique des moyennes"></svg></div>
+      <div class="tools"><button class="go" id="b52a1">Tirer 3 temps d'attente</button><button id="b52a2">+ 100 échantillons</button><button id="b52a3">Effacer</button></div>
+      <figcaption id="c52a"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>Quelle que soit la population, les moyennes s'alignent</h2>
+    <p class="lead">5 000 échantillons de taille n. À gauche, la population. À droite, les 5 000 moyennes.</p>
+    <figure>
+      <div class="tools">
+        <label>Population<select id="pop52"><option value="att">Temps d'attente (asymétrique)</option><option value="uni">Mesures (uniforme)</option><option value="tra">Trajets (deux pics)</option><option value="pan">Pannes (événement rare)</option><option value="sac">Masse des sachets (normale)</option></select></label>
+        <div><div style="font-size:14px;color:var(--mute);margin-bottom:4px">Taille n</div><div class="seg" id="n52"></div></div>
+      </div>
+      <div class="pair">
+        <div><h3>Population : une observation X</h3><div class="fig" style="--h:260px;--hm:200px"><svg id="f52bL" role="img" aria-label="Distribution de la population"></svg></div></div>
+        <div><h3 id="h52bR">5 000 moyennes X̄</h3><div class="fig" style="--h:260px;--hm:220px"><svg id="f52bR" role="img" aria-label="Distribution des moyennes simulées"></svg></div></div>
+      </div>
+      <div class="tools"><span style="font-size:14px;color:var(--mute)">À essayer :</span><button id="d1">Uniforme : n = 1, puis 5</button><button id="d2">Attente : n = 1, puis 30</button><button id="d3">Pannes : n = 30, puis 300</button></div>
+      <figcaption id="c52b"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>Quadrupler n divise l'écart type par deux</h2>
+    <figure><div class="fig" style="--h:300px"><svg id="f52c" role="img" aria-label="Écart type des moyennes selon n"></svg></div>
+      <figcaption><span class="fn">Figure 5.2-c</span>Temps d'attente (σ = 10 min). L'écart type des moyennes vaut σ/√n : il diminue, mais de plus en plus lentement.</figcaption></figure>
+  </section>
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>Le TCL parle des moyennes X̄, pas des observations X.</p><p>Les moyennes sont centrées sur μ et s'écartent de σ/√n.</p><p>Leur distribution approche une cloche quand n grandit; n = 30 est un repère, pas une garantie.</p></div>
+    <div class="formula">X̄ ≈ N(μ, σ/√n) &nbsp; et &nbsp; z = (x̄ − μ) / (σ/√n)</div>
+    <ul><li>Si la population est déjà normale, X̄ est normale pour tout n.</li><li>Distribution très asymétrique ou événement rare : il faut un n bien plus grand que 30.</li><li>Ne pas confondre σ (une observation) et σ/√n (une moyenne).</li></ul>
+  </section>
+  <div class="foot">Populations : modèles choisis pour illustrer le théorème.</div>
+</div></main>
+<script src="assets/commun.js"></script>
+<script src="assets/s5-2.js"></script>
+</body>
+</html>
