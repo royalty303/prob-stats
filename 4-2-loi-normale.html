@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.2 · Loi normale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=10">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 4 · Variables aléatoires continues</div>
+    <h1>4.2 · Loi normale</h1>
+    <p class="lead">La cloche qu'on retrouve partout : une seule table suffit pour toutes les lois normales.</p>
+    <div class="code"><span><i class="sw o"></i>les données, la loi binomiale</span><span><i class="sw t"></i>la loi normale, le centre</span><span><i class="sw r"></i>la probabilité cherchée</span></div>
+  </div>
+  <section class="part">
+    <h2>Pourquoi la cloche est-elle partout?</h2>
+    <p class="lead">Chaque bille rebondit à gauche ou à droite sur 12 rangées de clous. Sa position finale additionne 12 petits hasards.</p>
+    <figure>
+      <div class="tools"><button class="go" id="g1">Lâcher 1 bille</button><button class="go" id="g50">Lâcher 50 billes</button><button class="go" id="g1000">Ajouter 1 000 billes</button><button id="g0">Vider</button></div>
+      <div class="fig" style="--h:420px;--hm:380px"><svg id="f42a" role="img" aria-label="Planche de Galton"></svg></div>
+      <figcaption id="c42a"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>L'allure de la cloche : μ et σ</h2>
+    <p class="lead">Résultats à un examen. La cloche grise reste en place pour comparer.</p>
+    <figure>
+      <div class="tools">
+        <div class="slider" style="margin:0"><label for="bm">μ</label><input type="range" id="bm" min="40" max="80" value="60" style="min-width:140px"><output id="obm"></output></div>
+        <div class="slider" style="margin:0"><label for="bs">σ</label><input type="range" id="bs" min="6" max="20" value="10" style="min-width:140px"><output id="obs"></output></div>
+      </div>
+      <div class="fig" style="--h:330px"><svg id="f42b" role="img" aria-label="Effet de la moyenne et de l'écart type sur la cloche"></svg></div>
+      <figcaption id="c42b"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>La table de la loi normale centrée réduite</h2>
+    <p class="lead">La table donne l'aire entre 0 et une cote z positive. On la lit dans les deux sens.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="tm"><button data-m="dir" aria-pressed="true">Lecture directe : z → aire</button><button data-m="inv">Lecture inverse : aire → z</button></div></div>
+      <div class="tools" id="tdir"><div class="slider" style="margin:0"><label for="tz">z</label><input type="range" id="tz" min="0" max="3.09" step="0.01" value="1.25" style="min-width:200px"><output id="otz"></output></div></div>
+      <div class="tools" id="tinv" hidden><div class="seg" id="tp"><button data-p="0.4750">0,4750</button><button data-p="0.4000">0,4000</button><button data-p="0.4500" aria-pressed="true">0,4500</button><button data-p="0.3000">0,3000</button></div><label>Autre aire<input type="number" id="tpx" min="0" max="0.4989" step="0.0001" value="0.45" style="width:7em"></label></div>
+      <div class="pair tabpair">
+        <div><div class="fig" style="--h:260px"><svg id="f42c" role="img" aria-label="Aire entre 0 et z"></svg></div><p class="calc" id="t42c"></p></div>
+        <div class="ztab"><table id="ztab"></table></div>
+      </div>
+      <figcaption id="c42c"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>Toute loi normale passe par la table : le double axe</h2>
+    <p class="lead">Quotient intellectuel : μ = 100, σ = 15. Sous la cloche, l'axe des x et, juste en dessous, l'axe des cotes z.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="dq"><button data-q="le" aria-pressed="true">P(X ≤ a)</button><button data-q="ge">P(X ≥ a)</button><button data-q="ab">P(a ≤ X ≤ b)</button><button data-q="hi">Trouver x : les p % les plus élevés</button><button data-q="lo">Trouver x : les p % les plus bas</button></div></div>
+      <div class="tools">
+        <div class="slider" style="margin:0" id="sa"><label for="da">a</label><input type="range" id="da" min="55" max="145" value="120" style="min-width:150px"><output id="oda"></output></div>
+        <div class="slider" style="margin:0" id="sb" hidden><label for="db">b</label><input type="range" id="db" min="55" max="145" value="110" style="min-width:150px"><output id="odb"></output></div>
+        <div class="slider" style="margin:0" id="sp" hidden><label for="dp">p</label><input type="range" id="dp" min="1" max="49" value="10" style="min-width:150px"><output id="odp"></output></div>
+      </div>
+      <div class="fig" style="--h:360px"><svg id="f42d" role="img" aria-label="Loi normale avec double axe x et z"></svg></div>
+      <p class="calc" id="t42d"></p>
+      <figcaption id="c42d"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>Approximer la binomiale : le petit manteau</h2>
+    <p class="lead">Chaque valeur de la binomiale pèse une barre de largeur 1. Pour lui rendre tout son poids sous la cloche, on l'habille d'un manteau de −0,5 à +0,5.</p>
+    <figure>
+      <div class="tools">
+        <div class="slider" style="margin:0"><label for="en">n</label><input type="range" id="en" min="10" max="60" value="30" style="min-width:120px"><output id="oen"></output></div>
+        <div class="slider" style="margin:0"><label for="ep">p</label><input type="range" id="ep" min="5" max="95" step="5" value="40" style="min-width:120px"><output id="oep"></output></div>
+      </div>
+      <div class="tools">
+        <div class="seg" id="eq"><button data-q="ge" aria-pressed="true">X ≥ k</button><button data-q="gt">X &gt; k</button><button data-q="le">X ≤ k</button><button data-q="lt">X &lt; k</button><button data-q="eq">X = k</button><button data-q="ii">k ≤ X ≤ m</button><button data-q="ee">k &lt; X &lt; m</button></div>
+      </div>
+      <div class="tools">
+        <div class="slider" style="margin:0"><label for="ek">k</label><input type="range" id="ek" min="0" max="30" value="14" style="min-width:140px"><output id="oek"></output></div>
+        <div class="slider" style="margin:0" id="sem" hidden><label for="em">m</label><input type="range" id="em" min="0" max="30" value="16" style="min-width:140px"><output id="oem"></output></div>
+        <div class="seg" id="ec"><button data-c="0">Sans manteau</button><button data-c="1" aria-pressed="true">Avec manteau</button></div>
+      </div>
+      <div class="fig" style="--h:380px"><svg id="f42e" role="img" aria-label="Binomiale et loi normale avec correction de continuité"></svg></div>
+      <div class="cmp3" id="e3"></div>
+      <figcaption id="c42e"></figcaption></figure>
+  </section>
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>La loi normale est symétrique autour de μ; σ règle son étalement. L'aire totale vaut toujours 1.</p><p>La table donne l'aire entre 0 et z. Le reste se déduit par symétrie et avec 0,5 de chaque côté.</p><p>Toute loi normale se ramène à la centrée réduite par la cote z.</p><p>Binomiale vers normale : on habille chaque valeur incluse d'un manteau de ± 0,5.</p></div>
+    <table class="stack"><thead><tr><th>Notion</th><th>Population</th><th>Échantillon</th></tr></thead><tbody>
+      <tr><td>Cote z</td><td class="fm">z = (x − μ) / σ</td><td class="fm">z = (x − x̄) / s</td></tr>
+      <tr><td>Retour à x</td><td class="fm">x = μ + z σ</td><td class="fm">x = x̄ + z s</td></tr>
+    </tbody></table>
+    <table class="stack" style="margin-top:14px"><thead><tr><th>Lecture inverse</th><th>Règle</th></tr></thead><tbody>
+      <tr><td>Aire présente</td><td>On prend la cote z associée.</td></tr>
+      <tr><td>Aire absente</td><td>On prend l'aire la plus proche.</td></tr>
+      <tr><td>Pile au milieu</td><td>On fait la moyenne des deux cotes z.</td></tr>
+    </tbody></table>
+    <table class="stack" style="margin-top:14px"><thead><tr><th>Binomiale ≈ normale</th><th>Formule</th></tr></thead><tbody>
+      <tr><td>Paramètres</td><td class="fm">μ = np &nbsp;·&nbsp; σ = √(np(1 − p))</td></tr>
+      <tr><td>Conditions</td><td class="fm">np ≥ 5 et n(1 − p) ≥ 5</td></tr>
+      <tr><td>Manteau</td><td class="fm">P(X ≥ 14) ≈ P(X ≥ 13,5) &nbsp;·&nbsp; P(X ≤ 14) ≈ P(X ≤ 14,5)</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:22px">Pièges</h3>
+    <ul><li>La table ne contient que des cotes z positives : pour z négatif, on utilise la symétrie.</li><li>Arrondir z à deux décimales avant d'entrer dans la table.</li><li>X &gt; 14 commence à 15 : le manteau part donc de 14,5, pas de 13,5.</li></ul>
+  </section>
+  <div class="foot">Examen et billes : exemples fictifs, simulés. QI : échelle construite pour avoir μ = 100 et σ = 15. Table calculée numériquement, arrondie à quatre décimales.</div>
+</div></main>
+<script src="assets/commun.js?v=10"></script>
+<script src="assets/s4-2.js?v=10"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.1 · Introduction aux variables aléatoires continues</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=10">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 4 · Variables aléatoires continues</div>
+    <h1>4.1 · Introduction aux variables aléatoires continues</h1>
+    <p class="lead">Une variable continue peut prendre toutes les valeurs d'un intervalle. Les probabilités ne sont plus des barres : ce sont des aires sous une courbe.</p>
+    <div class="code"><span><i class="sw o"></i>les données</span><span><i class="sw t"></i>la densité, le modèle</span><span><i class="sw r"></i>la probabilité cherchée : une aire</span></div>
+  </div>
+  <section class="part">
+    <h2>Des barres à la courbe : la probabilité devient une aire</h2>
+    <p class="lead">X : temps d'attente au comptoir de la cafétéria, en minutes. Rétrécissez les classes et ajoutez des données.</p>
+    <figure>
+      <div class="tools">
+        <div class="seg" id="aw"><button data-w="2">Classes de 2 min</button><button data-w="1" aria-pressed="true">1 min</button><button data-w="0.5">0,5 min</button><button data-w="0.2">0,2 min</button></div>
+        <div class="seg" id="an"><button data-n="100" aria-pressed="true">100 attentes</button><button data-n="1000">1 000</button><button data-n="100000">100 000</button></div>
+      </div>
+      <div class="fig" style="--h:330px"><svg id="f41a" role="img" aria-label="Histogramme des temps d'attente et densité"></svg></div>
+      <figcaption id="c41a"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>Calculer une aire avec des formes connues</h2>
+    <p class="lead">Choisissez une densité, puis l'intervalle. L'aire se découpe en rectangles, triangles ou trapèzes.</p>
+    <figure>
+      <div class="tools">
+        <div class="seg" id="bf"><button data-f="tri" aria-pressed="true">Triangle : attente à la cafétéria</button><button data-f="rec">Rectangle : retard de l'autobus</button></div>
+      </div>
+      <div class="tools">
+        <div class="slider" style="margin:0"><label for="ba">a</label><input type="range" id="ba" min="0" max="6" step="0.5" value="1" style="min-width:120px"><output id="oba"></output></div>
+        <div class="slider" style="margin:0"><label for="bb">b</label><input type="range" id="bb" min="0" max="6" step="0.5" value="4" style="min-width:120px"><output id="obb"></output></div>
+      </div>
+      <div class="fig" style="--h:320px"><svg id="f41b" role="img" aria-label="Aire sous la densité entre a et b"></svg></div>
+      <div class="fl2"><div><span class="lab">Avec des formes</span><p class="calc" id="b41g"></p></div><div><span class="lab">Avec le calcul intégral</span><p class="calc" id="b41i"></p></div></div>
+      <figcaption id="c41b"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>Une valeur seule ne pèse rien</h2>
+    <p class="lead">Attente à la cafétéria. On part de « entre 3 et 5 minutes » et on resserre l'intervalle autour de 3.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="cw"><button data-w="2" aria-pressed="true">3 à 5</button><button data-w="1">3 à 4</button><button data-w="0.5">3 à 3,5</button><button data-w="0.1">3 à 3,1</button><button data-w="0.01">3 à 3,01</button><button data-w="0">X = 3</button></div></div>
+      <div class="fig" style="--h:300px"><svg id="f41c" role="img" aria-label="Aire qui disparaît quand l'intervalle se resserre"></svg></div>
+      <figcaption id="c41c"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>L'espérance, point d'équilibre de la densité</h2>
+    <p class="lead">Découpez la densité dans une planche. Déplacez l'appui jusqu'à ce qu'elle tienne à l'horizontale.</p>
+    <figure>
+      <div class="slider"><label for="dc">Appui</label><input type="range" id="dc" min="0.5" max="5.5" step="0.05" value="2"><output id="odc"></output></div>
+      <div class="fig" style="--h:340px"><svg id="f41d" role="img" aria-label="Densité en équilibre sur son espérance"></svg></div>
+      <figcaption id="c41d"></figcaption></figure>
+  </section>
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>Une densité f(x) n'est jamais négative et l'aire totale sous la courbe vaut 1.</p><p>P(a ≤ X ≤ b) est l'aire sous la courbe entre a et b.</p><p>P(X = a) = 0 : il faut toujours un intervalle. Ainsi, P(X ≤ a) = P(X &lt; a).</p></div>
+    <table class="stack"><thead><tr><th>Notion</th><th>Formule</th></tr></thead><tbody>
+      <tr><td>Probabilité</td><td class="fm">P(a ≤ X ≤ b) = ∫<sub>a</sub><sup>b</sup> f(x) dx</td></tr>
+      <tr><td>Aire totale</td><td class="fm">∫ f(x) dx = 1 (sur toutes les valeurs possibles)</td></tr>
+      <tr><td>Espérance</td><td class="fm">μ = E(X) = ∫ x · f(x) dx</td></tr>
+      <tr><td>Variance</td><td class="fm">σ² = Var(X) = ∫ (x − μ)² · f(x) dx</td></tr>
+      <tr><td>Écart type</td><td class="fm">σ = √Var(X)</td></tr>
+    </tbody></table>
+    <table class="stack" style="margin-top:14px"><thead><tr><th>Forme</th><th>Aire</th></tr></thead><tbody>
+      <tr><td>Rectangle</td><td class="fm">base × hauteur</td></tr>
+      <tr><td>Triangle</td><td class="fm">base × hauteur ÷ 2</td></tr>
+      <tr><td>Trapèze</td><td class="fm">(grande base + petite base) × hauteur ÷ 2</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:22px">Pièges</h3>
+    <ul><li>La hauteur f(x) n'est pas une probabilité : seule une aire en est une.</li><li>Pour un trapèze couché sous une densité, les « bases » sont les deux hauteurs f(a) et f(b), et la « hauteur » est la largeur b − a.</li></ul>
+  </section>
+  <div class="foot">Cafétéria et autobus : exemples fictifs, attentes simulées.</div>
+</div></main>
+<script src="assets/commun.js?v=10"></script>
+<script src="assets/s4-1.js?v=10"></script>
+</body>
+</html>
