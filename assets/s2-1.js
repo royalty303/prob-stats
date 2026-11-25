@@ -3,9 +3,9 @@ const {fr,fx,$,C,txt,fig}=SITE;
 const expand=o=>Object.entries(o).flatMap(([v,n])=>Array(n).fill(+v));
 const DS=[
  {k:'sym',l:'Symétrique',t:'Note sur 10 à un quiz (35 étudiants)',lo:0,hi:10,u:'',d:expand({1:1,2:2,3:4,4:6,5:9,6:6,7:4,8:2,9:1}),x:10},
- {k:'asy',l:'Asymétrique',t:'Heures de travail rémunéré par semaine (30 étudiants)',lo:0,hi:40,u:' h',d:[0,0,0,0,0,0,4,6,8,8,10,10,10,12,12,12,12,14,15,15,15,16,18,20,20,22,24,25,28,30],x:40},
- {k:'bi',l:'Bimodale',t:'Âge des personnes inscrites à un cours du soir (40 personnes)',lo:16,hi:46,u:' ans',d:expand({18:3,19:5,20:6,21:4,22:2,38:2,39:4,40:6,41:5,42:3}),x:46},
- {k:'multi',l:'Multimodale',t:'Note sur 10 à un quiz dans trois groupes réunis (30 étudiants)',lo:0,hi:10,u:'',d:expand({1:1,2:3,3:5,4:2,5:3,6:5,7:2,8:3,9:5,10:1}),x:10}];
+ {k:'asy',l:'Asymétrique',t:'Heures de travail rémunéré par semaine (27 étudiants)',lo:0,hi:45,u:' h',d:[0,0,0,0,0,0,0,3,4,5,5,6,6,6,8,8,10,10,12,14,15,18,20,24,28,32,40],x:45},
+ {k:'bi',l:'Bimodale',t:'Âge des personnes inscrites à un cours du soir (48 personnes)',lo:15,hi:60,u:' ans',d:expand({18:4,19:7,20:8,21:5,22:3,23:2,38:2,39:4,40:8,41:3,42:2}),x:60},
+ {k:'multi',l:'Multimodale',t:'Note sur 10 à un quiz dans trois groupes réunis (30 étudiants)',lo:0,hi:10,u:'',d:expand({0:2,1:4,2:5,3:2,4:1,5:1,6:5,7:2,8:1,9:5,10:2}),x:10}];
 let di=1,extra=false;
 const stats=a=>{const s=[...a].sort((x,y)=>x-y),n=s.length,mean=s.reduce((p,v)=>p+v,0)/n,med=n%2?s[(n-1)/2]:(s[n/2-1]+s[n/2])/2,c={};s.forEach(v=>c[v]=(c[v]||0)+1);const mx=Math.max(...Object.values(c)),modes=mx>1?Object.keys(c).filter(k=>c[k]===mx).map(Number):[];return {n,mean,med,modes,mx,c}};
 const data=()=>{const D=DS[di];return extra?[...D.d,D.x]:D.d};
@@ -23,7 +23,7 @@ const fa=fig('f21a',(W,H,m)=>{const D=DS[di],a=data(),S=stats(a),pl=16,pr=16,pt=
 function upa(){document.querySelectorAll('#ds button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.i===di));const D=DS[di],S=stats(data());
   $('xtr').textContent=extra?'Retirer la valeur extrême':`Ajouter une valeur extrême (${D.x}${D.u})`;
   $('st21').innerHTML=`<div><span>Moyenne</span><b style="color:var(--org)">${fx(S.mean,1)}${D.u}</b></div><div><span>Médiane</span><b style="color:var(--blue)">${fx(S.med,1)}${D.u}</b></div><div><span>Mode</span><b>${S.modes.length?S.modes.join(' et ')+D.u:'aucun'}</b></div>`;
-  const msg={sym:'Distribution symétrique : la moyenne, la médiane et le mode coïncident.',asy:'Asymétrie à droite : quelques grandes valeurs tirent la moyenne vers la droite. Le mode, lui, est à 0 : le cas le plus fréquent est de ne pas travailler.',bi:'Deux groupes d\'âge : la moyenne et la médiane tombent dans le creux, là où presque personne ne se trouve. Ici, les deux modes décrivent mieux les données.',multi:'Trois valeurs sont à égalité pour la plus grande fréquence : la distribution a trois modes.'}[D.k];
+  const msg={sym:'Distribution symétrique : la moyenne, la médiane et le mode coïncident.',asy:'Asymétrie à droite : quelques grandes valeurs tirent la moyenne loin à droite de la médiane. Le mode, lui, est à 0 : le cas le plus fréquent est de ne pas travailler.',bi:'Deux groupes d\'âge, le premier plus nombreux : la médiane reste dans le groupe des jeunes, la moyenne tombe dans le creux, là où personne ne se trouve. Ici, les deux modes décrivent mieux les données.',multi:'Trois valeurs sont à égalité pour la plus grande fréquence : la distribution a trois modes.'}[D.k];
   $('c21a').innerHTML=`<span class="fn">Figure 2.1-a</span>${D.t}. ${msg}${extra?` Avec la valeur extrême, la moyenne bouge nettement; la médiane, à peine.`:''}`;fa()}
 $('ds').onclick=e=>{const i=e.target.dataset.i;if(i!==undefined){di=+i;extra=false;upa()}};$('xtr').onclick=()=>{extra=!extra;upa()};upa();
 

@@ -5,7 +5,7 @@ const {fr,fx,$,C,txt,fig}=SITE;
 const V=[0,1,2,3,4,5,6,7],F=[18,22,26,20,14,10,6,4],N=F.reduce((a,b)=>a+b,0);
 const CUM=F.map((_,i)=>F.slice(0,i+1).reduce((a,b)=>a+b,0)/N*100);
 const QS=[['Q₁',25],['Médiane',50],['Q₃',75],['D₉',90],['C₉₅',95]];let qk=1;
-const qval=k=>{for(let i=0;i<V.length;i++){if(Math.abs(CUM[i]-k)<1e-9)return [(V[i]+V[i+1])/2,i,true];if(CUM[i]>k)return [V[i],i,false]}};
+const qval=k=>{for(let i=0;i<V.length;i++)if(CUM[i]>=k-1e-9)return [V[i],i]};
 $('qv').innerHTML=QS.map(([l],i)=>`<button data-i="${i}">${l}</button>`).join('');
 const fa=fig('f23a',(W,H,m)=>{const k=QS[qk][1],[q,i]=qval(k),pl=40,pr=10,pt=10,pb=34,bw=(W-pl-pr)/V.length,Y=v=>pt+(1-v/100)*(H-pt-pb);let s='';
   [0,25,50,75,100].forEach(t=>s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(t)}" y2="${Y(t)}" stroke="${C.line}"/>`+txt(pl-6,Y(t)+4,t+' %',{a:'end',fs:11,c:C.mute}));
@@ -16,7 +16,7 @@ const fa=fig('f23a',(W,H,m)=>{const k=QS[qk][1],[q,i]=qval(k),pl=40,pr=10,pt=10,
   return s});
 function upa(){document.querySelectorAll('#qv button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.i===qk));const [l,k]=QS[qk],[q,i]=qval(k);
   $('tq').innerHTML=`<thead><tr><th>Cafés</th><th>Fréquence</th><th>% cumulé</th></tr></thead><tbody>`+V.map((v,j)=>`<tr class="${j===i?'hl':''}"><td>${v}</td><td>${F[j]}</td><td>${fx(CUM[j],1)} %</td></tr>`).join('')+`<tr class="tot"><td>Total</td><td>${N}</td><td></td></tr></tbody>`;
-  $('c23a').innerHTML=`<span class="fn">Figure 2.3-a</span>${l} : on cherche ${k} %. La première valeur dont le pourcentage cumulé dépasse ${k} % est ${V[i]} (${fx(CUM[i],1)} %) : <b>${l} = ${fx(q,1)} café${q>1?'s':''}</b>. ${i>0?`La valeur précédente, ${V[i-1]}, n'atteint que ${fx(CUM[i-1],1)} %.`:''}`;fa()}
+  $('c23a').innerHTML=`<span class="fn">Figure 2.3-a</span>${l} : on cherche ${k} %. La première valeur dont le pourcentage cumulé atteint ${k} % est ${V[i]} (${fx(CUM[i],1)} %) : <b>${l} = ${fx(q,1)} café${q>1?'s':''}</b>. ${i>0?`La valeur précédente, ${V[i-1]}, n'atteint que ${fx(CUM[i-1],1)} %.`:''}`;fa()}
 $('qv').onclick=e=>{const i=e.target.dataset.i;if(i!==undefined){qk=+i;upa()}};upa();
 
 /* ================= b : pince de crabe ================= */

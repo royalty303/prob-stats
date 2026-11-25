@@ -51,6 +51,31 @@ const fc=fig('f22c',(W,H,m)=>{const pl=m?78:110,pr=16;let s='';
   else{row('Épicerie',EP,120,H*.32,0,240);row('Loyer',LO,800,H*.72,0,1600)}
   return s});
 function upc(){document.querySelectorAll('#ech button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.e===ech));
-  $('c22c').innerHTML=`<span class="fn">Figure 2.2-c</span>${ech==='d'?'En dollars, les deux nuages ont exactement la même largeur : s = 50 $ dans les deux cas. Pourtant, 50 $ de plus ou de moins sur l\'épicerie, ce n\'est pas comme sur le loyer.':'À l\'échelle de sa propre moyenne, l\'épicerie (x̄ = 120 $) varie énormément, le loyer (x̄ = 800 $) presque pas. C\'est ce que mesure le CV : <b>50 / 120 ≈ 42 %</b> contre <b>50 / 800 ≈ 6 %</b>.'} La bande bleue montre x̄ ± s.`;fc()}
+  $('c22c').innerHTML=`<span class="fn">Figure 2.2-d</span>${ech==='d'?'En dollars, les deux nuages ont exactement la même largeur : s = 50 $ dans les deux cas. Pourtant, 50 $ de plus ou de moins sur l\'épicerie, ce n\'est pas comme sur le loyer.':'À l\'échelle de sa propre moyenne, l\'épicerie (x̄ = 120 $) varie énormément, le loyer (x̄ = 800 $) presque pas. C\'est ce que mesure le CV : <b>50 / 120 ≈ 42 %</b> contre <b>50 / 800 ≈ 6 %</b>.'} La bande bleue montre x̄ ± s.`;fc()}
 $('ech').onclick=e=>{const v=e.target.dataset.e;if(v){ech=v;upc()}};upc();
+
+/* ================= c : pourquoi n − 1 ================= */
+const MU=70,SG=10,gs=()=>{let u=0;while(!u)u=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*Math.random())};
+let smp=[],simN=0,simD=0;
+const draw=n=>Array.from({length:n},()=>Math.round((MU+SG*gs())*10)/10);
+function simulate(n){let a=0,b=0;const R=5000;for(let r=0;r<R;r++){const x=draw(n),m=mean(x),ss=x.reduce((p,v)=>p+(v-m)**2,0);a+=ss/n;b+=ss/(n-1)}simN=a/R;simD=b/R}
+const fd=fig('f22d',(W,H,m)=>{const pl=12,pr=12,X=v=>pl+(v-40)/60*(W-pl-pr),xb=mean(smp),n=smp.length,rh=Math.min(26,(H-110)/n);let s='';
+  [40,50,60,70,80,90,100].forEach(t=>s+=txt(X(t),H-8,t+' %',{a:'middle',fs:11,c:C.mute}));
+  s+=`<line x1="${X(MU)}" x2="${X(MU)}" y1="14" y2="${H-24}" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/>`+txt(X(MU)+5,14,'μ',{fs:14,w:700,c:C.blue});
+  s+=`<line x1="${X(xb)}" x2="${X(xb)}" y1="24" y2="${H-24}" stroke="${C.ink}" stroke-width="2.5"/>`+txt(X(xb)+5,30,'x̄',{fs:14,w:700});
+  [...smp].sort((p,q)=>p-q).forEach((v,i)=>{const y=44+i*rh;s+=`<line x1="${X(xb)}" x2="${X(v)}" y1="${y}" y2="${y}" stroke="${C.org}" stroke-width="5" opacity=".8"/><line x1="${X(MU)}" x2="${X(v)}" y1="${y+6}" y2="${y+6}" stroke="${C.blue}" stroke-width="2" stroke-dasharray="4 3"/><circle cx="${X(v)}" cy="${y+3}" r="6" fill="${C.ink}"/>`});
+  const a=smp.reduce((p,v)=>p+(v-xb)**2,0),b=smp.reduce((p,v)=>p+(v-MU)**2,0),y0=44+n*rh+14;
+  s+=txt(pl,y0+4,`Σ(x − x̄)² = ${fr(a,0)}`,{fs:13,w:700,c:C.org})+txt(pl,y0+22,`Σ(x − μ)² = ${fr(b,0)}`,{fs:13,w:700,c:C.blue});
+  return s});
+const fe=fig('f22e',(W,H,m)=>{if(!simD)return'';const n=+$('nn').value,pl=m?92:120,pr=16,X=v=>pl+v/130*(W-pl-pr);let s='';
+  [0,25,50,75,100,125].forEach(t=>s+=`<line x1="${X(t)}" x2="${X(t)}" y1="20" y2="${H-40}" stroke="${C.line}"/>`+txt(X(t),H-24,t,{a:'middle',fs:11,c:C.mute}));
+  [['÷ n',simN,H*.32],['÷ (n − 1)',simD,H*.6]].forEach(([l,v,y])=>{s+=`<rect x="${X(0)}" y="${y-18}" width="${X(v)-X(0)}" height="36" fill="${l==='÷ n'?C.org:C.ink}" rx="3"/>`+txt(pl-10,y+5,l,{a:'end',fs:15,w:700})+txt(X(v)+8,y+5,fx(v,1),{fs:14,w:700,halo:1})});
+  s+=`<line x1="${X(100)}" x2="${X(100)}" y1="10" y2="${H-40}" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/>`+txt(X(100),H-6,'σ² = 100',{a:'middle',fs:12,w:700,c:C.blue});
+  s+=txt(W-pr,14,`n = ${n}`,{a:'end',fs:12,c:C.mute});
+  return s});
+function upd(){const n=+$('nn').value;$('onn').textContent=n;const xb=mean(smp);
+  $('c22d').innerHTML=`<span class="fn">Figure 2.2-c</span>À gauche, x̄ est calculée avec ces mêmes points : elle se place au milieu d'eux. Les écarts à x̄ (orange) sont donc, au total, plus petits que les écarts à la vraie moyenne μ (bleu), qu'on ne connaît pas. Diviser par n sous-estime la variance : en moyenne, on obtient ${fx(simN,0)} au lieu de 100, soit environ (n − 1)/n = ${fr((n-1)/n*100,0)} % de la vraie valeur. Diviser par n − 1 corrige exactement ce manque. Avec une population entière, on connaît μ : pas besoin de correction.`;fd();fe()}
+$('ns').onclick=()=>{smp=draw(+$('nn').value);upd()};
+$('nn').oninput=()=>{const n=+$('nn').value;smp=draw(n);simulate(n);upd()};
+smp=draw(4);simulate(4);upd();
 }

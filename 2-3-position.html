@@ -6,7 +6,7 @@
 <title>2.3 · Mesures de position</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=6">
+<link rel="stylesheet" href="assets/style.css?v=7">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -60,16 +60,16 @@
     <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
     <div class="retenir"><p>Un quantile partage les données ordonnées : Q₁ (25 %), médiane (50 %), Q₃ (75 %), déciles, centiles.</p><p>Par classe, la pince de crabe estime le quantile par une règle de trois.</p><p>La cote z mesure la distance à la moyenne en écarts types : elle permet de comparer des données de groupes différents.</p></div>
     <table class="stack"><thead><tr><th>Situation</th><th>Méthode</th></tr></thead><tbody>
-      <tr><td>Données groupées par valeur</td><td>première valeur dont le pourcentage cumulé dépasse le pourcentage visé; s'il l'atteint exactement, moyenne de cette valeur et de la suivante</td></tr>
+      <tr><td>Données groupées par valeur</td><td>la première valeur dont le pourcentage cumulé atteint le pourcentage visé, même si celui-ci tombe à la toute fin de sa plage</td></tr>
       <tr><td>Données groupées par classe</td><td>pince de crabe : x / amplitude = (% visé − % au début) / (% à la fin − % au début), puis borne inférieure + x</td></tr>
-      <tr><td>Cote z</td><td class="fm">z = (x − x̄) / s</td></tr>
+      <tr><td>Cote z</td><td class="fm">population : z = (x − μ) / σ · échantillon : z = (x − x̄) / s</td></tr>
     </tbody></table>
     <h3 style="margin-top:22px">Pièges</h3>
     <ul><li>Le pourcentage « au début » de la classe est le cumulé de la classe <i>précédente</i>.</li><li>Une cote z négative indique une donnée sous la moyenne, pas une erreur.</li></ul>
   </section>
   <div class="foot">Données fictives, construites pour illustrer chaque méthode.</div>
 </div></main>
-<script src="assets/commun.js?v=6"></script>
-<script src="assets/s2-3.js?v=6"></script>
+<script src="assets/commun.js?v=7"></script>
+<script src="assets/s2-3.js?v=7"></script>
 </body>
 </html>
