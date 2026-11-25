@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.1 · Notions de probabilité de base</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 1 · Probabilités et analyse combinatoire</div>
+    <h1>1.1 · Notions de probabilité de base</h1>
+    <p class="lead">Des ensembles, des régions, et une probabilité qui se lit sur le diagramme.</p>
+    <div class="code"><span><i class="sw t"></i>la région demandée</span><span><i class="sw o"></i>ce qu'on compte, ce qu'on choisit</span><span><i class="sw r"></i>ce qui est compté deux fois, les erreurs</span></div>
+  </div>
+
+  <section class="part">
+    <h2>Les opérations sur les ensembles</h2>
+    <p class="lead">Composez une expression avec les boutons : les régions correspondantes se colorent. En mode défi, c'est à vous de colorier.</p>
+    <figure>
+      <div class="tools">
+        <div class="seg" id="nb11"><button data-n="2" aria-pressed="true">2 ensembles</button><button data-n="3" aria-pressed="false">3 ensembles</button></div>
+        <div class="seg" id="mode11"><button data-m="c" aria-pressed="true">Construire</button><button data-m="d" aria-pressed="false">Défi</button></div>
+      </div>
+      <div id="build11">
+        <div class="exprbox" id="expr11" aria-live="polite"></div>
+        <div class="kp" id="kp11"></div>
+      </div>
+      <div id="defi11" hidden>
+        <p class="exprbox" id="dq11"></p>
+        <div class="tools"><button class="go" id="dchk11">Vérifier</button><button id="dnew11">Nouveau défi</button></div>
+      </div>
+      <div class="venn"><svg id="v11" viewBox="0 0 400 300" role="img" aria-label="Diagramme de Venn"></svg></div>
+      <figcaption id="c11a"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Les lois de De Morgan</h2>
+    <p class="lead">Deux chemins différents, une seule région à l'arrivée.</p>
+    <figure>
+      <div class="tools">
+        <div class="seg" id="law11"><button data-l="1" aria-pressed="true">(A ∪ B)′ = A′ ∩ B′</button><button data-l="2" aria-pressed="false">(A ∩ B)′ = A′ ∪ B′</button></div>
+        <button class="go" id="dmn11">Étape suivante</button><button id="dmr11">Recommencer</button>
+      </div>
+      <div class="pair">
+        <div><h3 id="dml11"></h3><div class="venn"><svg id="dmL" viewBox="0 0 400 300" role="img" aria-label="Chemin de gauche"></svg></div></div>
+        <div><h3 id="dmr11h"></h3><div class="venn"><svg id="dmR" viewBox="0 0 400 300" role="img" aria-label="Chemin de droite"></svg></div></div>
+      </div>
+      <figcaption id="c11b"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Pourquoi retirer l'intersection?</h2>
+    <p class="lead">Dans un groupe de 100 étudiants, 30 ont un emploi étudiant, 45 pratiquent un sport, 12 font les deux. On compte.</p>
+    <figure>
+      <div class="pair">
+        <div class="venn"><svg id="dots11" viewBox="0 0 300 300" role="img" aria-label="Cent étudiants"></svg></div>
+        <div class="count" id="cnt11"></div>
+      </div>
+      <div class="tools"><button class="go" id="cn11">Étape suivante</button><button id="cr11">Recommencer</button></div>
+      <figcaption><span class="fn">Figure 1.1-c</span>Les 12 qui font les deux reçoivent deux marques. Additionner n(A) et n(B), c'est les compter deux fois : n(A ∪ B) = n(A) + n(B) − n(A ∩ B).</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>La règle d'or : du centre vers l'extérieur</h2>
+    <p class="lead">Un cégep sonde 250 étudiants sur trois sports intra-muros. 20 pratiquent les trois; des 90 au basketball, 35 font aussi du volleyball et 30 du badminton; des 110 au volleyball, 40 font aussi du badminton; 50 n'en pratiquent aucun. Combien pratiquent uniquement le badminton?</p>
+    <figure>
+      <div class="tools"><button class="go" id="sn11">Étape suivante</button><button id="sr11">Recommencer</button><button id="sx11">Et si on remplissait dans le désordre?</button></div>
+      <div class="venn"><svg id="sp11" viewBox="0 0 400 300" role="img" aria-label="Diagramme de Venn des trois sports"></svg></div>
+      <p class="calc" id="scalc11"></p>
+      <figcaption id="c11d"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>La probabilité fréquentiste converge</h2>
+    <p class="lead">On lance une pièce encore et encore, et on suit la proportion de « face ». Trois savants l'ont fait pour vrai.</p>
+    <figure>
+      <div class="fig" style="--h:360px"><svg id="f11e" role="img" aria-label="Proportion de face selon le nombre de lancers"></svg></div>
+      <div class="tools"><button class="go" id="re11">Lancer 100 000 fois</button></div>
+      <figcaption><span class="fn">Figure 1.1-e</span>Au début, la proportion zigzague; plus on lance, plus elle se stabilise près de 50 %, la probabilité classique. La zone bleue montre l'écart normal attendu pour chaque nombre de lancers : Buffon, Kerrich et Pearson y tombent tous les trois.</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>On remplit un diagramme de Venn du centre vers l'extérieur.</p><p>Dans n(A) + n(B), l'intersection est comptée deux fois : on la retire une fois.</p><p>Une fois le diagramme rempli, P(A) = n(A) / n(S) se lit directement.</p></div>
+    <table class="stack"><thead><tr><th>Notion</th><th>Signification</th></tr></thead><tbody>
+      <tr><td>Univers S</td><td>L'ensemble de tous les résultats possibles d'une expérience aléatoire.</td></tr>
+      <tr><td>Événement</td><td>Un sous-ensemble de l'univers.</td></tr>
+      <tr><td>x ∈ A · n(A) · ∅ · A ⊆ B</td><td>x appartient à A · le nombre d'éléments de A · l'ensemble vide · A est inclus dans B</td></tr>
+      <tr><td>A ∪ B</td><td>dans A, dans B ou dans les deux</td></tr>
+      <tr><td>A ∩ B</td><td>à la fois dans A et dans B</td></tr>
+      <tr><td>A′</td><td>pas dans A</td></tr>
+      <tr><td>A \ B</td><td>dans A mais pas dans B (≠ B \ A)</td></tr>
+    </tbody></table>
+    <div class="formula" style="margin-top:20px">P(A) = n(A) / n(S) &nbsp;·&nbsp; P(A′) = 1 − P(A)</div>
+    <div class="formula">P(A ∪ B) = P(A) + P(B) − P(A ∩ B) &nbsp;·&nbsp; si A ∩ B = ∅ : P(A ∪ B) = P(A) + P(B)</div>
+    <div class="formula">(A ∪ B)′ = A′ ∩ B′ &nbsp;·&nbsp; (A ∩ B)′ = A′ ∪ B′</div>
+    <h3 style="margin-top:20px">Trois conceptions de la probabilité</h3>
+    <ul><li><b>Classique</b> : calculée à partir de la structure de la situation (une pièce : 1/2).</li><li><b>Fréquentiste</b> : observée sur un grand nombre de répétitions (figure 1.1-e).</li><li><b>Subjective</b> : un jugement fondé sur l'expérience.</li></ul>
+  </section>
+  <div class="foot">Lancers historiques : Buffon (4 040 lancers, 2 048 « face »), Kerrich (10 000 lancers, 5 067 « face »), Pearson (24 000 lancers, 12 012 « face »). Groupe de 100 étudiants et sondage sur les sports : exemples du cours.</div>
+</div></main>
+<script src="assets/commun.js"></script>
+<script src="assets/s1-1.js"></script>
+</body>
+</html>

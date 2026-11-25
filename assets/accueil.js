@@ -2,7 +2,7 @@
 const {fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area}=SITE;
 /* ================= accueil ================= */
 const PLAN=[
- ["1. Probabilités et analyse combinatoire",[["1.1","Notions de probabilité de base"],["1.2","Analyse combinatoire"],["1.3","Probabilités conditionnelles"]]],
+ ["1. Probabilités et analyse combinatoire",[["1.1","Notions de probabilité de base","1-1-notions-probabilite.html"],["1.2","Analyse combinatoire"],["1.3","Probabilités conditionnelles"]]],
  ["2. Statistiques descriptives",[["2.1","Mesures de tendance centrale"],["2.2","Mesures de dispersion"],["2.3","Mesures de position"]]],
  ["3. Variables aléatoires discrètes",[["3.1","Introduction aux variables aléatoires"],["3.2","Loi binomiale"],["3.3","Loi de Poisson"]]],
  ["4. Variables aléatoires continues",[["4.1","Introduction aux variables aléatoires continues"],["4.2","Loi normale"]]],
@@ -18,6 +18,7 @@ $('plan').innerHTML=PLAN.map(([t,ss])=>`<div><h3>${t}</h3><ol>${ss.map(([n,l,h])
   const o=[62,41,25,24];{const X=x=>20+x*260,lines=[[.30,.62],[.36,.70],[.18,.52],[.42,.78],[.33,.66],[.55,.92],[.27,.6]];$('th4').innerHTML=lines.map(([u,v],i)=>{const ok=u<=.5&&.5<=v;return `<line x1="${X(u)}" x2="${X(v)}" y1="${14+i*14}" y2="${14+i*14}" stroke="var(--${ok?'ink':'org'})" stroke-width="5" stroke-linecap="round"/>`}).join('')+`<line x1="${X(.5)}" x2="${X(.5)}" y1="4" y2="112" stroke="var(--blue)" stroke-width="2.5" stroke-dasharray="6 4"/>`;
  const Xp=p=>20+p*260,Yp=v=>108-v*360;let d='';for(let i=0;i<=60;i++){const p=i/60;d+=(d?'L':'M')+Xp(p)+','+Yp(p*(1-p))}$('th5').innerHTML=`<path d="${d}" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-dasharray="6 4"/><circle cx="${Xp(.5)}" cy="${Yp(.25)}" r="6" fill="var(--ink)"/><line x1="${Xp(.5)}" x2="${Xp(.5)}" y1="${Yp(.25)}" y2="108" stroke="var(--ink)" stroke-dasharray="3 3"/><line x1="0" x2="300" y1="108" y2="108" stroke="var(--line)"/>`}
   {const X=v=>20+(v-36)/18*260,P=[[42,40,10],[48,64,14],[44,88,18]];$('th6').innerHTML=P.map(([v,y,r])=>`<circle cx="${X(v)}" cy="${y-18}" r="${r/1.6}" fill="var(--ink)"/>`).join('')+`<line x1="10" x2="290" y1="88" y2="88" stroke="var(--line)"/><path d="M${X(44.7)},96l9,9l-9,9l-9,-9z" fill="var(--org)"/>`}
+  $('th7').innerHTML=`<rect x="20" y="8" width="260" height="104" rx="4" fill="none" stroke="var(--ink)" stroke-width="1.5"/><circle cx="125" cy="60" r="42" fill="var(--blue)" opacity=".85"/><circle cx="175" cy="60" r="42" fill="var(--blue)" opacity=".85"/><circle cx="150" cy="60" r="0"/><path d="M150,25.6 A42,42 0 0 1 150,94.4 A42,42 0 0 1 150,25.6Z" fill="var(--org)"/><circle cx="125" cy="60" r="42" fill="none" stroke="var(--ink)" stroke-width="2"/><circle cx="175" cy="60" r="42" fill="none" stroke="var(--ink)" stroke-width="2"/>`;
   $('th3').innerHTML=o.map((v,i)=>`<rect x="${20+i*70}" y="${108-v*1.5}" width="24" height="${v*1.5}" fill="var(--ink)"/><rect x="${46+i*70}" y="${108-32.3*1.5}" width="24" height="${32.3*1.5}" fill="var(--bluesoft)" stroke="var(--blue)" stroke-width="2" stroke-dasharray="4 3"/>`).join('')+`<line x1="0" x2="300" y1="108" y2="108" stroke="var(--line)"/>`;
 }
 }

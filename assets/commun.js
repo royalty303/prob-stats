@@ -58,7 +58,7 @@ SITE.aiguillage=function(root,page,E,autre){
 
 /* ================= Navigation commune ================= */
 {
-const P=[['index.html','Plan du cours'],['5-1-sondages.html','5.1'],['5-2-theoreme-central-limite.html','5.2'],['5-3-intervalles-moyenne.html','5.3'],['5-4-intervalles-proportion.html','5.4'],['6-1-tests-hypotheses.html','6.1'],['6-2-khi-deux.html','6.2']];
+const P=[['index.html','Plan du cours'],['1-1-notions-probabilite.html','1.1'],['5-1-sondages.html','5.1'],['5-2-theoreme-central-limite.html','5.2'],['5-3-intervalles-moyenne.html','5.3'],['5-4-intervalles-proportion.html','5.4'],['6-1-tests-hypotheses.html','6.1'],['6-2-khi-deux.html','6.2']];
 const here=location.pathname.split('/').pop()||'index.html',n=document.getElementById('nav');
 if(n)n.innerHTML=P.map(([h,l])=>`<a href="${h}"${h===here?' aria-current="page"':''}>${l}</a>`).join('');
 }
