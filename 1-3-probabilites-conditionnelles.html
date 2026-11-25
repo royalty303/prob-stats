@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.3 · Probabilités conditionnelles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=4">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 1 · Probabilités et analyse combinatoire</div>
+    <h1>1.3 · Probabilités conditionnelles</h1>
+    <p class="lead">Savoir qu'un événement s'est produit change le bassin des possibilités.</p>
+    <div class="code"><span><i class="sw t"></i>le nouvel univers, le dénominateur</span><span><i class="sw o"></i>ce qu'on compte, le numérateur</span><span><i class="sw r"></i>les morceaux d'un événement</span></div>
+  </div>
+
+  <section class="part">
+    <h2>Le bassin rétrécit</h2>
+    <p class="lead">300 étudiants : 150 viennent en voiture, 150 en transport en commun; 150 ont un emploi étudiant. On en choisit un au hasard.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="ga"><button data-g="0" aria-pressed="true">Tout le monde</button><button data-g="V">Sachant : en voiture</button><button data-g="T">Sachant : en transport en commun</button></div></div>
+      <div class="pair" style="align-items:center">
+        <div class="fig" style="--h:320px;--hm:260px"><svg id="f13a" role="img" aria-label="300 étudiants"></svg></div>
+        <div class="frac" id="fra"></div>
+      </div>
+      <figcaption id="c13a"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Un rapport, pas une zone</h2>
+    <p class="lead">15 % des conducteurs ont reçu une contravention (V), 8 % ont eu un accident (A), 3 % les deux.</p>
+    <figure>
+      <div class="ratio" id="rat"></div>
+      <figcaption><span class="fn">Figure 1.3-b</span>Même numérateur, P(V ∩ A) = 0,03, mais deux dénominateurs différents. P(A|V) et P(V|A) ne sont pas la même chose : un accident est plus probable chez qui a une contravention… et une contravention encore plus probable chez qui a eu un accident.</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Quel type de probabilité?</h2>
+    <p class="lead">Pour chaque phrase, choisissez la notation. Les mots indices s'allument ensuite.</p>
+    <figure>
+      <div class="qlist" id="ql"></div>
+      <figcaption><span class="fn">Figure 1.3-c</span>« Parmi », « des… qui », « si… alors », « sachant que » : un sous-groupe devient le nouvel univers, c'est une conditionnelle. « Et », « à la fois » : une intersection.</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>L'arbre et le carré</h2>
+    <p class="lead">68 % réussissent un examen à la première tentative. Parmi ceux qui échouent, 55 % réussissent à la deuxième. Cliquez sur un chemin ou sur un rectangle.</p>
+    <figure>
+      <div class="pair">
+        <div class="fig" style="--h:280px"><svg id="tree" role="img" aria-label="Arbre de probabilité"></svg></div>
+        <div class="fig" style="--h:280px"><svg id="sq" role="img" aria-label="Carré découpé"></svg></div>
+      </div>
+      <figcaption id="c13d"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>L'indépendance se voit dans le carré</h2>
+    <p class="lead">P(A) = 0,5 (avoir un emploi), P(B) = 0,4 (prendre le transport en commun). Faites varier P(A ∩ B).</p>
+    <figure>
+      <div class="slider"><label for="si">P(A ∩ B)</label><input type="range" id="si" min="0" max="40" value="25"><output id="osi"></output></div>
+      <div class="fig" style="--h:320px"><svg id="f13e" role="img" aria-label="Carré : indépendance"></svg></div>
+      <figcaption id="c13e"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Partition et probabilité totale</h2>
+    <p class="lead">Trois kiosques se partagent les commandes : A 50 %, B 30 %, C 20 %. Leurs taux d'erreur : 2 %, 5 %, 1 %.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="vw"><button data-v="o" aria-pressed="true">L'ovale</button><button data-v="c">Le carré redressé</button></div></div>
+      <div class="pair" style="grid-template-columns:minmax(0,3fr) minmax(0,1fr)">
+        <div class="fig" style="--h:320px"><svg id="f13f" role="img" aria-label="Partition et événement E"></svg></div>
+        <div class="fig" style="--h:320px"><svg id="f13f2" role="img" aria-label="Morceaux empilés"></svg></div>
+      </div>
+      <figcaption id="c13f"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Bayes : un morceau sur la somme des morceaux</h2>
+    <p class="lead">Une commande est erronée. De quel kiosque vient-elle probablement? Cliquez sur un kiosque.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="bk"><button data-k="0">A</button><button data-k="1" aria-pressed="true">B</button><button data-k="2">C</button></div></div>
+      <div class="pair" style="grid-template-columns:minmax(0,3fr) minmax(0,1fr)">
+        <div class="fig" style="--h:300px"><svg id="f13g" role="img" aria-label="Carré : Bayes"></svg></div>
+        <div class="fig" style="--h:300px"><svg id="f13g2" role="img" aria-label="Fraction de Bayes"></svg></div>
+      </div>
+      <figcaption id="c13g"></figcaption></figure>
+    <h3 style="margin-top:30px">Le paradoxe du dépistage</h3>
+    <p class="lead">Un test fiable, une maladie rare. Une personne obtient un résultat positif : est-elle malade?</p>
+    <figure>
+      <div class="tools"><div class="seg" id="dp"><button data-p="c" aria-pressed="true">Diapo du cours</button><button data-p="m">Mammographie (Gigerenzer)</button></div></div>
+      <div class="slider"><label for="dprev">Prévalence</label><input type="range" id="dprev" min="1" max="200" value="10"><output id="odprev"></output></div>
+      <div class="pair" style="align-items:center">
+        <div class="fig" style="--h:340px;--hm:300px"><svg id="f13h" role="img" aria-label="1 000 personnes dépistées"></svg></div>
+        <div class="frac" id="frh"></div>
+      </div>
+      <figcaption id="c13h"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>Une conditionnelle est un rapport entre deux zones : la partie commune sur le nouvel univers.</p><p>Dans le carré, largeur × hauteur = P(Aᵢ) · P(B|Aᵢ) = P(Aᵢ ∩ B).</p><p>Probabilité totale : on additionne les morceaux. Bayes : un morceau sur la somme des morceaux.</p></div>
+    <table class="stack"><thead><tr><th>Notion</th><th>Formule</th></tr></thead><tbody>
+      <tr><td>Probabilité conditionnelle</td><td class="fm">P(A|B) = P(A ∩ B) / P(B), si P(B) &gt; 0</td></tr>
+      <tr><td>Indépendance</td><td class="fm">P(A ∩ B) = P(A) · P(B)</td></tr>
+      <tr><td>Règle de multiplication</td><td class="fm">P(A ∩ B) = P(B) · P(A|B) = P(A) · P(B|A)</td></tr>
+      <tr><td>Probabilité totale</td><td class="fm">P(B) = P(A₁)P(B|A₁) + … + P(Aₙ)P(B|Aₙ)</td></tr>
+      <tr><td>Formule de Bayes</td><td class="fm">P(Aᵢ|B) = P(Aᵢ)P(B|Aᵢ) / [P(A₁)P(B|A₁) + … + P(Aₙ)P(B|Aₙ)]</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:22px">Pièges</h3>
+    <ul><li>P(A|B) ≠ P(B|A) : même numérateur, dénominateurs différents.</li><li>Incompatibles (A ∩ B = ∅) ne veut pas dire indépendants : c'est même le contraire.</li><li>Une partition couvre tout l'univers, sans chevauchement.</li><li>Une probabilité conditionnelle élevée décrit une association, jamais à elle seule une cause.</li></ul>
+  </section>
+  <div class="foot">Mammographie : G. Gigerenzer et coll. (2007), « Helping Doctors and Patients Make Sense of Health Statistics », <i>Psychological Science in the Public Interest</i>, 8(2) : prévalence 1 %, sensibilité 90 %, faux positifs 9 %. Autres exemples : diapositives du chapitre 1, partie C.</div>
+</div></main>
+<script src="assets/commun.js?v=4"></script>
+<script src="assets/s1-3.js?v=4"></script>
+</body>
+</html>
