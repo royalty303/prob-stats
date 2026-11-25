@@ -7,7 +7,7 @@ const r2=z=>Math.round(z*100)/100;
 const TAB=z=>Math.round(T0(Math.abs(r2(z)))*1e4)/1e4;          /* lecture de la table, 4 décimales */
 const f4=v=>fx(v,4),f2=z=>fx(z,2);
 /* lecture inverse selon la règle du cours */
-const CELLS=[];for(let i=0;i<=309;i++){const z=i/100;CELLS.push([z,Math.round(T0(z)*1e4)])}
+const CELLS=[];for(let i=0;i<=399;i++){const z=i/100;CELLS.push([z,Math.round(T0(z)*1e4)])}
 function inv(p){const P=Math.round(p*1e4);let dm=1e9;CELLS.forEach(([z,v])=>dm=Math.min(dm,Math.abs(v-P)));
   const c=CELLS.filter(([z,v])=>Math.abs(v-P)===dm);
   if(dm===0)return {k:'exact',z:c[0][0],cells:[c[0][0]],P};
@@ -70,7 +70,7 @@ function upb(){const mu=+$('bm').value,sg=+$('bs').value;$('obm').textContent=mu
 
 /* c : la table */
 let tm='dir',tp=.45;
-$('ztab').innerHTML=`<thead><tr><th>z</th>${[...Array(10)].map((_,j)=>`<th data-c="${j}">${fx(j/100,2)}</th>`).join('')}</tr></thead><tbody>`+[...Array(31)].map((_,i)=>`<tr><th data-r="${i}">${fx(i/10,1)}</th>${[...Array(10)].map((_,j)=>{const k=i*10+j;return `<td data-z="${k}">${f4(CELLS[k][1]/1e4)}</td>`}).join('')}</tr>`).join('')+'</tbody>';
+$('ztab').innerHTML=`<thead><tr><th>z</th>${[...Array(10)].map((_,j)=>`<th data-c="${j}">${fx(j/100,2)}</th>`).join('')}</tr></thead><tbody>`+[...Array(40)].map((_,i)=>`<tr><th data-r="${i}">${fx(i/10,2)}</th>${[...Array(10)].map((_,j)=>{const k=i*10+j;return `<td data-z="${k}">${f4(CELLS[k][1]/1e4)}</td>`}).join('')}</tr>`).join('')+'</tbody>';
 const fc=fig('f42c',(W,H,m)=>{const z=cz(),pl=10,pr=10,pt=20,pb=36,X=v=>pl+(v+3.6)/7.2*(W-pl-pr),Y=v=>pt+(1-v/.42)*(H-pt-pb);let s='';
   s+=`<path d="${area(npdf,X,Y,-3.6,3.6)}" fill="var(--bluesoft)" opacity=".7"/>`;
   if(z>0)s+=`<path d="${area(npdf,X,Y,0,Math.min(z,3.6))}" fill="${C.org}" opacity=".9"/>`;
@@ -88,7 +88,7 @@ function upc(){document.querySelectorAll('#ztab .hit,#ztab .alt,#ztab .rh').forE
   let first=null;
   if(tm==='dir'){const z=+$('tz').value,k=Math.round(z*100);$('otz').textContent=f2(z);
     const c=T.querySelector(`td[data-z="${k}"]`);c.classList.add('hit');first=c;T.querySelector(`th[data-r="${Math.floor(k/10)}"]`).classList.add('rh');T.querySelector(`th[data-c="${k%10}"]`).classList.add('rh');
-    $('t42c').innerHTML=`Ligne ${fx(Math.floor(k/10)/10,1)}, colonne ${fx((k%10)/100,2)} : <b>P(0 ≤ Z ≤ ${f2(z)}) = ${f4(TAB(z))}</b>`}
+    $('t42c').innerHTML=`Ligne ${fx(Math.floor(k/10)/10,2)}, colonne ${fx((k%10)/100,2)} : <b>P(0 ≤ Z ≤ ${f2(z)}) = ${f4(TAB(z))}</b>`}
   else{ires=inv(tp);ires.cells.forEach(z=>{const c=T.querySelector(`td[data-z="${Math.round(z*100)}"]`);c.classList.add('hit');first=first||c});
     if(ires.k==='proche'){const c=T.querySelector(`td[data-z="${Math.round(ires.other[0]*100)}"]`);c.classList.add('alt')}
     $('t42c').innerHTML=invTxt(ires)}

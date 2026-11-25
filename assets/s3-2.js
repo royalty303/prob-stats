@@ -29,3 +29,31 @@ function upb(){const n=+$('ln').value,p=+$('lp').value/100;$('lk').max=n;if(+$('
   $('c32b').innerHTML=`<span class="fn">Figure 3.2-b</span>n = ${n}, p = ${fx(p,2)}. <b>${lab} ≈ ${fx(tot,4)}</b> : la somme des barres orange.${extra} Espérance np = ${fx(n*p,2)}, variance np(1 − p) = ${fx(n*p*(1-p),2)}.`;fb()}
 ['ln','lp','lk'].forEach(id=>$(id).oninput=upb);$('lt').onclick=e=>{const t=e.target.dataset.t;if(t){lt=t;upb()}};upb();
 }
+
+/* c : p > 0,5, deux séries alignées */
+{
+const {fr,fx,$,C,txt,fig}=SITE;
+const comb=(n,k)=>{if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return r};
+const pmf=(n,p,k)=>comb(n,k)*p**k*(1-p)**(n-k);
+let vt='ge';
+const selX=(t,k,x)=>({ge:x>=k,gt:x>k,le:x<=k,lt:x<k,eq:x===k})[t];
+const fc=fig('f32c',(W,H,m)=>{const n=+$('vn').value,p=+$('vp').value/100,k=+$('vk').value,pl=m?26:40,pr=6,cw=(W-pl-pr)/(n+1),X=i=>pl+(i+.5)*cw;
+  const mid=H/2,rh=Math.min(30,cw*.9),gap=8,yX=mid-rh-gap/2,yY=mid+gap/2,bh=mid-rh-gap/2-26,P=[...Array(n+1)].map((_,x)=>pmf(n,p,x)),mx=Math.max(...P);let s='';
+  s+=txt(pl-8,yX+rh/2+5,'X',{a:'end',fs:15,w:700,it:1})+txt(pl-8,yY+rh/2+5,'Y',{a:'end',fs:15,w:700,it:1,c:C.blue});
+  for(let x=0;x<=n;x++){const on=selX(vt,k,x),h=P[x]/mx*bh,bw=Math.max(3,cw*.6),y=n-x;
+    s+=`<rect x="${X(x)-bw/2}" y="${yX-6-h}" width="${bw}" height="${h}" fill="${on?C.org:C.ink}" opacity="${on?1:.3}" rx="2"/>`;
+    s+=`<rect x="${X(x)-bw/2}" y="${yY+rh+6}" width="${bw}" height="${h}" fill="${on?C.org:C.blue}" opacity="${on?1:.3}" rx="2"/>`;
+    const fs=cw<20?10:cw<28?12:14;
+    s+=`<rect x="${X(x)-cw*.46}" y="${yX}" width="${cw*.92}" height="${rh}" rx="4" fill="${on?C.org:'var(--soft)'}"/>`+txt(X(x),yX+rh/2+fs*.36,x,{a:'middle',fs,w:700,c:on?'#fff':C.ink});
+    s+=`<rect x="${X(x)-cw*.46}" y="${yY}" width="${cw*.92}" height="${rh}" rx="4" fill="${on?C.org:'var(--bluesoft)'}"/>`+txt(X(x),yY+rh/2+fs*.36,y,{a:'middle',fs,w:700,c:on?'#fff':C.blue})}
+  s+=txt(W-pr,14,`X : paniers, B(${n} ; ${fx(p,2)})`,{a:'end',fs:12,w:700,c:C.ink})+txt(W-pr,H-4,`Y : ratés, B(${n} ; ${fx(1-p,2)})`,{a:'end',fs:12,w:700,c:C.blue});
+  return s});
+function upc(){const n=+$('vn').value;$('vk').max=n;if(+$('vk').value>n)$('vk').value=n;const p=+$('vp').value/100,k=+$('vk').value,q=1-p;
+  $('ovn').textContent=n;$('ovp').textContent=fx(p,2);$('ovk').textContent=k;document.querySelectorAll('#vt button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===vt));
+  const xs=[...Array(n+1)].map((_,x)=>x).filter(x=>selX(vt,k,x)),lab={ge:'≥',gt:'>',le:'≤',lt:'<',eq:'='}[vt];
+  let yq;if(!xs.length)yq='aucune valeur';else{const lo=n-Math.max(...xs),hi=n-Math.min(...xs);yq=lo===hi?`Y = ${lo}`:lo===0?`Y ≤ ${hi}`:hi===n?`Y ≥ ${lo}`:`${lo} ≤ Y ≤ ${hi}`}
+  const v=xs.reduce((a,x)=>a+pmf(n,p,x),0);
+  $('v32c').innerHTML=xs.length?`P(X ${lab} ${k}) = <b>P(${yq})</b>, avec Y ~ B(${n} ; ${fx(q,2)}) : une probabilité qu'on trouve dans la table. Résultat ≈ ${fx(v,4)}`:`Aucune valeur de X ne respecte P(X ${lab} ${k}).`;
+  $('c32c').innerHTML=`<span class="fn">Figure 3.2-c</span>Sous chaque valeur de X, on écrit le nombre d'échecs qui va avec : sur ${n} lancers, ${xs.length?Math.min(...xs):k} paniers, c'est exactement ${n-(xs.length?Math.min(...xs):k)} ratés. Les deux séries décrivent la même joueuse, le même résultat; seule la façon de compter change. Les barres du bas sont celles du haut lues à l'envers : chaque probabilité se retrouve juste en dessous. Une série monte pendant que l'autre descend, d'où l'inégalité qui s'inverse.`;fc()}
+['vn','vp','vk'].forEach(id=>$(id).oninput=upc);$('vt').onclick=e=>{const t=e.target.dataset.t;if(t){vt=t;upc()}};upc();
+}

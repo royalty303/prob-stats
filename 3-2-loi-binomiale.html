@@ -6,7 +6,7 @@
 <title>3.2 · Loi binomiale</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=10">
+<link rel="stylesheet" href="assets/style.css?v=11">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -49,6 +49,22 @@
       <figcaption id="c32b"></figcaption></figure>
   </section>
   <section class="part">
+    <h2>Quand p dépasse 0,5 : compter les échecs</h2>
+    <p class="lead">Une joueuse réussit 70 % de ses lancers francs. X compte ses paniers sur n lancers; Y compte ses ratés. La table s'arrête à p = 0,5 : on passe par Y.</p>
+    <figure>
+      <div class="tools">
+        <div class="slider" style="margin:0"><label for="vn">n</label><input type="range" id="vn" min="4" max="20" value="14" style="min-width:110px"><output id="ovn"></output></div>
+        <div class="slider" style="margin:0"><label for="vp">p</label><input type="range" id="vp" min="55" max="95" step="5" value="70" style="min-width:110px"><output id="ovp"></output></div>
+      </div>
+      <div class="tools">
+        <div class="seg" id="vt"><button data-t="ge" aria-pressed="true">P(X ≥ k)</button><button data-t="gt">P(X &gt; k)</button><button data-t="le">P(X ≤ k)</button><button data-t="lt">P(X &lt; k)</button><button data-t="eq">P(X = k)</button></div>
+        <div class="slider" style="margin:0"><label for="vk">k</label><input type="range" id="vk" min="0" max="14" value="9" style="min-width:110px"><output id="ovk"></output></div>
+      </div>
+      <div class="fig" style="--h:380px;--hm:340px"><svg id="f32c" role="img" aria-label="Deux séries alignées : succès X et échecs Y"></svg></div>
+      <p class="calc" id="v32c"></p>
+      <figcaption id="c32c"></figcaption></figure>
+  </section>
+  <section class="part">
     <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
     <div class="retenir"><p>Binomiale : n essais identiques et indépendants, deux issues (succès, échec), p constant d'un essai à l'autre; X compte les succès.</p><p><span class="nk">C<span class="sc"><sup>n</sup><sub>k</sub></span></span> compte les configurations; p<sup>k</sup>(1 − p)<sup>n − k</sup> est la probabilité de chacune.</p><p>« Au moins » et « au plus » : on additionne des barres, ou on passe par le complément.</p></div>
     <table class="stack"><thead><tr><th>Notion</th><th>Formule</th></tr></thead><tbody>
@@ -57,11 +73,11 @@
       <tr><td>Variance</td><td class="fm">Var(X) = np(1 − p)</td></tr>
     </tbody></table>
     <h3 style="margin-top:22px">Pièges</h3>
-    <ul><li>P(X ≥ k) = 1 − P(X ≤ k − 1) : attention au k − 1.</li><li>Tirer sans remise dans un petit groupe change p d'un essai à l'autre : ce n'est plus binomial.</li></ul>
+    <ul><li>P(X ≥ k) = 1 − P(X ≤ k − 1) : attention au k − 1.</li><li>Si p &gt; 0,5, on compte les échecs : Y = n − X suit B(n ; 1 − p), et les inégalités s'inversent (X ≥ 9 devient Y ≤ 5 quand n = 14).</li><li>Tirer sans remise dans un petit groupe change p d'un essai à l'autre : ce n'est plus binomial.</li></ul>
   </section>
   <div class="foot">Exemples fictifs.</div>
 </div></main>
-<script src="assets/commun.js?v=10"></script>
-<script src="assets/s3-2.js?v=10"></script>
+<script src="assets/commun.js?v=11"></script>
+<script src="assets/s3-2.js?v=11"></script>
 </body>
 </html>
