@@ -18,3 +18,47 @@ function path(f,X,Y,a,b,n=200,cap=Infinity){let d='';for(let i=0;i<=n;i++){const
 function area(f,X,Y,a,b){let d=`M${X(a)},${Y(0)}`;for(let i=0;i<=60;i++){const x=a+(b-a)*i/60;d+=`L${X(x).toFixed(1)},${Y(f(x)).toFixed(1)}`}return d+`L${X(b)},${Y(0)}Z`}
 Object.assign(SITE,{fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area});
 }
+
+/* ================= Aiguillage des intervalles de confiance (5.3 et 5.4) ================= */
+{
+const {$}=SITE;
+const Z='<i>z</i><sub>α/2</sub>',T='<i>t</i><sub>α/2 ; n−1</sub>';
+const fr_=(a,b)=>`<span class="frx"><span>${a}</span><span>${b}</span></span>`;
+const sq=a=>`<span class="sqx">√<span>${a}</span></span>`;
+const COR=sq(fr_('<i>N</i> − <i>n</i>','<i>N</i> − 1'));
+function formules(k,big,cor){
+  const mult=big?Z:T;
+  if(k==='m'){
+    const ic=`<i>μ</i> ∈ <span class="obs">x̄</span> <span class="mg">± <span class="pc" data-p="b">${mult}</span> (${fr_('<i>s</i>','√<i>n</i>')})<span class="pc" data-p="c">${cor?' '+COR:''}</span></span>`;
+    const n=cor?`<i>n</i> = ${fr_(`<i>N</i> (${Z})² <i>s</i>²`,`(<i>ME</i>)²(<i>N</i> − 1) + (${Z})² <i>s</i>²`)}`:`<i>n</i> = (${fr_(`${Z} <i>s</i>`,'<i>ME</i>')})²`;
+    return {ic,n,note:big?'':'Avec Student, on remplace z<sub>α/2</sub> par t<sub>α/2 ; n−1</sub>.'}}
+  const ic=`<i>π</i> ∈ <span class="obs"><i>p</i></span> <span class="mg">± <span class="pc" data-p="b">${Z}</span> ${sq(fr_('<i>p</i>(1 − <i>p</i>)','<i>n</i>'))}<span class="pc" data-p="c">${cor?' '+COR:''}</span></span>`;
+  const n=cor?`<i>n</i> = ${fr_(`(${Z})² <i>N p</i>(1 − <i>p</i>)`,`(<i>N</i> − 1)(<i>ME</i>)² + (${Z})² <i>p</i>(1 − <i>p</i>)`)}`:`<i>n</i> = ${fr_(`(${Z})² <i>p</i>(1 − <i>p</i>)`,'(<i>ME</i>)²')}`;
+  return {ic,n,note:big?'':'Les formules du cours pour une proportion supposent n ≥ 30.'}}
+SITE.aiguillage=function(root,page,E,autre){
+  const R=$(root);let st={a:page,b:'big',c:'non'},ei=0,prev=null;
+  const Q=[['a','a) Moyenne ou proportion?',[['m','Moyenne'],['p','Proportion']]],['b','b) Loi normale ou Student?',[['big','n ≥ 30 : normale'],['small','n < 30 : Student']]],['c','c) Facteur de correction?',[['oui','Oui'],['non','Non']]]];
+  R.innerHTML=`<div class="aig"><div class="enonce"><div class="en-h"><span id="${root}-num"></span><span><button id="${root}-prev">Précédent</button> <button id="${root}-next">Suivant</button></span></div><p id="${root}-txt"></p></div>
+  <div class="sw3">${Q.map(([k,t,o])=>`<div><div class="qt">${t}</div><div class="seg" data-q="${k}">${o.map(([v,l])=>`<button data-v="${v}">${l}</button>`).join('')}</div><div class="fbq" id="${root}-fb-${k}"></div></div>`).join('')}</div>
+  <div class="tools"><button class="go" id="${root}-chk">Vérifier mes réponses</button></div>
+  <div class="formbox" id="${root}-f"></div></div>`;
+  const draw=()=>{R.querySelectorAll('.seg').forEach(g=>g.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',st[g.dataset.q]===b.dataset.v)));
+    const F=$(root+'-f');
+    if(st.a!==page){F.innerHTML=`<p class="formula">Une ${st.a==='m'?'moyenne':'proportion'} se traite dans une autre section.</p><p><a href="${autre[1]}">→ ${autre[0]}</a></p>`;prev=null;return}
+    const f=formules(page,st.b==='big',st.c==='oui');
+    F.innerHTML=`<div class="fl"><span class="lab">Intervalle</span><div class="formula">${f.ic}</div></div><div class="fl"><span class="lab">Taille d'échantillon</span><div class="formula">${f.n}</div></div>${f.note?`<p class="note">${f.note}</p>`:''}`;
+    if(prev){F.querySelectorAll('.pc').forEach(p=>{if(prev[p.dataset.p]!==st[p.dataset.p])p.classList.add('flash')})}
+    prev={...st}};
+  const show=()=>{const e=E[ei];$(root+'-num').textContent=`Énoncé ${ei+1} sur ${E.length}`;$(root+'-txt').innerHTML=e.t;Q.forEach(([k])=>$(root+'-fb-'+k).innerHTML='')};
+  R.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const g=b.closest('.seg');if(g){st[g.dataset.q]=b.dataset.v;draw()}});
+  $(root+'-chk').onclick=()=>{const e=E[ei];Q.forEach(([k])=>{const ok=st[k]===e.r[k]||(k!=='a'&&e.r.a!==page);$(root+'-fb-'+k).innerHTML=(ok?'<b class="ok">✓</b> ':'<b class="ko">✗</b> ')+(e.h[k]||'')})};
+  $(root+'-prev').onclick=()=>{ei=(ei+E.length-1)%E.length;show()};$(root+'-next').onclick=()=>{ei=(ei+1)%E.length;show()};
+  show();draw()};
+}
+
+/* ================= Navigation commune ================= */
+{
+const P=[['index.html','Plan du cours'],['5-2-theoreme-central-limite.html','5.2'],['5-3-intervalles-moyenne.html','5.3'],['5-4-intervalles-proportion.html','5.4'],['6-1-tests-hypotheses.html','6.1'],['6-2-khi-deux.html','6.2']];
+const here=location.pathname.split('/').pop()||'index.html',n=document.getElementById('nav');
+if(n)n.innerHTML=P.map(([h,l])=>`<a href="${h}"${h===here?' aria-current="page"':''}>${l}</a>`).join('');
+}

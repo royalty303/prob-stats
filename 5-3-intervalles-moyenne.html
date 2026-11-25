@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.3 · Intervalles de confiance sur une moyenne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 5 · Estimation de paramètres</div>
+    <h1>5.3 · Intervalles de confiance sur une moyenne</h1>
+    <p class="lead">Estimer une moyenne inconnue μ avec une marge d'erreur.</p>
+    <div class="code"><span><i class="sw o"></i>ce qu'on observe (x̄, s)</span><span><i class="sw t"></i>la vraie valeur μ, le modèle</span><span><i class="sw r"></i>la marge d'erreur, les ratés</span></div>
+  </div>
+
+  <section class="part">
+    <h2>Trois sondages, trois réponses</h2>
+    <p class="lead">Budget des Fêtes 2026 des Canadiens, selon trois sondages publiés cet automne.</p>
+    <figure><div class="fig" style="--h:330px;--hm:380px"><svg id="f53a" role="img" aria-label="Trois moyennes de sondage et leurs marges d'erreur"></svg></div>
+      <figcaption><span class="fn">Figure 5.3-a</span>Les marges d'erreur (en orange) sont minuscules à côté des écarts entre les sondages. La marge ne mesure que le hasard de l'échantillon, pas ce que chaque sondage a choisi de compter.</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Trois questions, une formule</h2>
+    <p class="lead">Lisez l'énoncé, répondez aux trois questions : la formule s'assemble.</p>
+    <figure><div id="aig53"></div>
+      <figcaption><span class="fn">Figure 5.3-b</span>a) Une moyenne a besoin d'un écart type : s'il est fourni, c'est souvent une moyenne. b) La taille de l'échantillon choisit entre z et t. c) La correction s'ajoute seulement sans remise, quand N est connu et que n/N dépasse 5 %.</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Que veut dire « 95 % »?</h2>
+    <p class="lead">On simule 100 sondages de 40 personnes dans une population où l'on connaît μ = 911 $. Chaque sondage donne son intervalle.</p>
+    <figure>
+      <div class="tools"><div><div style="font-size:14px;color:var(--mute);margin-bottom:4px">Niveau de confiance</div><div class="seg" id="niv53"></div></div><button class="go" id="re53">100 nouveaux sondages</button></div>
+      <div class="fig" style="--h:520px;--hm:480px"><svg id="f53c" role="img" aria-label="Cent intervalles de confiance autour de la vraie moyenne"></svg></div>
+      <figcaption id="c53c"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Pourquoi la frontière n = 30?</h2>
+    <figure><div class="fig" style="--h:320px"><svg id="f53d" role="img" aria-label="Valeur de t selon la taille de l'échantillon"></svg></div>
+      <figcaption><span class="fn">Figure 5.3-d</span>À 95 %, t<sub>α/2 ; n−1</sub> remplace 1,96 quand l'échantillon est petit. À n = 5, l'intervalle est 42 % plus large. Vers n = 30, t colle presque à z.</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Pourquoi le seuil de 5 % pour la correction?</h2>
+    <p class="lead">Un collège : on interroge n des N = 300 étudiants de Sciences de la nature, sans remise. s = 220 $.</p>
+    <figure>
+      <div class="slider"><label for="sl53">Taille de l'échantillon n</label><input type="range" id="sl53" min="10" max="300" value="40"><output id="o53"></output></div>
+      <div class="fig" style="--h:330px"><svg id="f53e" role="img" aria-label="Facteur de correction selon la fraction interrogée"></svg></div>
+      <figcaption id="c53e"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Combien de répondants pour une marge visée?</h2>
+    <p class="lead">On planifie le sondage de 2027. Il faut une idée de s avant de commencer : on reprend celle du sondage de cette année.</p>
+    <figure>
+      <div class="slider"><label for="sl53f">Marge d'erreur visée</label><input type="range" id="sl53f" min="10" max="100" value="25"><output id="o53f"></output></div>
+      <div class="fig" style="--h:320px"><svg id="f53f" role="img" aria-label="Taille d'échantillon selon la marge d'erreur visée"></svg></div>
+      <figcaption id="c53f"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>L'intervalle, c'est x̄ ± une marge; 95 % des intervalles ainsi construits contiennent μ.</p><p>Trois questions : moyenne ou proportion? n ≥ 30 ou non? correction ou non?</p><p>Pour planifier n, il faut une idée de s; on arrondit toujours n à l'entier supérieur.</p></div>
+    <table class="stack"><thead><tr><th></th><th>Intervalle</th><th>Taille d'échantillon</th></tr></thead><tbody>
+      <tr><td>n ≥ 30, avec remise</td><td class="fm">μ ∈ x̄ ± z<sub>α/2</sub> (s/√n)</td><td class="fm">n = (z<sub>α/2</sub> s / ME)²</td></tr>
+      <tr><td>n ≥ 30, sans remise (n/N &gt; 5 %)</td><td class="fm">μ ∈ x̄ ± z<sub>α/2</sub> (s/√n) √((N − n)/(N − 1))</td><td class="fm">n = N(z<sub>α/2</sub>)²s² / [(ME)²(N − 1) + (z<sub>α/2</sub>)²s²]</td></tr>
+      <tr><td>n &lt; 30</td><td colspan="2">On utilise Student : t<sub>α/2 ; n−1</sub> au lieu de z<sub>α/2</sub>.</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:26px">Pièges</h3>
+    <ul><li>Sans N connu, pas de facteur de correction, même si l'échantillonnage est sans remise.</li><li>n = 4 978,7 devient 4 979, jamais 4 978 : avec moins, la marge dépasserait la cible.</li><li>Un intervalle à 99 % est plus large qu'à 95 % : plus de confiance, moins de précision.</li></ul>
+  </section>
+  <div class="foot">Sources : sondage CCCD–Léger sur le magasinage des Fêtes 2026 (2 500 répondants, 21 août au 4 septembre 2026); Deloitte Canada, Sondage sur le magasinage des Fêtes 2026 (14 octobre 2026); PwC Canada, 2026 Canadian holiday outlook (octobre 2026). Les écarts types (900 $) et les tailles d'échantillon de Deloitte et de PwC (1 000) ne sont pas publiés : ce sont des valeurs <b>supposées</b> pour illustrer le calcul. Exemples du collège : fictifs.</div>
+</div></main>
+<script src="assets/commun.js"></script>
+<script src="assets/s5-3.js"></script>
+</body>
+</html>

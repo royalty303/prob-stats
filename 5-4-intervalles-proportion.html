@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.4 · Intervalles de confiance sur une proportion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 5 · Estimation de paramètres</div>
+    <h1>5.4 · Intervalles de confiance sur une proportion</h1>
+    <p class="lead">Estimer une proportion inconnue π avec une marge d'erreur.</p>
+    <div class="code"><span><i class="sw o"></i>ce qu'on observe (p)</span><span><i class="sw t"></i>la vraie valeur π, le modèle</span><span><i class="sw r"></i>la marge d'erreur, les ratés</span></div>
+  </div>
+
+  <section class="part">
+    <h2>Ce que disent les sondages</h2>
+    <p class="lead">Sondage CCCD–Léger sur les Fêtes 2026 : 2 500 Canadiens. Par rapport à l'an dernier, comptent-ils dépenser plus, autant ou moins?</p>
+    <figure><div class="fig" style="--h:300px"><svg id="f54a" role="img" aria-label="Trois proportions et leurs marges d'erreur"></svg></div>
+      <figcaption><span class="fn">Figure 5.4-a</span>Chaque proportion a sa propre marge. La plus grande est celle qui est près de 50 % : ± 2,0 %, la marge qu'on lit souvent sous les sondages de 2 500 répondants.</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Trois questions, une formule</h2>
+    <p class="lead">Lisez l'énoncé, répondez aux trois questions : la formule s'assemble.</p>
+    <figure><div id="aig54"></div>
+      <figcaption><span class="fn">Figure 5.4-b</span>a) Un pourcentage de répondants : c'est une proportion, pas besoin d'écart type. b) La taille de l'échantillon (n ≥ 30). c) La correction s'ajoute seulement sans remise, quand N est connu et que n/N dépasse 5 %.</figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>« 19 fois sur 20 »</h2>
+    <p class="lead">On simule 20 sondages de 2 500 personnes dans une population où exactement π = 22 % prévoient dépenser plus.</p>
+    <figure>
+      <div class="tools"><button class="go" id="re54">20 nouveaux sondages</button></div>
+      <div class="fig" style="--h:420px"><svg id="f54c" role="img" aria-label="Vingt intervalles de confiance autour de la vraie proportion"></svg></div>
+      <figcaption id="c54c"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Pourquoi le seuil de 5 % pour la correction?</h2>
+    <p class="lead">Un collège : on interroge n des N = 400 étudiants de première année, sans remise. p = 35 % ont un emploi pendant les Fêtes.</p>
+    <figure>
+      <div class="slider"><label for="sl54">Taille de l'échantillon n</label><input type="range" id="sl54" min="30" max="400" value="60"><output id="o54"></output></div>
+      <div class="fig" style="--h:330px"><svg id="f54d" role="img" aria-label="Facteur de correction selon la fraction interrogée"></svg></div>
+      <figcaption id="c54d"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>Combien de répondants pour ± 3 %?</h2>
+    <p class="lead">Le produit p(1 − p) décide de la taille de l'échantillon. Déplacez p.</p>
+    <figure>
+      <div class="slider"><label for="sl54e">Valeur de p utilisée</label><input type="range" id="sl54e" min="1" max="99" value="50"><output id="o54e"></output></div>
+      <div class="fig" style="--h:340px"><svg id="f54e" role="img" aria-label="Taille d'échantillon selon p, maximale à p = 0,5"></svg></div>
+      <figcaption id="c54e"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>L'intervalle, c'est p ± une marge; 19 intervalles sur 20 contiennent π (à 95 %).</p><p>Trois questions : moyenne ou proportion? n ≥ 30? correction ou non?</p><p>Sans information sur p, on prend p = 0,5 : c'est le n le plus prudent. On arrondit toujours n à l'entier supérieur.</p></div>
+    <table class="stack"><thead><tr><th></th><th>Intervalle</th><th>Taille d'échantillon</th></tr></thead><tbody>
+      <tr><td>n ≥ 30, avec remise</td><td class="fm">π ∈ p ± z<sub>α/2</sub> √(p(1 − p)/n)</td><td class="fm">n = (z<sub>α/2</sub>)² p(1 − p) / (ME)²</td></tr>
+      <tr><td>n ≥ 30, sans remise (n/N &gt; 5 %)</td><td class="fm">π ∈ p ± z<sub>α/2</sub> √(p(1 − p)/n) √((N − n)/(N − 1))</td><td class="fm">n = (z<sub>α/2</sub>)² N p(1 − p) / [(N − 1)(ME)² + (z<sub>α/2</sub>)² p(1 − p)]</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:26px">Pièges</h3>
+    <ul><li>Dans la formule, p s'écrit en décimal : 0,22, pas 22.</li><li>Sans N connu, pas de facteur de correction.</li><li>1 067,1 devient 1 068 : avec 1 067 répondants, la marge dépasserait 3 %.</li></ul>
+  </section>
+  <div class="foot">Source : sondage CCCD–Léger sur le magasinage des Fêtes 2026, 2 500 répondants (21 août au 4 septembre 2026) : 22 % prévoient dépenser plus, 52 % autant, 22 % moins; en 2025, 25 % prévoyaient dépenser plus. Exemple du collège : fictif.</div>
+</div></main>
+<script src="assets/commun.js"></script>
+<script src="assets/s5-4.js"></script>
+</body>
+</html>
