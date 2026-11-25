@@ -31,13 +31,13 @@ function formules(k,big,cor){
   if(k==='m'){
     const ic=`<i>μ</i> ∈ <span class="obs">x̄</span> <span class="mg">± <span class="pc" data-p="b">${mult}</span> (${fr_('<i>s</i>','√<i>n</i>')})<span class="pc" data-p="c">${cor?' '+COR:''}</span></span>`;
     const n=cor?`<i>n</i> = ${fr_(`<i>N</i> (${Z})² <i>s</i>²`,`(<i>ME</i>)²(<i>N</i> − 1) + (${Z})² <i>s</i>²`)}`:`<i>n</i> = (${fr_(`${Z} <i>s</i>`,'<i>ME</i>')})²`;
-    return {ic,n,note:big?'':'Avec Student, on remplace z<sub>α/2</sub> par t<sub>α/2 ; n−1</sub>.'}}
+    return {ic,n:big?n:'',note:''}}
   const ic=`<i>π</i> ∈ <span class="obs"><i>p</i></span> <span class="mg">± <span class="pc" data-p="b">${Z}</span> ${sq(fr_('<i>p</i>(1 − <i>p</i>)','<i>n</i>'))}<span class="pc" data-p="c">${cor?' '+COR:''}</span></span>`;
   const n=cor?`<i>n</i> = ${fr_(`(${Z})² <i>N p</i>(1 − <i>p</i>)`,`(<i>N</i> − 1)(<i>ME</i>)² + (${Z})² <i>p</i>(1 − <i>p</i>)`)}`:`<i>n</i> = ${fr_(`(${Z})² <i>p</i>(1 − <i>p</i>)`,'(<i>ME</i>)²')}`;
-  return {ic,n,note:big?'':'Les formules du cours pour une proportion supposent n ≥ 30.'}}
+  return {ic,n,note:''}}
 SITE.aiguillage=function(root,page,E,autre){
   const R=$(root);let st={a:page,b:'big',c:'non'},ei=0,prev=null;
-  const Q=[['a','a) Moyenne ou proportion?',[['m','Moyenne'],['p','Proportion']]],['b','b) Loi normale ou Student?',[['big','n ≥ 30 : normale'],['small','n < 30 : Student']]],['c','c) Facteur de correction?',[['oui','Oui'],['non','Non']]]];
+  const Q=[['a','a) Moyenne ou proportion?',[['m','Moyenne'],['p','Proportion']]],['b',page==='m'?'b) Loi normale ou Student?':'b) Taille de l\'échantillon',page==='m'?[['big','n ≥ 30 : normale'],['small','n < 30 : Student']]:[['big','n ≥ 30 : normale']]],['c','c) Facteur de correction?',[['oui','Oui'],['non','Non']]]];
   R.innerHTML=`<div class="aig"><div class="enonce"><div class="en-h"><span id="${root}-num"></span><span><button id="${root}-prev">Précédent</button> <button id="${root}-next">Suivant</button></span></div><p id="${root}-txt"></p></div>
   <div class="sw3">${Q.map(([k,t,o])=>`<div><div class="qt">${t}</div><div class="seg" data-q="${k}">${o.map(([v,l])=>`<button data-v="${v}">${l}</button>`).join('')}</div><div class="fbq" id="${root}-fb-${k}"></div></div>`).join('')}</div>
   <div class="tools"><button class="go" id="${root}-chk">Vérifier mes réponses</button></div>
@@ -46,7 +46,7 @@ SITE.aiguillage=function(root,page,E,autre){
     const F=$(root+'-f');
     if(st.a!==page){F.innerHTML=`<p class="formula">Une ${st.a==='m'?'moyenne':'proportion'} se traite dans une autre section.</p><p><a href="${autre[1]}">→ ${autre[0]}</a></p>`;prev=null;return}
     const f=formules(page,st.b==='big',st.c==='oui');
-    F.innerHTML=`<div class="fl"><span class="lab">Intervalle</span><div class="formula">${f.ic}</div></div><div class="fl"><span class="lab">Taille d'échantillon</span><div class="formula">${f.n}</div></div>${f.note?`<p class="note">${f.note}</p>`:''}`;
+    F.innerHTML=`<div class="fl"><span class="lab">Intervalle</span><div class="formula">${f.ic}</div></div>${f.n?`<div class="fl"><span class="lab">Taille d'échantillon</span><div class="formula">${f.n}</div></div>`:''}${f.note?`<p class="note">${f.note}</p>`:''}`;
     if(prev){F.querySelectorAll('.pc').forEach(p=>{if(prev[p.dataset.p]!==st[p.dataset.p])p.classList.add('flash')})}
     prev={...st}};
   const show=()=>{const e=E[ei];$(root+'-num').textContent=`Énoncé ${ei+1} sur ${E.length}`;$(root+'-txt').innerHTML=e.t;Q.forEach(([k])=>$(root+'-fb-'+k).innerHTML='')};
