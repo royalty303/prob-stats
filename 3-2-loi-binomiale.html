@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.2 · Loi binomiale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=9">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 3 · Variables aléatoires discrètes</div>
+    <h1>3.2 · Loi binomiale</h1>
+    <p class="lead">Compter les succès dans n essais identiques et indépendants.</p>
+    <div class="code"><span><i class="sw o"></i>une configuration, les probabilités</span><span><i class="sw r"></i>la probabilité cherchée</span><span><i class="sw t"></i>l'espérance</span></div>
+  </div>
+  <section class="part">
+    <h2>Pourquoi une combinaison dans la formule?</h2>
+    <p class="lead">Un étudiant répond au hasard à n questions; chaque réponse est bonne avec probabilité p. Toutes les façons d'avoir k bonnes réponses ont la même probabilité.</p>
+    <figure>
+      <div class="tools">
+        <div class="slider" style="margin:0"><label for="bn">n</label><input type="range" id="bn" min="2" max="6" value="5" style="min-width:110px"><output id="obn"></output></div>
+        <div class="slider" style="margin:0"><label for="bk">k</label><input type="range" id="bk" min="0" max="5" value="2" style="min-width:110px"><output id="obk"></output></div>
+        <div class="slider" style="margin:0"><label for="bp">p</label><input type="range" id="bp" min="5" max="95" step="5" value="25" style="min-width:110px"><output id="obp"></output></div>
+      </div>
+      <div class="confs" id="confs"></div>
+      <p class="calc" id="ccalc"></p>
+      <figcaption><span class="fn">Figure 3.2-a</span>Chaque ligne est une configuration : ● bonne réponse (p), ○ mauvaise (1 − p). Elles appartiennent toutes à la même famille, « k bonnes réponses », et ont toutes la même probabilité. La combinaison compte combien il y en a.</figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>La loi binomiale et sa lecture</h2>
+    <p class="lead">Choisissez n et p, puis la probabilité cherchée. Les barres concernées s'additionnent.</p>
+    <figure>
+      <div class="tools">
+        <div class="slider" style="margin:0"><label for="ln">n</label><input type="range" id="ln" min="1" max="20" value="10" style="min-width:110px"><output id="oln"></output></div>
+        <div class="slider" style="margin:0"><label for="lp">p</label><input type="range" id="lp" min="5" max="95" step="5" value="30" style="min-width:110px"><output id="olp"></output></div>
+      </div>
+      <div class="tools">
+        <div class="seg" id="lt"><button data-t="eq" aria-pressed="true">P(X = k)</button><button data-t="le">P(X ≤ k)</button><button data-t="ge">P(X ≥ k)</button></div>
+        <div class="slider" style="margin:0"><label for="lk">k</label><input type="range" id="lk" min="0" max="10" value="3" style="min-width:110px"><output id="olk"></output></div>
+      </div>
+      <div class="fig" style="--h:320px"><svg id="f32b" role="img" aria-label="Distribution binomiale"></svg></div>
+      <figcaption id="c32b"></figcaption></figure>
+  </section>
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>Binomiale : n essais identiques et indépendants, deux issues (succès, échec), p constant d'un essai à l'autre; X compte les succès.</p><p><span class="nk">C<span class="sc"><sup>n</sup><sub>k</sub></span></span> compte les configurations; p<sup>k</sup>(1 − p)<sup>n − k</sup> est la probabilité de chacune.</p><p>« Au moins » et « au plus » : on additionne des barres, ou on passe par le complément.</p></div>
+    <table class="stack"><thead><tr><th>Notion</th><th>Formule</th></tr></thead><tbody>
+      <tr><td>Probabilité</td><td class="fm">P(X = k) = <span class="nk">C<span class="sc"><sup>n</sup><sub>k</sub></span></span> p<sup>k</sup> (1 − p)<sup>n − k</sup></td></tr>
+      <tr><td>Espérance</td><td class="fm">E(X) = np</td></tr>
+      <tr><td>Variance</td><td class="fm">Var(X) = np(1 − p)</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:22px">Pièges</h3>
+    <ul><li>P(X ≥ k) = 1 − P(X ≤ k − 1) : attention au k − 1.</li><li>Tirer sans remise dans un petit groupe change p d'un essai à l'autre : ce n'est plus binomial.</li></ul>
+  </section>
+  <div class="foot">Exemples fictifs.</div>
+</div></main>
+<script src="assets/commun.js?v=9"></script>
+<script src="assets/s3-2.js?v=9"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.1 · Introduction aux variables aléatoires</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=9">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="kick">Chapitre 3 · Variables aléatoires discrètes</div>
+    <h1>3.1 · Introduction aux variables aléatoires</h1>
+    <p class="lead">Une variable aléatoire associe un nombre à chaque résultat d'une expérience; sa distribution donne la probabilité de chaque valeur.</p>
+    <div class="code"><span><i class="sw o"></i>les probabilités</span><span><i class="sw r"></i>l'espérance, ce qui manque</span><span><i class="sw t"></i>la valeur attendue à long terme</span></div>
+  </div>
+  <section class="part">
+    <h2>La somme des probabilités fait toujours 1</h2>
+    <p class="lead">X : nombre de cafés achetés par une étudiante un jour de cours. Il manque P(X = 2). Ajustez-la.</p>
+    <figure>
+      <div class="slider"><label for="p2">P(X = 2)</label><input type="range" id="p2" min="0" max="60" value="35"><output id="op2"></output></div>
+      <div class="pair" style="grid-template-columns:minmax(0,3fr) minmax(0,1fr)">
+        <div class="fig" style="--h:280px"><svg id="f31a" role="img" aria-label="Distribution de probabilité"></svg></div>
+        <div class="fig" style="--h:280px"><svg id="f31a2" role="img" aria-label="Somme des probabilités"></svg></div>
+      </div>
+      <figcaption id="c31a"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>L'espérance, point d'équilibre des probabilités</h2>
+    <p class="lead">Chaque barre pèse sa probabilité. L'espérance est l'endroit où la distribution tient en équilibre.</p>
+    <figure>
+      <div class="fig" style="--h:300px"><svg id="f31b" role="img" aria-label="Espérance et écart type"></svg></div>
+      <div class="scroll"><table class="qt" id="t31"></table></div>
+      <figcaption id="c31b"></figcaption></figure>
+  </section>
+  <section class="part">
+    <h2>Le pari du dé</h2>
+    <p class="lead">On lance un dé : de 1 à 4, on gagne 2 $; 5 ou 6, on perd 5 $. Jouez longtemps.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="np"><button data-n="20">20 parties</button><button data-n="200">200</button><button data-n="2000" aria-pressed="true">2 000</button><button data-n="20000">20 000</button></div><button class="go" id="rj">Rejouer</button></div>
+      <div class="pair">
+        <div><h3>Gain total</h3><div class="fig" style="--h:280px"><svg id="f31c" role="img" aria-label="Gain total"></svg></div></div>
+        <div><h3>Gain moyen par partie</h3><div class="fig" style="--h:280px"><svg id="f31d" role="img" aria-label="Gain moyen"></svg></div></div>
+      </div>
+      <figcaption id="c31c"></figcaption></figure>
+  </section>
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>Une distribution de probabilité donne P(X = x) pour chaque valeur; les probabilités sont entre 0 et 1 et leur somme vaut 1.</p><p>L'espérance E(X) est la moyenne à long terme : le point d'équilibre de la distribution.</p><p>La variance mesure la dispersion autour de l'espérance.</p></div>
+    <table class="stack"><thead><tr><th>Mesure</th><th>Formule</th></tr></thead><tbody>
+      <tr><td>Espérance</td><td class="fm">μ = E(X) = Σ x · P(X = x)</td></tr>
+      <tr><td>Variance</td><td class="fm">σ² = Var(X) = Σ (x − μ)² · P(X = x) = E(X²) − μ²</td></tr>
+      <tr><td>Écart type</td><td class="fm">σ = √Var(X)</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:22px">Pièges</h3>
+    <ul><li>L'espérance n'est pas forcément une valeur possible : au pari du dé, on ne perd jamais exactement 0,33 $.</li><li>Une espérance négative ne veut pas dire qu'on perd à chaque partie, mais qu'on perd à la longue.</li></ul>
+  </section>
+  <div class="foot">Cafés : distribution fictive. Pari du dé : exemple du cours.</div>
+</div></main>
+<script src="assets/commun.js?v=9"></script>
+<script src="assets/s3-1.js?v=9"></script>
+</body>
+</html>
