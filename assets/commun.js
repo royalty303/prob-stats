@@ -85,3 +85,16 @@ const obs=new MutationObserver(recs=>{const els=new Set();recs.forEach(r=>{let e
 const watch=()=>document.querySelectorAll('figcaption,.calc').forEach(el=>{if(!ST.has(el))ST.set(el,{...read(el),live:new Set()});obs.observe(el,{childList:true,subtree:true,characterData:true})});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',watch);else setTimeout(watch,0);
 }
+
+/* Titres : la fin en italique soulignée; numéros de figure au-dessus des sections */
+{
+const emph=h=>{if(!h||h.children.length||h.querySelector('em'))return;const t=h.textContent.trim();let cut=-1;
+  const sep=[', ',' : '].map(x=>t.lastIndexOf(x)).filter(i=>i>0);const dot=t.indexOf(' · ');
+  if(sep.length){const i=Math.max(...sep);const rest=t.slice(i).replace(/^(, | : )/,'');if(rest.split(' ').length<=4)cut=t.length-rest.length}
+  if(cut<0){const w=t.split(' '),L=x=>x.replace(/[^\p{L}\p{N}]/gu,'').length;let k=1;while(k<4&&k<w.length-1&&L(w.slice(-k).join(''))<=4)k++;const pv=w[w.length-k-1];if(pv&&/^\p{Lu}/u.test(pv)&&w.length-k-1>(dot>=0?2:0))k++;if(dot>=0&&w.length-k<3)k=Math.max(1,w.length-3);cut=t.length-w.slice(-k).join(' ').length}
+  if(cut<=0||cut>=t.length)return;h.innerHTML=t.slice(0,cut)+'<em>'+t.slice(cut)+'</em>'};
+document.querySelectorAll('main h1, main section.part > h2, main .hero h2').forEach(emph);
+const nums=()=>{let n=0;document.querySelectorAll('main section.part').forEach(s=>{if(s.querySelector('.num'))return;const f=s.querySelector('figcaption .fn');if(!f)return;n++;const h=s.querySelector(':scope > .kick, :scope > h2');if(!h)return;
+  const sp=document.createElement('span');sp.className='num';sp.textContent=`${String(n).padStart(2,'0')} / ${f.textContent.trim()}`;h.before(sp)})};
+if(document.readyState==='complete')nums();else addEventListener('load',nums);
+}
