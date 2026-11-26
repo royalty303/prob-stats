@@ -1,8 +1,9 @@
 /* Thème officiel : « pâle » (clair) et « nuit » (sombre) */
 .num{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
 h1 em,h2 em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;background:linear-gradient(var(--org),var(--org)) 0 92%/100% 3px no-repeat;padding-bottom:4px}
-@media (prefers-color-scheme: light){
-:root{color-scheme:light;--bg:#f6f5ef;--ink:#142921;--mute:#5b6b62;--line:#d9dccd;--soft:#e8eadd;--sauge:#a9b6a0;--chartreuse:#ddea70;--blue:#2f5bd3;--bluesoft:#dfe6f3;--org:#f45732;--orgsoft:#fde0d6}
+html[data-theme=light]{
+
+&{color-scheme:light;--bg:#f6f5ef;--ink:#142921;--mute:#5b6b62;--line:#d9dccd;--soft:#e8eadd;--sauge:#a9b6a0;--chartreuse:#ddea70;--blue:#2f5bd3;--bluesoft:#dfe6f3;--org:#f45732;--orgsoft:#fde0d6}
 body{background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 header.top{background:var(--bg);border-bottom:1px solid var(--line)}
 .brand{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-style:normal;font-weight:700;letter-spacing:-.04em;font-size:20px}
@@ -33,9 +34,11 @@ input[type=range]{accent-color:var(--ink)}
 svg text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 @media(max-width:600px){section.part figure{border-radius:16px;padding:14px 12px 12px;margin-left:-6px;margin-right:-6px}}
 
+
 }
-@media (prefers-color-scheme: dark){
-:root{color-scheme:dark;--bg:#12161c;--ink:#e9eef4;--mute:#8d99a8;--line:#26303c;--soft:#1a2028;--blue:#4f9dff;--bluesoft:#16233a;--org:#ff8a3d;--orgsoft:#3a2414;--vert:#5fe08f}
+html[data-theme=dark]{
+
+&{color-scheme:dark;--bg:#12161c;--ink:#e9eef4;--mute:#8d99a8;--line:#26303c;--soft:#1a2028;--blue:#4f9dff;--bluesoft:#16233a;--org:#ff8a3d;--orgsoft:#3a2414;--vert:#5fe08f}
 body{background-color:#12161c;background-image:linear-gradient(rgba(120,160,200,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(120,160,200,.07) 1px,transparent 1px),linear-gradient(rgba(120,160,200,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(120,160,200,.035) 1px,transparent 1px);background-size:120px 120px,120px 120px,24px 24px,24px 24px;font-family:"Manrope",system-ui,sans-serif}
 h1,h2,h3,.brand{font-family:"Manrope",system-ui,sans-serif;font-style:normal;font-weight:800;letter-spacing:-.02em}
 h1{font-size:clamp(36px,5.5vw,60px)}
@@ -60,4 +63,7 @@ mark.nv{background:var(--org);color:#12161c;box-shadow:0 0 10px rgba(255,138,61,
 
 h1 em,h2 em{color:var(--ink)}
 .kick::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--org);display:inline-block;margin-right:8px;vertical-align:1px}
+
 }
+.themebtn{background:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--ink);cursor:pointer;margin-left:14px;white-space:nowrap}
+.themebtn:hover{border-color:var(--ink)}
