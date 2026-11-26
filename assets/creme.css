@@ -1,0 +1,31 @@
+/* Maquette « crème » : inspirée de l'app de notes (crème, noir, corail, jaune) */
+:root{color-scheme:light;--bg:#f4ecc8;--paper:#f4ecc8;--card:#fbf6e2;--ink:#141414;--mute:#6b6450;--line:#e2d7a8;--soft:#ece2b6;--blue:#2b55c9;--bluesoft:#dfe3ec;--org:#e2683f;--orgsoft:#f7d2c0;--jaune:#f2cf4a}
+body{background:var(--paper);font-family:"Outfit",system-ui,sans-serif;color:var(--ink)}
+h1,h2,h3,.brand{font-family:"Outfit",system-ui,sans-serif;font-style:normal;letter-spacing:-.02em}
+h1{font-weight:500;font-size:clamp(40px,6vw,68px);line-height:1}
+h2{font-weight:600}
+header.top{background:var(--paper);border:none}
+.brand{font-weight:600}
+.kick{font-weight:500;color:var(--mute);text-transform:none}
+.lead{color:var(--mute)}
+section.part{border-top:none}
+.titre{background:#141414;color:#f4ecc8;border-radius:34px;padding:34px 30px 26px;margin:14px 0 8px}
+.titre h1{color:#f4ecc8}.titre .lead,.titre .kick{color:#cfc6a3}
+.titre .code span{color:#f4ecc8;background:rgba(255,255,255,.08);border-radius:999px;padding:6px 12px}
+.titre .code{display:flex;flex-wrap:wrap;gap:8px}
+.titre .sw.o{background:#f4ecc8}
+section.part figure{background:var(--card);border-radius:30px;padding:20px 22px 16px}
+figcaption{font-family:"Outfit",system-ui,sans-serif;font-size:15.5px;color:#3d3a30;border-top:1px solid var(--line)}
+.fn{font-weight:600}
+button{font-family:"Outfit",system-ui,sans-serif;border-radius:999px;background:var(--soft);border:none;padding:9px 18px;color:var(--ink)}
+button[aria-pressed=true]{background:#141414;color:#f4ecc8}
+.go{background:var(--org);color:#fff}
+.stats3>div{background:#fff8dc;border:none;border-radius:22px}
+.retenir{background:var(--jaune);border:none;border-radius:26px;color:#141414}
+table.stack{background:var(--card);border-radius:22px;overflow:hidden}
+mark.nv{background:var(--jaune);color:#141414;border-radius:999px;padding:0 8px}
+input[type=range]{accent-color:#141414}
+svg text{font-family:"Outfit",system-ui,sans-serif}
+.maq{font-size:15px;color:var(--org);border:1.5px dashed var(--org);padding:4px 12px;border-radius:999px;display:inline-block;margin:6px 0 4px}
+@media(max-width:600px){.titre{border-radius:26px;padding:26px 20px 20px}section.part figure{border-radius:22px;padding:14px 12px 12px;margin-left:-6px;margin-right:-6px}}
+.stats3 b,figcaption .fn{font-family:"Outfit",system-ui,sans-serif}
