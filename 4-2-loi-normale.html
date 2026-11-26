@@ -6,7 +6,7 @@
 <title>4.2 · Loi normale</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=13">
+<link rel="stylesheet" href="assets/style.css?v=15">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -20,7 +20,8 @@
     <p class="lead">La cloche qu'on retrouve partout : une seule table suffit pour toutes les lois normales.</p>
     <div class="code"><span><i class="sw o"></i>les données, la loi binomiale</span><span><i class="sw t"></i>la loi normale, le centre</span><span><i class="sw r"></i>la probabilité cherchée</span></div>
   </div>
-  <section class="part">
+  <nav class="ancres" aria-label="Dans cette section"><a href="#galton">Galton</a><a href="#allure">μ et σ</a><a href="#table">La table</a><a href="#standardiser">Standardiser</a><a href="#binomiale">Binomiale ≈ normale</a><a href="#retenir">Aide-mémoire</a></nav>
+  <section class="part" id="galton">
     <h2>Pourquoi la cloche est-elle partout?</h2>
     <p class="lead">Chaque bille rebondit à gauche ou à droite sur 12 rangées de clous. Sa position finale additionne 12 petits hasards.</p>
     <figure>
@@ -28,7 +29,7 @@
       <div class="fig" style="--h:420px;--hm:380px"><svg id="f42a" role="img" aria-label="Planche de Galton"></svg></div>
       <figcaption id="c42a"></figcaption></figure>
   </section>
-  <section class="part">
+  <section class="part" id="allure">
     <h2>L'allure de la cloche : μ et σ</h2>
     <p class="lead">Résultats à un examen. La cloche grise reste en place pour comparer.</p>
     <figure>
@@ -39,7 +40,7 @@
       <div class="fig" style="--h:330px"><svg id="f42b" role="img" aria-label="Effet de la moyenne et de l'écart type sur la cloche"></svg></div>
       <figcaption id="c42b"></figcaption></figure>
   </section>
-  <section class="part">
+  <section class="part" id="table">
     <h2>La table de la loi normale centrée réduite</h2>
     <p class="lead">La table donne l'aire entre 0 et une cote z positive. On la lit dans les deux sens.</p>
     <figure>
@@ -52,7 +53,7 @@
       </div>
       <figcaption id="c42c"></figcaption></figure>
   </section>
-  <section class="part">
+  <section class="part" id="standardiser">
     <h2>Toute loi normale passe par la table : le double axe</h2>
     <p class="lead">Quotient intellectuel : μ = 100, σ = 15. Sous la cloche, l'axe des x et, juste en dessous, l'axe des cotes z.</p>
     <figure>
@@ -66,7 +67,7 @@
       <p class="calc" id="t42d"></p>
       <figcaption id="c42d"></figcaption></figure>
   </section>
-  <section class="part">
+  <section class="part" id="binomiale">
     <h2>Approximer la binomiale : le terrain de chaque valeur</h2>
     <p class="lead">Chaque valeur de la binomiale pèse une barre de largeur 1. Sous la cloche, chaque valeur possède son terrain, de −0,5 à +0,5. On prend le terrain entier de chaque valeur incluse, et rien du terrain des valeurs exclues.</p>
     <figure>
@@ -86,7 +87,7 @@
       <div class="cmp3" id="e3"></div>
       <figcaption id="c42e"></figcaption></figure>
   </section>
-  <section class="part">
+  <section class="part" id="retenir">
     <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
     <div class="retenir"><p>La loi normale est symétrique autour de μ; σ règle son étalement. L'aire totale vaut toujours 1.</p><p>La table donne l'aire entre 0 et z. Le reste se déduit par symétrie et avec 0,5 de chaque côté.</p><p>Toute loi normale se ramène à la centrée réduite par la cote z.</p><p>Binomiale vers normale : chaque valeur possède son terrain, de −0,5 à +0,5; on prend le terrain entier des valeurs incluses.</p></div>
     <table class="stack"><thead><tr><th>Notion</th><th>Population</th><th>Échantillon</th></tr></thead><tbody>
@@ -108,7 +109,7 @@
   </section>
   <div class="foot">Examen et billes : exemples fictifs, simulés. QI : échelle construite pour avoir μ = 100 et σ = 15. Table calculée numériquement, arrondie à quatre décimales.</div>
 </div></main>
-<script src="assets/commun.js?v=13"></script>
-<script src="assets/s4-2.js?v=13"></script>
+<script src="assets/commun.js?v=15"></script>
+<script src="assets/s4-2.js?v=15"></script>
 </body>
 </html>

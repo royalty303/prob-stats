@@ -6,7 +6,7 @@
 <title>6.2 · Tests du khi-deux</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=13">
+<link rel="stylesheet" href="assets/style.css?v=15">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -44,6 +44,14 @@
       <figcaption id="ffcap"></figcaption></figure>
   </section>
   <section class="part">
+    <h2>Ajuster à une normale : couvrir toute la loi</h2>
+    <p class="lead">Taille de 200 étudiantes, de 152 à 176 cm, en quatre classes. On teste si elle suit une normale de moyenne 164 cm et d'écart type 6,5 cm.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="nq"><button data-o="0" aria-pressed="true">Classes fermées : 152 à 176</button><button data-o="1">Classes ouvertes : −∞ à +∞</button></div></div>
+      <div class="fig" style="--h:340px"><svg id="fn" role="img" aria-label="Loi normale découpée en classes, avec ou sans les queues"></svg></div>
+      <figcaption id="fncap"></figcaption></figure>
+  </section>
+  <section class="part">
     <div class="kick">La règle des 5</div>
     <h2>Pourquoi des f<sub>t</sub> d'au moins 5?</h2>
     <p class="lead">Un fabricant affirme que 1 % de ses colis arrivent abîmés. On simule 5 000 commandes où il dit vrai, puis on fait le test chaque fois.</p>
@@ -59,7 +67,7 @@
   <section class="part">
     <div class="kick">Aide-mémoire</div>
     <h2>À retenir</h2>
-    <div class="retenir"><p>Le χ² mesure l'écart entre ce qu'on observe et ce que H₀ prédit.</p><p>On rejette seulement à droite : un grand χ² veut dire un grand écart.</p><p>Les f<sub>t</sub> doivent valoir au moins 5, sinon le risque annoncé n'est plus le vrai.</p></div>
+    <div class="retenir"><p>Le χ² mesure l'écart entre ce qu'on observe et ce que H₀ prédit.</p><p>On rejette seulement à droite : un grand χ² veut dire un grand écart.</p><p>Les f<sub>t</sub> doivent valoir au moins 5, sinon le risque réel peut s'écarter nettement du seuil annoncé.</p></div>
     <ol class="steps"><li>H₀ et H₁</li><li>Seuil α</li><li class="k">Calculer les f<sub>t</sub>, vérifier f<sub>t</sub> ≥ 5</li><li class="k">ddl et valeur critique</li><li>Règle de décision</li><li class="k">Calculer χ² = Σ (f<sub>t</sub> − f<sub>o</sub>)² / f<sub>t</sub></li><li>Décider et conclure</li></ol>
     <table class="stack"><thead><tr><th></th><th>Indépendance</th><th>Ajustement</th></tr></thead><tbody>
       <tr><td>H₀</td><td>Les deux variables sont indépendantes.</td><td>La variable suit le modèle proposé.</td></tr>
@@ -72,7 +80,7 @@
   </section>
   <div class="foot">Données : R. J. M. Dawson (1995), « The “Unusual Episode” Data Revisited », <i>Journal of Statistics Education</i>, 3(3) · L. von Bortkiewicz (1898), <i>Das Gesetz der kleinen Zahlen</i>. Colis : situation fictive, simulée.</div>
 </div></main>
-<script src="assets/commun.js?v=13"></script>
-<script src="assets/s6-2.js?v=13"></script>
+<script src="assets/commun.js?v=15"></script>
+<script src="assets/s6-2.js?v=15"></script>
 </body>
 </html>

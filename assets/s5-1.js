@@ -35,7 +35,7 @@ tirer();fa();fa2();capA();
 /* Figure b : anatomie d'un sondage */
 const p0=.22,n0=2500,me0=1.96*Math.sqrt(p0*(1-p0)/n0);
 $('anat').innerHTML=`<p class="phr">Sur <span class="tg" data-n="1">2 500 Canadiens</span> sondés, <span class="tg o" data-n="2">22 %</span> prévoient dépenser plus pour les Fêtes. Marge d'erreur : <span class="tg r" data-n="3">± ${fx(me0*100,1)} %</span>, <span class="tg b" data-n="4">19 fois sur 20</span>.</p>
-<ol class="leg"><li><b>Échantillon</b> : n = 2 500</li><li><b>Estimation ponctuelle</b> : p = 22 % (une statistique)</li><li><b>Marge d'erreur</b> : 1,96 √(p(1 − p)/n)</li><li><b>Niveau de confiance</b> : 19/20 = 95 %</li></ol>`;
+<ol class="leg"><li><b>Échantillon</b> : n = 2 500</li><li><b>Estimation ponctuelle</b> : p = 22 % (une statistique)</li><li><b>Marge d'erreur</b> : 1,96 √(p(1 − p)/n)</li><li><b>Niveau de confiance</b> : 19/20 = 95 %, la fiabilité de la méthode sur des sondages répétés</li></ol><p class="calc" style="font-size:14px">Marge calculée ici pour l'illustration, comme pour un échantillon aléatoire simple. Le sondage a été fait en ligne, auprès d'un panel : ce n'est pas un échantillon aléatoire simple, et la formule ne décrit pas exactement sa précision.</p>`;
 fig('f51b',(W,H,m)=>{const pl=16,pr=16,lo=.18,hi=.26,X=v=>pl+(v-lo)/(hi-lo)*(W-pl-pr),y=84;let s='';
   [.18,.2,.22,.24,.26].forEach(t=>s+=txt(X(t),H-6,fr(t*100,0)+' %',{a:'middle',fs:12,c:C.mute}));
   s+=`<line x1="${pl}" x2="${W-pr}" y1="${H-24}" y2="${H-24}" stroke="${C.line}"/>`;
@@ -43,8 +43,8 @@ fig('f51b',(W,H,m)=>{const pl=16,pr=16,lo=.18,hi=.26,X=v=>pl+(v-lo)/(hi-lo)*(W-p
   s+=txt(X(p0-me0)-6,y+5,fx((p0-me0)*100,1)+' %',{a:'end',fs:13,w:700})+txt(X(p0+me0)+6,y+5,fx((p0+me0)*100,1)+' %',{fs:13,w:700});
   s+=txt(X(p0),y+30,m?'p = 22 % : le centre':'p = 22 % : l\'estimation ponctuelle, au centre',{a:'middle',fs:13,w:700});
   s+=txt(X(p0),y+48,m?'intervalle de confiance à 95 %':'l\'intervalle : l\'estimation par intervalle à 95 %',{a:'middle',fs:13,c:C.org,it:1});
-  const yb=y-36;s+=`<path d="M${X(p0-me0)},${yb+8}V${yb}H${X(p0+me0)}V${yb+8}" fill="none" stroke="${C.blue}" stroke-width="2" stroke-dasharray="5 4"/>`;
-  s+=txt(X(p0),yb-8,m?'π est probablement ici':'π, la vraie proportion (inconnue), est probablement dans cet intervalle',{a:'middle',fs:13,c:C.blue,w:600});
+  const yb=y-36;s+=txt(X(p0),yb-14,m?'π : fixe, mais inconnu':'π, la vraie proportion : fixe, mais inconnue',{a:'middle',fs:13,c:C.blue,w:600});
+  s+=txt(X(p0),yb+4,m?'dedans ou non? on ne le sait pas':'dans cet intervalle-ci? impossible à savoir',{a:'middle',fs:12,c:C.blue,it:1});
   return s});
 
 /* Figure c : Literary Digest */

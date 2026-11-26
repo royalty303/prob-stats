@@ -265,3 +265,5 @@ button:disabled{opacity:.4;cursor:default}
 @media(max-width:700px){.fl2,.cmp3{grid-template-columns:minmax(0,1fr)}}
 .tools[hidden]{display:none}
 .tabpair{grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:start}@media(max-width:820px){.tabpair{grid-template-columns:minmax(0,1fr)}}
+.ancres{display:flex;flex-wrap:wrap;gap:6px 8px;margin:4px 0 8px}.ancres a{font-size:14px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink)}.ancres a:hover{border-color:var(--blue);color:var(--blue)}
+.part[id]{scroll-margin-top:16px}

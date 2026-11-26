@@ -73,12 +73,12 @@ const ff=fig('ff',(W,H,m)=>{
   return s});
 function capF(){const st=ST[ps];$('pbtn').textContent=st.b;let t=st.t;
   if(ps===2){const R=st.c.map(c=>({o:c.reduce((a,k)=>a+O[k],0),t:c.reduce((a,k)=>a+Ft[k],0)}));const x=R.reduce((a,r)=>a+(r.t-r.o)**2/r.t,0);
-    t=`Toutes les f<sub>t</sub> ≥ 5. ddl = 3 classes − 1 − 1 (λ estimé) = 1. χ² = ${fr(x,3)} &lt; 3,84 (α = 5 %) : <b>on ne rejette pas H₀</b>, les données collent à une Poisson.`}
+    t=`Toutes les f<sub>t</sub> ≥ 5. ddl = 3 classes − 1 − 1 (λ estimé) = 1. χ² = ${fr(x,3)} &lt; 3,84 (α = 5 %) : <b>on ne rejette pas H₀</b> : au seuil de 5 %, les écarts observés ne suffisent pas à écarter le modèle de Poisson.`}
   $('ffcap').innerHTML=`<span class="fn">Figure 6.2-f</span>${t}`}
 $('pbtn').addEventListener('click',()=>{ps=(ps+1)%3;ff();capF()});capF();
 let vals=[],cur={};
 const fg=fig('fg',(W,H,m)=>{
-  if(!vals.length)return'';const {cr,a,r,n}=cur,xm=12,nb=48,bw=xm/nb,ym=.8,pl=20,pr=12,pt=64,pb=30,X=v=>pl+v/xm*(W-pl-pr),Y=v=>pt+(1-Math.min(v,ym)/ym)*(H-pt-pb);
+  if(!vals.length)return'';const {cr,a,r,n}=cur,xm=12,nb=48,bw=xm/nb,ym=.8,pl=20,pr=12,pt=m?70:64,pb=30,X=v=>pl+v/xm*(W-pl-pr),Y=v=>pt+(1-Math.min(v,ym)/ym)*(H-pt-pb);
   const cnt=new Array(nb).fill(0);let out=0;for(const v of vals){const b=Math.floor(v/bw);b<nb?cnt[b]++:out++}
   let s='';
   cnt.forEach((c,b)=>{if(!c)return;const d=c/(vals.length*bw),x0=b*bw,hot=x0+bw>cr;
@@ -89,15 +89,44 @@ const fg=fig('fg',(W,H,m)=>{
   [0,4,8,12].forEach(t=>s+=txt(X(t),H-8,t,{c:C.mute,fs:12,a:'middle'}));
   s+=`<line x1="${X(cr)}" x2="${X(cr)}" y1="${pt}" y2="${Y(0)}" stroke="${C.org}" stroke-width="2" stroke-dasharray="5 4"/>`+txt(X(cr)+6,pt+14,'valeur critique '+fr(cr,2),{c:C.org,fs:12});
   s+=txt(pl,24,'annoncé',{c:C.mute})+txt(pl,52,a+' %',{fs:28,w:700});
-  s+=txt(pl+(m?100:130),24,'réel',{c:C.mute})+txt(pl+(m?100:130),52,fr(r,1)+' %',{fs:28,w:700,c:Math.abs(r-a)>a*.4?C.org:C.ink});
+  const ex=cur.ex,o1=m?72:130,o2=m?200:260;s+=txt(pl+o1,24,m?'réel':'réel (exact)',{c:C.mute})+txt(pl+o1,52,fr(ex,2)+' %',{fs:m?24:28,w:700,c:Math.abs(ex-a)>a*.4?C.org:C.ink});
+  s+=txt(pl+o2,24,m?'simulé':'simulé (ce tirage)',{c:C.mute})+txt(pl+o2,52,fr(r,1)+' %',{fs:m?20:22,w:600,c:C.mute});
   if(!m)s+=txt(W-pr,24,'courbe pointillée : ce que la table suppose',{a:'end',c:C.blue});
   if(n===10&&!m){const x=X(8.5)+6;s+=txt(x,Y(.3),'← 1 colis abîmé sur 10',{it:1,c:C.org,fs:15})+txt(x+14,Y(.3)+18,'χ² = 8,18 : rejet',{it:1,c:C.org,fs:15})}
-  if(out)s+=txt(W-pr,pt+14,`+ ${fr(out/vals.length*100,1)} % au-delà de 12`,{a:'end',c:C.org,fs:12});
+  if(out)s+=txt(W-pr,pt+(m?32:14),`+ ${fr(out/vals.length*100,1)} % au-delà de 12`,{a:'end',c:C.org,fs:12});
   return s});
 function sim(){
   const n=+$('sn').value,a=+$('sa').value,ft=[.01*n,.99*n],cr=a===1?6.635:3.841,R=5000;let rej=0;vals=new Float64Array(R);
   for(let i=0;i<R;i++){let k=0;for(let j=0;j<n;j++)if(Math.random()<.01)k++;const x=(ft[0]-k)**2/ft[0]+(ft[1]-(n-k))**2/ft[1];vals[i]=x;if(x>cr)rej++}
-  cur={n,a,cr,r:rej/R*100};fg();
-  $('fgcap').innerHTML=`<span class="fn">Figure 6.2-g</span>Chaque barre regroupe des commandes où le fabricant dit vrai. En orange, celles où le test l'accuse quand même. Avec f<sub>t</sub> = ${fr(ft[0])} ${ft[0]<5?'<b>(sous 5)</b>':'(5 ou plus)'}, le risque réel est de ${fr(cur.r,1)} % pour un risque annoncé de ${a} %.`}
+  let ex=0;const lc=(n,k)=>{let r=0;for(let i=1;i<=k;i++)r+=Math.log((n-k+i)/i);return r};for(let k=0;k<=n;k++){const x=(ft[0]-k)**2/ft[0]+(ft[1]-(n-k))**2/ft[1];if(x>cr)ex+=Math.exp(lc(n,k)+k*Math.log(.01)+(n-k)*Math.log(.99))}
+  cur={n,a,cr,r:rej/R*100,ex:ex*100};fg();
+  $('fgcap').innerHTML=`<span class="fn">Figure 6.2-h</span>Chaque barre regroupe des commandes où le fabricant dit vrai. En orange, celles où le test l'accuse quand même. Avec f<sub>t</sub> = ${fr(ft[0])} ${ft[0]<5?'<b>(sous 5)</b>':'(5 ou plus)'}, le risque réel est de ${fr(cur.ex,2)} % pour un risque annoncé de ${a} %. Les 5 000 commandes simulées en donnent ${fr(cur.r,1)} % : relancez pour voir la simulation fluctuer autour de la valeur exacte.`}
 $('sn').addEventListener('change',sim);$('sa').addEventListener('change',sim);$('resim').addEventListener('click',sim);sim();
+}
+
+/* Ajustement à une normale : les queues */
+{
+const {fr,fx,$,C,txt,fig,npdf,path,area}=SITE;
+const T0=z=>{let t=z,s=z;for(let n=1;n<200;n++){t*=-z*z/(2*n);const u=t/(2*n+1);s+=u;if(Math.abs(u)<1e-17)break}return s/Math.sqrt(2*Math.PI)};
+const TAB=z=>Math.sign(z)*Math.round(T0(Math.abs(Math.round(z*100)/100))*1e4)/1e4;
+const MU=164,SG=6.5,N=200,B=[152,158,164,170,176],FO=[33,66,63,38];let op=0;
+const P=(a,b)=>(b===Infinity?.5:TAB((b-MU)/SG))-(a===-Infinity?-.5:TAB((a-MU)/SG));
+const cls=()=>B.slice(0,4).map((a,i)=>{const lo=op&&i===0?-Infinity:a,hi=op&&i===3?Infinity:B[i+1];return {lo,hi,p:P(lo,hi)}});
+const fn=fig('fn',(W,H,m)=>{const pl=12,pr=12,pt=40,pb=96,x0=142,x1=186,X=v=>pl+(v-x0)/(x1-x0)*(W-pl-pr),g=x=>npdf((x-MU)/SG)/SG,ym=g(MU)*1.15,Y=v=>pt+(1-v/ym)*(H-pt-pb);let s='';
+  const K=cls(),cols=['var(--bluesoft)','#c9d8f5'];
+  K.forEach((k,i)=>s+=`<path d="${area(g,X,Y,Math.max(k.lo,x0),Math.min(k.hi,x1))}" fill="${cols[i%2]}" stroke="var(--bg)" stroke-width="1.5"/>`);
+  if(!op)[[x0,152],[176,x1]].forEach(([a,b])=>s+=`<path d="${area(g,X,Y,a,b)}" fill="${C.org}" opacity=".85"/>`);
+  s+=`<path d="${path(g,X,Y,x0,x1,300)}" fill="none" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/><line x1="${pl}" x2="${W-pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="${C.ink}"/>`;
+  B.forEach((b,i)=>{const lab=op&&i===0?'−∞':op&&i===4?'+∞':b;s+=`<line x1="${X(b)}" x2="${X(b)}" y1="${Y(0)}" y2="${Y(0)+5}" stroke="${C.ink}"/>`+txt(X(b),Y(0)+18,(op&&(i===0||i===4))?b:lab,{a:'middle',fs:11,c:(op&&(i===0||i===4))?C.line:C.mute})});
+  if(op){s+=txt(pl,Y(0)+18,'−∞ ←',{fs:12,w:700,c:C.blue})+txt(W-pr,Y(0)+18,'→ +∞',{a:'end',fs:12,w:700,c:C.blue})}
+  else{const ql=P(-Infinity,152);s+=txt(X(148),Y(g(150))-14,`oubliée : ${fx(ql*100,2)} %`,{a:'middle',fs:12,w:700,c:C.org,halo:1})+txt(X(180),Y(g(178))-14,`oubliée : ${fx(ql*100,2)} %`,{a:'middle',fs:12,w:700,c:C.org,halo:1})}
+  const yr=Y(0)+42;s+=txt(pl,yr,'f',{fs:13,w:700,it:1})+txt(pl+7,yr+4,'t',{fs:10,it:1})+txt(pl,yr+22,'f',{fs:13,w:700,it:1,c:C.mute})+txt(pl+7,yr+26,'o',{fs:10,it:1,c:C.mute});
+  K.forEach((k,i)=>{const cx=X((B[i]+B[i+1])/2),ed=op&&(i===0||i===3);s+=txt(cx,yr,fx(N*k.p,2),{a:'middle',fs:13,w:700,c:ed?C.blue:C.ink})+txt(cx,yr+22,FO[i],{a:'middle',fs:13,c:C.mute})});
+  const tot=K.reduce((a,k)=>a+k.p,0);
+  s+=txt(pl,22,`aire couverte : ${fx(tot*100,2)} %`,{fs:15,w:700,c:op?C.blue:C.org});
+  s+=txt(m?pl:W-pr,m?44:22,`Σ fₜ = ${fx(N*tot,2)} ${op?'=':'≠'} 200 = Σ fₒ`,{a:m?'start':'end',fs:15,w:700,c:op?C.blue:C.org});
+  return s});
+function upn(){const K=cls(),tot=K.reduce((a,k)=>a+k.p,0);document.querySelectorAll('#nq button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.o===op));
+  $('fncap').innerHTML=`<span class="fn">Figure 6.2-g</span>${op?`Les deux classes extrêmes s'étirent jusqu'à −∞ et +∞ : elles récupèrent les queues. Les probabilités font 100 %, et les f<sub>t</sub> totalisent 200, comme les f<sub>o</sub>. On peut comparer.`:`Avec les bornes des données, les quatre classes ne couvrent que ${fx(tot*100,2)} % de la loi normale. Les deux queues orange sont oubliées : les f<sub>t</sub> totalisent ${fx(N*tot,2)} au lieu de 200, et le test comparerait des totaux différents.`} Calculs faits avec la table, z arrondi à deux décimales. Données fictives.`;fn()}
+$('nq').onclick=e=>{const o=e.target.dataset.o;if(o==null)return;op=+o;upn()};upn();
 }

@@ -43,6 +43,7 @@ const fa=fig('f42a',(W,H,m)=>{const cx=W/2,dx=Math.min(34,(W-20)/(R+2)),top=26,d
     let x,y;if(t<R){const [x0,y0]=pos(r),[x1,y1]=pos(r+1);x=x0+(x1-x0)*f;y=y0+(y1-y0)*f-Math.sin(Math.PI*f)*dy*.45}else{[x]=pos(R);y=top+R*dy-dy*.6+(t-R)/1.6*(bb-top-R*dy)}
     s+=`<circle cx="${x}" cy="${y}" r="${Math.max(3,dx*.17)}" fill="${C.org}"/>`});
   s+=txt(8,16,`${fr(N)} bille${N>1?'s':''} arrivée${N>1?'s':''}`,{fs:12,w:700,c:C.ink});
+  s+=txt(W-8,16,'une bille = une réalisation de X',{a:'end',fs:12,w:700,c:C.org})+txt(W-8,32,'12 rebonds = 12 essais',{a:'end',fs:12,c:C.org});
   return s});
 function upa(){const N=bins.reduce((a,b)=>a+b,0),mean=N?bins.reduce((a,c,b)=>a+c*b,0)/N:0;
   $('c42a').innerHTML=`<span class="fn">Figure 4.2-a</span>Chaque bille fait 12 petits choix au hasard; sa case finale compte ses rebonds vers la droite. Les cases extrêmes demandent 12 rebonds du même côté : rarissime. Les cases du centre se remplissent, car beaucoup de chemins y mènent.${N>=20?` Moyenne observée : ${fx(mean,2)}. En pointillé, la loi normale de moyenne 6 et d'écart type √3 ≈ 1,73.`:''} Taille, erreurs de mesure, masse d'un produit : chaque fois que de nombreux petits effets indépendants s'additionnent, la cloche apparaît.`}

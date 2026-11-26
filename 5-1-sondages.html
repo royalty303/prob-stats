@@ -6,7 +6,7 @@
 <title>5.1 · Introduction aux sondages</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=13">
+<link rel="stylesheet" href="assets/style.css?v=15">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -39,7 +39,7 @@
     <figure>
       <div class="anat" id="anat"></div>
       <div class="fig" style="--h:180px"><svg id="f51b" role="img" aria-label="Intervalle de confiance sur un axe"></svg></div>
-      <figcaption><span class="fn">Figure 5.1-b</span>Sondage CCCD–Léger sur les Fêtes 2026 (2 500 Canadiens), présenté comme le ferait un journal. Le point noir, p, est l'estimation ponctuelle; l'intervalle l'entoure de la marge d'erreur. Le paramètre π, la vraie proportion de tous les Canadiens, reste inconnu : à 95 %, l'intervalle a de bonnes chances de le contenir.</figcaption></figure>
+      <figcaption><span class="fn">Figure 5.1-b</span>Sondage CCCD–Léger sur les Fêtes 2026 (2 500 Canadiens), présenté comme le ferait un journal. Le point noir, p, est l'estimation ponctuelle; l'intervalle l'entoure de la marge d'erreur. Le paramètre π, la vraie proportion de tous les Canadiens, est fixe mais inconnu. Le 95 % ne porte pas sur cet intervalle-ci : il décrit la méthode. Sur des sondages répétés, 95 % des intervalles ainsi construits contiennent π.</figcaption></figure>
   </section>
 
   <section class="part">
@@ -70,7 +70,7 @@
     <div class="retenir"><p>Un paramètre décrit la population (μ, π, σ) : il est fixe et inconnu.</p><p>Une statistique décrit l'échantillon (x̄, p, s) : elle change d'un échantillon à l'autre.</p><p>L'inférence statistique, c'est passer de la statistique au paramètre.</p></div>
     <table class="stack"><thead><tr><th>Terme</th><th>Ce que c'est</th></tr></thead><tbody>
       <tr><td>Estimation ponctuelle</td><td>Une seule valeur pour estimer le paramètre : x̄ ou p.</td></tr>
-      <tr><td>Estimation par intervalle</td><td>Un intervalle qui a de bonnes chances de contenir le paramètre.</td></tr>
+      <tr><td>Estimation par intervalle</td><td>Un intervalle construit par une méthode qui, sur des échantillons répétés, contient le paramètre dans 95 % des cas (au niveau 95 %).</td></tr>
       <tr><td>Marge d'erreur</td><td>La demi-largeur de l'intervalle : ce qu'on ajoute et retranche à l'estimation.</td></tr>
       <tr><td>Niveau de confiance</td><td>La proportion des intervalles ainsi construits qui contiennent le paramètre (95 % : « 19 fois sur 20 »).</td></tr>
     </tbody></table>
@@ -81,7 +81,7 @@
   </section>
   <div class="foot">Sources : sondage CCCD–Léger sur le magasinage des Fêtes 2026; Literary Digest, 31 octobre 1936 (2,4 millions de réponses, Landon à 57 %); Roosevelt a obtenu 62,5 % des votes Roosevelt–Landon; Gallup, par un échantillon par quotas d'environ 50 000 personnes, avait prédit 55,7 %. La figure 5.1-c est une simulation qui reprend ces ordres de grandeur. Population de 400 et sondeurs 1 à 3 : exemples fictifs.</div>
 </div></main>
-<script src="assets/commun.js?v=13"></script>
-<script src="assets/s5-1.js?v=13"></script>
+<script src="assets/commun.js?v=15"></script>
+<script src="assets/s5-1.js?v=15"></script>
 </body>
 </html>
