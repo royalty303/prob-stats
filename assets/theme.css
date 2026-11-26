@@ -2,6 +2,16 @@
 .num{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
 h1 em,h2 em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;background:linear-gradient(var(--org),var(--org)) 0 92%/100% 3px no-repeat;padding-bottom:4px}
 html[data-theme=light]{
+/* accueil et liens : le bleu reste réservé au modèle */
+a{color:var(--ink)}
+.motto{font-family:"Instrument Serif",Georgia,serif;color:var(--ink);font-size:clamp(26px,3.4vw,36px)}
+.plan li a{color:var(--ink)}
+.plan li a:hover{color:var(--org)}
+.plan li.on a:hover .pth{border-color:var(--org)}
+.pn a:hover{border-color:var(--org)}.pn b{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:-.02em}
+header.top nav a[aria-current=page]{color:var(--ink);text-decoration:underline;text-decoration-color:var(--org);text-decoration-thickness:2px;text-underline-offset:5px}
+.ancres a:hover{border-color:var(--org);color:var(--org)}
+
 
 &{color-scheme:light;--bg:#f6f5ef;--ink:#142921;--mute:#5b6b62;--line:#d9dccd;--soft:#e8eadd;--sauge:#a9b6a0;--chartreuse:#ddea70;--blue:#2f5bd3;--bluesoft:#dfe6f3;--org:#f45732;--orgsoft:#fde0d6}
 body{background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
