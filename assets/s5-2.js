@@ -31,6 +31,7 @@ const {fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area}=SITE;
     tra:{mu:27.5,sd:Math.sqrt(168.75),lo:0,hi:60,u:'min',s:()=>Math.random()<.5?15+3*gauss():40+4*gauss(),pdf:x=>.5*npdf((x-15)/3)/3+.5*npdf((x-40)/4)/4,txt:'Deux types de trajets : courts (15 min) et longs (40 min).'},
     pan:{mu:.01,sd:Math.sqrt(.0099),lo:0,hi:1,u:'',s:()=>Math.random()<.01?1:0,disc:1,txt:'Chaque jour : 1 panne (1 %) ou aucune (99 %).'},
     sac:{mu:500,sd:8,lo:470,hi:530,u:'g',s:()=>500+8*gauss(),pdf:x=>npdf((x-500)/8)/8,txt:'Population déjà normale.'}};
+  const CTX52={att:'Temps d\'attente à un comptoir de service : la plupart des attentes sont courtes, mais certaines s\'étirent beaucoup.',uni:'Mesures prises au hasard entre 0 et 20 mm : chaque valeur est aussi probable que les autres.',tra:'Durée du trajet vers le cégep : la moitié des étudiants habitent tout près (environ 15 min), l\'autre moitié loin (environ 40 min).',pan:'Une machine tombe en panne 1 jour sur 100. Chaque jour, X vaut 1 s\'il y a une panne, 0 sinon.',sac:'Masse de sachets remplis par une machine réglée à 500 g : la population est déjà en cloche.'};
   const NS=[1,5,30,100,300];let pk='att',n=30,M=[],same=0;
   $('n52').innerHTML=NS.map(v=>`<button data-n="${v}">${v}</button>`).join('');
   const L=fig('f52bL',(W,H,m)=>{const P=POP[pk],pl=10,pr=10,pt=26,pb=28,X=v=>pl+(v-P.lo)/(P.hi-P.lo)*(W-pl-pr);let s='';
@@ -54,7 +55,7 @@ const {fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area}=SITE;
     if(same&&n>1){const a=Math.max(lo,P.mu-2*se),b=Math.min(hi,P.mu+2*se),y=H-pb+4;s+=`<path d="M${X(a)},${y}v6M${X(a)},${y+3}H${X(b)}M${X(b)},${y}v6" stroke="${C.org}" stroke-width="2"/>`}
     if(P.disc&&n<=30&&!same)s+=txt(X(lo)+30,pt+40,`${fr(cnt[0]/M.length*100,0)} % des échantillons : aucune panne`,{it:1,c:C.org,fs:15,halo:1});
     return s});
-  function run(){const P=POP[pk];M=new Float64Array(5000);for(let i=0;i<5000;i++){let t=0;for(let j=0;j<n;j++)t+=P.s();M[i]=t/n}
+  function run(){const P=POP[pk];$('ctx52').textContent=CTX52[pk];M=new Float64Array(5000);for(let i=0;i<5000;i++){let t=0;for(let j=0;j<n;j++)t+=P.s();M[i]=t/n}
     document.querySelectorAll('#n52 button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.n===n));
     $('h52bR').textContent=n===1?'5 000 observations (n = 1)':`5 000 moyennes X̄ de ${n} observations`;
     $('c52b').innerHTML=`<span class="fn">Figure 5.2-b</span>${P.txt} Barres : moyennes simulées. Pointillé : la loi normale N(μ, σ/√n) prédite par le théorème. ${pk==='pan'?(n<300?'Ici, la cloche n\'est pas encore là : un événement rare demande un très grand n.':'À n = 300, la forme commence à peine à s\'arrondir.'):n===1?'Avec n = 1, on retrouve la population.':'La cloche est là, et elle est beaucoup plus étroite que la population.'}${same?' Même échelle que la population : on voit directement combien les moyennes se resserrent.':' Attention : l\'axe de droite est zoomé sur les moyennes; pour comparer les largeurs, passez à « Même échelle ».'}`;

@@ -21,6 +21,7 @@ const {fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area}=SITE;
 
   // Figure b : règle de décision
   const CR={z:{u:{10:1.282,5:1.645,1:2.326},b:{10:1.645,5:1.960,1:2.576}},t:{u:{10:1.363,5:1.796,1:2.718},b:{10:1.796,5:2.201,1:3.106}}};
+  const CTX={sac:'Un fabricant annonce des sachets de 500 g. Une association de consommateurs en pèse 64 pour vérifier s\'ils sont sous-remplis.',ker:'Prisonnier au Danemark pendant la Seconde Guerre mondiale, le mathématicien John Kerrich lance une pièce de monnaie 10 000 fois. Sa pièce est-elle équilibrée?',bat:'Un fabricant affirme que ses batteries durent 10 h. Un magazine en teste seulement 12 pour vérifier s\'il exagère.'};
   const S={sac:{law:'z',dir:'g',cote:-2,h:'H₀ : μ = 500 g · H₁ : μ < 500 g',d:'64 sachets : x̄ = 496 g, σ = 16 g. n ≥ 30 : loi normale.',f:'z = (496 − 500) / (16/√64) = −2,00',yes:'les sachets sont sous-remplis en moyenne',no:'les sachets sont sous-remplis en moyenne'},
     ker:{law:'z',dir:'b',cote:1.34,h:'H₀ : π = 0,5 · H₁ : π ≠ 0,5',d:'10 000 lancers : 5 067 faces, p = 0,5067. Loi normale.',f:'z = (0,5067 − 0,5) / √(0,5 × 0,5 / 10 000) = 1,34',yes:'la pièce est déséquilibrée',no:'la pièce est déséquilibrée'},
     bat:{law:'t',dir:'g',cote:-2.31,h:'H₀ : μ = 10 h · H₁ : μ < 10 h',d:'12 batteries : x̄ = 9,4 h, s = 0,9 h. n < 30, σ inconnu : loi de Student, 11 ddl.',f:'t = (9,4 − 10) / (0,9/√12) = −2,31',yes:'les batteries durent moins de 10 h en moyenne',no:'les batteries durent moins de 10 h en moyenne'}};
@@ -43,7 +44,7 @@ const {fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area}=SITE;
     const rej=st.dir==='g'?v<-c:st.dir==='d'?v>c:Math.abs(v)>c;
     const rule=st.dir==='g'?`${st.law} < −${fx(c,3)}`:st.dir==='d'?`${st.law} > ${fx(c,3)}`:`${st.law} < −${fx(c,3)} ou ${st.law} > ${fx(c,3)}`;
     document.querySelectorAll('#a61 button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.a===al));
-    $('d61').innerHTML=`<b>${st.h}</b><br>${st.d}<br>${st.f}`;
+    $('ctx61').textContent=CTX[sk];$('d61').innerHTML=`<b>${st.h}</b><br>${st.d}<br>${st.f}`;
     $('c61b').innerHTML=`<span class="fn">Figure 6.1-b</span>Règle : on rejette H₀ si ${rule}. Cote = ${fx(v,2)} : ${rej?`<b style="color:var(--org)">on rejette H₀</b>. Au seuil de ${al} %, on peut conclure que ${st.yes}.`:`<b>on ne rejette pas H₀</b>. Au seuil de ${al} %, les données ne permettent pas de conclure que ${st.no}.`}`;fb()}
   $('sit61').onchange=e=>{sk=e.target.value;upd()};$('a61').onclick=e=>{const a=e.target.dataset.a;if(a){al=+a;upd()}};upd();
 

@@ -87,7 +87,8 @@ const fd=fig('f51d',(W,H,m)=>{const P=poids(),agg=SD.reduce((a,s,i)=>a+P[i].fin/
   $('t51').innerHTML=`<thead><tr><th>Sondeur</th><th${act('t')}>Taille</th><th${act('r')}>Récence</th><th${act('f')}>Fiabilité</th><th>Poids final</th></tr></thead><tbody>`+P.map((p,i)=>`<tr><td>${SD[i].n}</td><td${act('t')}>${bar(p.t,C.mute)}</td><td${act('r')}>${bar(p.r,C.mute)}</td><td${act('f')}>${bar(p.f,C.mute)}</td><td><b>${bar(p.fin,C.ink)}</b></td></tr>`).join('')+'</tbody>';
   return s});
 $('crit51').onclick=e=>{const c=e.target.dataset.c;if(!c)return;on[c]=!on[c];e.target.setAttribute('aria-pressed',on[c]);fd()};
-$('rec51').onchange=e=>{mode=e.target.value;$('hl51').hidden=mode!=='expo';fd()};
+const ctx51=()=>{$('ctx51').textContent=mode==='expo'?'Exponentiels : un sondage perd la moitié de son poids chaque fois qu\'il vieillit d\'une demi-vie. Plus la demi-vie est courte, plus seuls les sondages récents comptent.':'Fixés : le plus ancien des trois sondages compte pour 15 %, le suivant pour 35 % et le plus récent pour 50 %.'};ctx51();
+$('rec51').onchange=e=>{mode=e.target.value;$('hl51').hidden=mode!=='expo';ctx51();fd()};
 const ho=()=>{hl=+$('sl51').value;$('o51').textContent=hl+' jour'+(hl>1?'s':'')};
 $('sl51').oninput=()=>{ho();fd()};ho();
 }
