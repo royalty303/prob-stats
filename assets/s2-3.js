@@ -38,14 +38,14 @@ $('slk').oninput=upb;upb();
 const ZM={n:{sub:[['Mathématiques',68,6,'zm'],['Chimie',75,5,'zc']],u:' %',v:[80,84],r:[[40,100],[40,100]],l:['Note en mathématiques','Note en chimie'],lead:'Une étudiante obtient 80 % en mathématiques et 84 % en chimie. Dans quelle matière se démarque-t-elle le plus?'},
   c:{sub:[['Léa, 5 km',28,3,'zm'],['Sam, 10 km',56,5,'zc']],u:' min',v:[24,50],r:[[18,38],[40,72]],l:['Temps de Léa au 5 km','Temps de Sam au 10 km'],lead:'Léa court le 5 km en 24 min; Sam, le 10 km en 50 min. Chacun est comparé aux coureurs de sa course. Qui a la meilleure performance?'}};
 let zk='n';let SUB=ZM.n.sub;
-const fc=fig('f23c',(W,H,m)=>{const pl=m?16:170,pr=m?24:16,X=z=>pl+(z+3)/6*(W-pl-pr);let s='';
+const fc=fig('f23c',(W,H,m)=>{const pl=m?16:190,pr=m?24:26,X=z=>pl+(z+3)/6*(W-pl-pr);let s='';
   SUB.forEach(([l,mu,sd,id],r)=>{const y=H*(r?.72:.3),x=+$(id).value,z=(x-mu)/sd,zc=Math.max(-3,Math.min(3,z));
     s+=`<line x1="${X(-3)}" x2="${X(3)}" y1="${y}" y2="${y}" stroke="${C.ink}" stroke-width="2"/>`;
     for(let k=-3;k<=3;k++){s+=`<line x1="${X(k)}" x2="${X(k)}" y1="${y-6}" y2="${y+6}" stroke="${C.ink}" stroke-width="${k?1.5:3}"/>`+txt(X(k),y+22,`${mu+k*sd}${ZM[zk].u}`,{a:'middle',fs:11,c:C.mute})+txt(X(k),y-12,k===0?'x̄':(k>0?'+':'−')+Math.abs(k)+'s',{a:'middle',fs:11,c:C.blue,w:600})}
     s+=zk==='c'?txt(X(-3),y+40,'← plus rapide : meilleur',{fs:11,w:700,c:C.mute}):txt(X(3),y+40,'meilleur : plus haut →',{a:'end',fs:11,w:700,c:C.mute});
     s+=`<line x1="${X(0)}" x2="${X(zc)}" y1="${y}" y2="${y}" stroke="${C.org}" stroke-width="6" stroke-linecap="round"/><circle cx="${X(zc)}" cy="${y}" r="9" fill="${C.org}"/>`;
     s+=txt(X(zc),y-30,`z = ${z>0?'+':''}${fx(z,2)}`,{a:'middle',fs:15,w:700,c:C.org,halo:1});
-    if(m)s+=txt(pl,y-54,`${l} : x̄ = ${mu}${ZM[zk].u}, s = ${sd}${ZM[zk].u}`,{fs:12,w:700});else s+=txt(pl-14,y+5,l,{a:'end',fs:14,w:700})+txt(pl-14,y+21,`x̄ = ${mu}${ZM[zk].u}, s = ${sd}${ZM[zk].u}`,{a:'end',fs:11,c:C.mute})});
+    if(m)s+=txt(pl,y-54,`${l} : x̄ = ${mu}${ZM[zk].u}, s = ${sd}${ZM[zk].u}`,{fs:12,w:700});else s+=txt(pl-30,y+5,l,{a:'end',fs:14,w:700})+txt(pl-30,y+21,`x̄ = ${mu}${ZM[zk].u}, s = ${sd}${ZM[zk].u}`,{a:'end',fs:11,c:C.mute})});
   return s});
 function upc(){const Z=ZM[zk],[[l1,m1,s1],[l2,m2,s2]]=Z.sub,x1=+$('zm').value,x2=+$('zc').value,zm=(x1-m1)/s1,zc=(x2-m2)/s2;$('ozm').textContent=x1+Z.u;$('ozc').textContent=x2+Z.u;
   let best;if(zk==='n')best=Math.abs(zm-zc)<1e-9?'Les deux cotes sont égales : elle se démarque autant dans les deux matières.':zm>zc?'Sa cote est plus élevée en mathématiques : c\'est là qu\'elle se démarque le plus.':'Sa cote est plus élevée en chimie : c\'est là qu\'elle se démarque le plus.';
