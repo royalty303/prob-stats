@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maquette quadrillée · 2.1 · Mesures de tendance centrale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=19">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/quadrille.css?v=1">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html">Probabilités et statistique · <span style="color:var(--mute)">en images</span></a>
+  <nav id="nav"></nav>
+</div></header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="crayon" filterUnits="userSpaceOnUse" x="-100" y="-100" width="3000" height="3000"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="1.6"/></filter></svg>
+<main><div class="wrap">
+  <div class="intro">
+    <div class="maq">Maquette · look « cahier quadrillé » — non publiée dans le plan</div>
+    <div class="kick">Chapitre 2 · Statistiques descriptives</div>
+    <h1>2.1 · Mesures de tendance centrale</h1>
+    <p class="lead">Trois façons de dire où se trouve le centre des données.</p>
+    <div class="code"><span><i class="sw o"></i>les données</span><span><i class="sw r"></i>la moyenne, le point d'équilibre</span><span><i class="sw t"></i>la médiane, le milieu</span></div>
+  </div>
+
+  <section class="part">
+    <h2>Moyenne, médiane, mode</h2>
+    <p class="lead">Chaque point est une donnée. Changez de situation, ou ajoutez une valeur extrême.</p>
+    <figure>
+      <div class="tools"><div class="seg" id="ds"></div><button id="xtr">Ajouter une valeur extrême</button></div>
+      <div class="fig" style="--h:340px"><svg id="f21a" role="img" aria-label="Diagramme en points avec moyenne, médiane et mode"></svg></div>
+      <div class="stats3" id="st21"></div>
+      <figcaption id="c21a"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <h2>La moyenne, point d'équilibre</h2>
+    <p class="lead">Sept données. Déplacez la dernière : la moyenne bouge pour garder l'équilibre.</p>
+    <figure>
+      <div class="slider"><label for="sl21">Dernière donnée</label><input type="range" id="sl21" min="10" max="40" value="10"><output id="o21"></output></div>
+      <div class="fig" style="--h:300px"><svg id="f21b" role="img" aria-label="Écarts à la moyenne"></svg></div>
+      <figcaption id="c21b"></figcaption></figure>
+  </section>
+
+  <section class="part">
+    <div class="kick">Aide-mémoire</div><h2>À retenir</h2>
+    <div class="retenir"><p>Moyenne : le point d'équilibre; les écarts à la moyenne s'annulent.</p><p>Médiane : la moitié des données de chaque côté; une valeur extrême la déplace à peine.</p><p>Mode : la valeur la plus fréquente; il peut y en avoir plusieurs, ou aucun.</p></div>
+    <table class="stack"><thead><tr><th>Mesure</th><th>Calcul</th><th>À privilégier quand</th></tr></thead><tbody>
+      <tr><td>Moyenne</td><td class="fm">population : μ = Σx / N · échantillon : x̄ = Σx / n</td><td>la distribution est à peu près symétrique</td></tr>
+      <tr><td>Médiane</td><td>valeur du milieu des données ordonnées (moyenne des deux du milieu si n est pair)</td><td>il y a des valeurs extrêmes ou de l'asymétrie</td></tr>
+      <tr><td>Mode</td><td>valeur la plus fréquente</td><td>la variable est qualitative, ou on cherche le cas le plus courant</td></tr>
+    </tbody></table>
+    <h3 style="margin-top:22px">Pièges</h3>
+    <ul><li>Asymétrie à droite : la moyenne est tirée vers la queue, au-delà de la médiane.</li><li>Distribution bimodale : la moyenne et la médiane peuvent tomber là où il n'y a presque personne.</li></ul>
+  </section>
+  <div class="foot">Données fictives, construites pour illustrer chaque situation.</div>
+</div></main>
+<script src="assets/commun.js?v=19"></script>
+<script src="assets/s2-1.js?v=19"></script>
+</body>
+</html>

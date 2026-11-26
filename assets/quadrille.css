@@ -1,0 +1,25 @@
+/* Maquette : look « cahier quadrillé » (surcouche de style.css) */
+:root{color-scheme:light;--bg:#fbfaf4;--soft:#f3f1e6;--line:#d9d3bd;--ink:#1d2433;--mute:#5d6676;--blue:#2457c5;--bluesoft:#dfe8f8;--org:#d9541a;--orgsoft:#fbe1d3}
+body{background-color:var(--bg);
+  background-image:linear-gradient(#b9cfe9 1px,transparent 1px),linear-gradient(90deg,#b9cfe9 1px,transparent 1px),linear-gradient(#dde8f5 1px,transparent 1px),linear-gradient(90deg,#dde8f5 1px,transparent 1px);
+  background-size:100px 100px,100px 100px,20px 20px,20px 20px;background-attachment:local}
+body::before{content:"";position:fixed;top:0;bottom:0;left:clamp(10px,3vw,46px);width:2px;background:#e9a0a0;z-index:0;pointer-events:none}
+main,header.top{position:relative;z-index:1}
+header.top{background:rgba(251,250,244,.94);border-bottom:2px solid #b9cfe9}
+.kick,.fn,figcaption .fn{font-family:"Patrick Hand",cursive;font-size:19px;letter-spacing:.2px}
+h1,h2{font-family:"Source Serif 4",serif}
+h2{display:inline;background:linear-gradient(transparent 62%,#ffe08a 62%,#ffe08a 92%,transparent 92%);padding:0 4px}
+section.part{border-top:2px dashed #c9c2a8}
+section.part>h2+.lead{margin-top:14px}
+svg text{font-family:"Patrick Hand",cursive}
+svg text[font-size="11"],svg text[font-size="12"]{font-size:15px}
+svg text[font-size="13"],svg text[font-size="14"]{font-size:17px}
+svg line,svg path,svg rect,svg polyline{filter:url(#crayon)}
+.fig{background:transparent}
+button{background:#fffdf5;border-color:#c9c2a8}
+button[aria-pressed=true]{background:var(--ink);color:#fff}
+figcaption{border-top:1px dashed #c9c2a8}
+.code span{font-family:"Patrick Hand",cursive;font-size:18px}
+.stats3>div,.retenir,table.stack{background:rgba(255,255,255,.82)}
+.retenir{border-left:4px solid #ffd35c;box-shadow:2px 3px 0 rgba(0,0,0,.06);transform:rotate(-.4deg)}
+.maq{font-family:"Patrick Hand",cursive;font-size:18px;color:var(--org);border:2px dashed var(--org);padding:4px 12px;border-radius:6px;display:inline-block;transform:rotate(-1.5deg);margin:6px 0 10px}
