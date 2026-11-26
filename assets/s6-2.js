@@ -76,32 +76,6 @@ function capF(){const st=ST[ps];$('pbtn').textContent=st.b;let t=st.t;
     t=`Toutes les f<sub>t</sub> ≥ 5. ddl = 3 classes − 1 − 1 (λ estimé) = 1. χ² = ${fr(x,3)} &lt; 3,84 (α = 5 %) : <b>on ne rejette pas H₀</b> : au seuil de 5 %, les écarts observés ne suffisent pas à écarter le modèle de Poisson.`}
   $('ffcap').innerHTML=`<span class="fn">Figure 6.2-f</span>${t}`}
 $('pbtn').addEventListener('click',()=>{ps=(ps+1)%3;ff();capF()});capF();
-let vals=[],cur={};
-const fg=fig('fg',(W,H,m)=>{
-  if(!vals.length)return'';const {cr,a,r,n}=cur,xm=12,nb=48,bw=xm/nb,ym=.8,pl=20,pr=12,pt=m?70:64,pb=30,X=v=>pl+v/xm*(W-pl-pr),Y=v=>pt+(1-Math.min(v,ym)/ym)*(H-pt-pb);
-  const cnt=new Array(nb).fill(0);let out=0;for(const v of vals){const b=Math.floor(v/bw);b<nb?cnt[b]++:out++}
-  let s='';
-  cnt.forEach((c,b)=>{if(!c)return;const d=c/(vals.length*bw),x0=b*bw,hot=x0+bw>cr;
-    s+=`<rect x="${X(x0)+.5}" y="${Y(d)}" width="${Math.max(2,X(bw)-X(0)-1)}" height="${Y(0)-Y(d)}" fill="${hot?C.org:C.ink}"/>`;
-    if(d>ym)s+=txt(X(x0)+4,Y(ym)+14,`↑ ${fr(c/vals.length*100,0)} %`,{fs:12,w:700,halo:1})});
-  s+=`<path d="${path(x=>cpdf(x,1),X,Y,.04,xm,240,ym*1.3)}" fill="none" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/>`;
-  s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="${C.ink}"/>`;
-  [0,4,8,12].forEach(t=>s+=txt(X(t),H-8,t,{c:C.mute,fs:12,a:'middle'}));
-  s+=`<line x1="${X(cr)}" x2="${X(cr)}" y1="${pt}" y2="${Y(0)}" stroke="${C.org}" stroke-width="2" stroke-dasharray="5 4"/>`+txt(X(cr)+6,pt+14,'valeur critique '+fr(cr,2),{c:C.org,fs:12});
-  s+=txt(pl,24,'annoncé',{c:C.mute})+txt(pl,52,a+' %',{fs:28,w:700});
-  const ex=cur.ex,o1=m?72:130,o2=m?200:260;s+=txt(pl+o1,24,m?'réel':'réel (exact)',{c:C.mute})+txt(pl+o1,52,fr(ex,2)+' %',{fs:m?24:28,w:700,c:Math.abs(ex-a)>a*.4?C.org:C.ink});
-  s+=txt(pl+o2,24,m?'simulé':'simulé (ce tirage)',{c:C.mute})+txt(pl+o2,52,fr(r,1)+' %',{fs:m?20:22,w:600,c:C.mute});
-  if(!m)s+=txt(W-pr,24,'courbe pointillée : ce que la table suppose',{a:'end',c:C.blue});
-  if(n===10&&!m){const x=X(8.5)+6;s+=txt(x,Y(.3),'← 1 colis abîmé sur 10',{it:1,c:C.org,fs:15})+txt(x+14,Y(.3)+18,'χ² = 8,18 : rejet',{it:1,c:C.org,fs:15})}
-  if(out)s+=txt(W-pr,pt+(m?32:14),`+ ${fr(out/vals.length*100,1)} % au-delà de 12`,{a:'end',c:C.org,fs:12});
-  return s});
-function sim(){
-  const n=+$('sn').value,a=+$('sa').value,ft=[.01*n,.99*n],cr=a===1?6.635:3.841,R=5000;let rej=0;vals=new Float64Array(R);
-  for(let i=0;i<R;i++){let k=0;for(let j=0;j<n;j++)if(Math.random()<.01)k++;const x=(ft[0]-k)**2/ft[0]+(ft[1]-(n-k))**2/ft[1];vals[i]=x;if(x>cr)rej++}
-  let ex=0;const lc=(n,k)=>{let r=0;for(let i=1;i<=k;i++)r+=Math.log((n-k+i)/i);return r};for(let k=0;k<=n;k++){const x=(ft[0]-k)**2/ft[0]+(ft[1]-(n-k))**2/ft[1];if(x>cr)ex+=Math.exp(lc(n,k)+k*Math.log(.01)+(n-k)*Math.log(.99))}
-  cur={n,a,cr,r:rej/R*100,ex:ex*100};fg();
-  $('fgcap').innerHTML=`<span class="fn">Figure 6.2-h</span>Chaque barre regroupe des commandes où le fabricant dit vrai. En orange, celles où le test l'accuse quand même. Avec f<sub>t</sub> = ${fr(ft[0])} ${ft[0]<5?'<b>(sous 5)</b>':'(5 ou plus)'}, le risque réel est de ${fr(cur.ex,2)} % pour un risque annoncé de ${a} %. Les 5 000 commandes simulées en donnent ${fr(cur.r,1)} % : relancez pour voir la simulation fluctuer autour de la valeur exacte.`}
-$('sn').addEventListener('change',sim);$('sa').addEventListener('change',sim);$('resim').addEventListener('click',sim);sim();
 }
 
 /* Ajustement à une normale : les queues */

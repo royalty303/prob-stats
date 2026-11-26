@@ -35,11 +35,11 @@ const fb=fig('f21b',(W,H,m)=>{const v=+$('sl21').value,a=[...B0,v],mean=a.reduce
   const sorted=[...a].sort((x,y)=>x-y);let L=0,R=0;
   sorted.forEach((x,i)=>{const y=base-26-i*((base-60)/a.length),d=x-mean;if(d<0)L-=d;else R+=d;
     s+=`<line x1="${X(mean)}" x2="${X(x)}" y1="${y}" y2="${y}" stroke="${d<0?C.blue:C.org}" stroke-width="5" stroke-linecap="round" opacity=".8"/>`;
-    s+=`<circle cx="${X(x)}" cy="${y}" r="6" fill="${C.ink}"/>`+txt(X(x)+(d<0?-10:10),y+4,`${d>0?'+':''}${fx(d,1)}`,{a:d<0?'end':'start',fs:11,c:d<0?C.blue:C.org,w:700,halo:1})});
+    const nv=i===sorted.lastIndexOf(v);s+=(nv?`<circle cx="${X(x)}" cy="${y}" r="11" fill="none" stroke="${C.org}" stroke-width="3"/>`:'')+`<circle cx="${X(x)}" cy="${y}" r="6" fill="${C.ink}"/>`+txt(X(x)+(d<0?-10:10),y+4,`${d>0?'+':''}${fx(d,1)}`,{a:d<0?'end':'start',fs:11,c:d<0?C.blue:C.org,w:700,halo:1})});
   s+=`<path d="M${X(mean)},${base+2}l-14,26h28z" fill="${C.ink}"/>`+txt(X(mean),base+46,`x̄ = ${fx(mean,2)}`,{a:'middle',fs:14,w:700,halo:1});
   s+=txt(pl,20,`écarts à gauche : ${fx(L,2)}`,{fs:14,w:700,c:C.blue})+txt(W-pr,20,`écarts à droite : ${fx(R,2)}`,{a:'end',fs:14,w:700,c:C.org});
   return s});
-function upb(){const v=+$('sl21').value;$('o21').textContent=v;const a=[...B0,v],mean=a.reduce((p,q)=>p+q,0)/a.length;
-  $('c21b').innerHTML=`<span class="fn">Figure 2.1-b</span>Données : ${a.join(', ')}. Chaque trait est l'écart x − x̄. À gauche et à droite, les écarts totalisent la même chose : Σ(x − x̄) = 0. La moyenne est le point où le diagramme tient en équilibre${v>20?' : une seule grande valeur suffit à la déplacer':''}.`;fb()}
+function upb(){const v=+$('sl21').value;$('o21').textContent=v;$('o21').style.color='var(--org)';const a=[...B0,v],mean=a.reduce((p,q)=>p+q,0)/a.length;
+  $('c21b').innerHTML=`<span class="fn">Figure 2.1-b</span>Données : ${B0.join(', ')}, <mark class="nv">${v}</mark>. Chaque trait est l'écart x − x̄. À gauche et à droite, les écarts totalisent la même chose : Σ(x − x̄) = 0. La moyenne est le point où le diagramme tient en équilibre${v>20?' : une seule grande valeur suffit à la déplacer':''}.`;fb()}
 $('sl21').oninput=upb;upb();
 }

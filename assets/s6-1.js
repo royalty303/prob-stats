@@ -47,22 +47,4 @@ const {fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area}=SITE;
     $('c61b').innerHTML=`<span class="fn">Figure 6.1-b</span>Règle : on rejette H₀ si ${rule}. Cote = ${fx(v,2)} : ${rej?`<b style="color:var(--org)">on rejette H₀</b>. Au seuil de ${al} %, on peut conclure que ${st.yes}.`:`<b>on ne rejette pas H₀</b>. Au seuil de ${al} %, les données ne permettent pas de conclure que ${st.no}.`}`;fb()}
   $('sit61').onchange=e=>{sk=e.target.value;upd()};$('a61').onclick=e=>{const a=e.target.dataset.a;if(a){al=+a;upd()}};upd();
 
-  // Figure c : Kerrich
-  let K=[];
-  const fk=fig('f61c',(W,H,m)=>{if(!K.length)return'';const lo=.484,hi=.516,nb=32,bw=(hi-lo)/nb,cnt=new Array(nb).fill(0);
-    for(const v of K){const b=Math.floor((v-lo)/bw);if(b>=0&&b<nb)cnt[b]++}
-    const se=.005,np=x=>npdf((x-.5)/se)/se,dens=cnt.map(c=>c/(K.length*bw)),ym=Math.max(...dens,np(.5))*1.15,pl=14,pr=14,pt=40,pb=34,X=v=>pl+(v-lo)/(hi-lo)*(W-pl-pr),Y=v=>pt+(1-v/ym)*(H-pt-pb);let s='';
-    dens.forEach((d,b)=>{const x0=lo+b*bw,xc=x0+bw/2,hot=Math.abs(xc-.5)>=.0067;if(d)s+=`<rect x="${X(x0)+.5}" y="${Y(d)}" width="${X(bw)-X(0)-1}" height="${Y(0)-Y(d)}" fill="${hot?C.org:C.ink}" opacity="${hot?1:.85}"/>`});
-    s+=`<path d="${path(np,X,Y,lo,hi)}" fill="none" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/>`;
-    s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="${C.ink}"/>`;
-    [.485,.49,.495,.5,.505,.51,.515].forEach((t,i)=>{if(!m||i%2===0)s+=txt(X(t),H-pb+18,fx(t,3),{a:'middle',fs:12,c:C.mute})});
-    s+=`<line x1="${X(.5067)}" x2="${X(.5067)}" y1="${pt-6}" y2="${Y(0)}" stroke="${C.ink}" stroke-width="3"/>`+txt(X(.5067)+8,pt,'Kerrich : 0,5067',{fs:14,w:700,halo:1});
-    s+=`<line x1="${X(.4933)}" x2="${X(.4933)}" y1="${pt+14}" y2="${Y(0)}" stroke="${C.ink}" stroke-width="1.5" stroke-dasharray="4 3"/>`+txt(X(.4933)-8,pt+14,'même écart',{a:'end',fs:13,c:C.mute,halo:1});
-    const share=K.filter(v=>Math.abs(v-.5)>=.0067-1e-9).length/K.length*100;
-    s+=txt(pl,18,`${fr(share,0)} % des séries`,{fs:22,w:700,c:C.org})+(m?'':txt(pl+180,18,'font pire que Kerrich',{fs:15,c:C.org,it:1}));
-    return s});
-  function runK(){K=new Float64Array(2000);for(let i=0;i<2000;i++){let h=0;for(let j=0;j<10000;j++)if(Math.random()<.5)h++;K[i]=h/10000}
-    const share=K.filter(v=>Math.abs(v-.5)>=.0067-1e-9).length/K.length*100;
-    $('c61c').innerHTML=`<span class="fn">Figure 6.1-c</span>2 000 séries de 10 000 lancers d'une pièce parfaite (H₀ vraie). En orange, les séries aussi loin de 0,5 que Kerrich, d'un côté ou de l'autre : ${fr(share,0)} %. Son résultat n'a rien d'exceptionnel, d'où la cote de 1,34 qui ne franchit pas la borne.`;fk()}
-  $('b61c').onclick=runK;runK();
 }

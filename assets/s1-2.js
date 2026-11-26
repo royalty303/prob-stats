@@ -83,23 +83,4 @@ $('gcol').innerHTML=[['M',3],['C',2],['P',4]].map(([l,k])=>`<span class="blk">${
 $('gdec').innerHTML=`<div class="br"><b>1 médecin et 2 autres</b><span>${NK('C',5,1)} × ${NK('C',4,2)} = 5 × 6 = 30</span></div><div class="plus">+</div><div class="br"><b>2 médecins et 1 autre</b><span>${NK('C',5,2)} × ${NK('C',4,1)} = 10 × 4 = 40</span></div>`;
 $('gret').innerHTML=`<div class="bar"><span class="keep" style="width:${3600/5040*100}%">permises : 3 600</span><span class="cut" style="width:${1440/5040*100}%">AB collés : 1 440</span></div><p class="note">Toutes les files : 7! = 5 040</p>`;
 
-/* ================= Figure e : anniversaires ================= */
-const ML=[31,28,31,30,31,30,31,31,30,31,30,31],MN=['J','F','M','A','M','J','J','A','S','O','N','D'];
-let an=35,days=[];
-const pShare=n=>{let q=1;for(let i=0;i<n;i++)q*=(365-i)/365;return 1-q};
-const newClass=()=>{days=Array.from({length:an},()=>Math.floor(Math.random()*365))};
-const calF=fig('cal',(W,H,m)=>{const pl=18,pt=6,cw=(W-pl-4)/31,rh=(H-pt-6)/12,cnt={};days.forEach(d=>cnt[d]=(cnt[d]||0)+1);let s='',d0=0;
-  ML.forEach((L,mi)=>{s+=txt(2,pt+mi*rh+rh*.7,MN[mi],{fs:11,c:C.mute});for(let j=0;j<L;j++){const d=d0+j,c=cnt[d]||0,x=pl+j*cw,y=pt+mi*rh;
-      s+=`<rect x="${x+.5}" y="${y+.5}" width="${cw-1}" height="${rh-1}" rx="2" fill="${c>1?C.org:c?C.ink:'var(--soft)'}"/>`}d0+=L});return s});
-const curF=fig('pcurve',(W,H,m)=>{const pl=40,pr=12,pt=14,pb=34,X=n=>pl+(n-1)/69*(W-pl-pr),Y=v=>pt+(1-v)*(H-pt-pb);let s='',d='';
-  [0,.5,1].forEach(t=>s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(t)}" y2="${Y(t)}" stroke="${C.line}"/>`+txt(pl-6,Y(t)+4,fr(t*100,0)+' %',{a:'end',fs:12,c:C.mute}));
-  for(let n=1;n<=70;n++)d+=(d?'L':'M')+X(n).toFixed(1)+','+Y(pShare(n)).toFixed(1);
-  s+=`<path d="${d}" fill="none" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/>`;
-  s+=`<line x1="${X(23)}" x2="${X(23)}" y1="${Y(.507)}" y2="${H-pb}" stroke="${C.mute}" stroke-dasharray="3 3"/>`+txt(X(23)+6,Y(.507)+18,'23 personnes : 50,7 %',{fs:12,c:C.mute,halo:1});
-  const v=pShare(an);s+=`<circle cx="${X(an)}" cy="${Y(v)}" r="7" fill="${C.ink}"/>`+txt(X(an)+(an>50?-10:10),Y(v)+(an>50?20:-10),`n = ${an} : ${fr(v*100,1)} %`,{a:an>50?'end':'start',w:700,fs:14,halo:1});
-  [1,10,20,30,40,50,60,70].forEach(t=>s+=txt(X(t),H-pb+18,t,{a:'middle',fs:12,c:C.mute}));
-  return s});
-function updA(){$('oan').textContent=`n = ${an}`;const cnt={};days.forEach(d=>cnt[d]=(cnt[d]||0)+1);const sh=Object.values(cnt).filter(c=>c>1).length;
-  $('acap').innerHTML=`<span class="fn">Figure 1.2-e</span>Cette classe : ${sh?`<b style="color:var(--org)">${sh} date${sh>1?'s':''} partagée${sh>1?'s':''}</b> (en orange)`:'aucune date partagée'}. Par le complément : P = 1 − ${NK('A',365,an)} / 365<sup>${an}</sup> ≈ <b>${fx(pShare(an),3)}</b>. Le seuil de 50 % est franchi dès 23 personnes.`;calF();curF()}
-$('an').oninput=e=>{an=+e.target.value;newClass();updA()};$('anew').onclick=()=>{newClass();updA()};newClass();updA();
 }
