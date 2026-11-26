@@ -67,3 +67,21 @@ if(i>=0&&w){const pr=P[i-1],nx=P[i+1],f=w.querySelector('.foot');
   const h=`<nav class="pn" aria-label="Sections voisines">${pr?`<a class="pv" href="${pr[0]}"><span>← Section précédente</span><b>${pr[1]} · ${pr[2]}</b></a>`:'<span></span>'}${nx?`<a class="nx" href="${nx[0]}"><span>Section suivante →</span><b>${nx[1]} · ${nx[2]}</b></a>`:'<span></span>'}</nav>`;
   f?f.insertAdjacentHTML('beforebegin',h):w.insertAdjacentHTML('beforeend',h)}
 }
+
+/* Surbrillance des nombres qui changent dans le texte (légendes, calculs) */
+{
+const NUM=/−?\d+(?:[  ]\d{3})*(?:,\d+)?/g;
+const skip=n=>{for(let e=n.parentElement;e;e=e.parentElement){if(e.matches&&(e.matches('.fn,mark,sup,sub,button,svg,a')))return true;if(e.matches&&e.matches('figcaption,.calc'))return false}return false};
+const nodes=el=>{const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT),out=[];let n;while(n=w.nextNode())if(!skip(n))out.push(n);return out};
+const read=el=>{const v=[];let sk='';nodes(el).forEach(n=>{sk+=n.data.replace(NUM,m=>{v.push(m);return '#'})});return {v,sk}};
+const ST=new WeakMap();
+const mark=(el,idx)=>{if(!idx.size)return;let k=0;nodes(el).forEach(n=>{const t=n.data;let last=0,frag=null;t.replace(NUM,(m,off)=>{if(idx.has(k)){frag=frag||document.createDocumentFragment();frag.append(t.slice(last,off));const mk=document.createElement('mark');mk.className='chg';mk.textContent=m;frag.append(mk);last=off+m.length}k++;return m});
+  if(frag){frag.append(t.slice(last));n.replaceWith(frag)}})};
+const obs=new MutationObserver(recs=>{const els=new Set();recs.forEach(r=>{let e=r.target.nodeType===1?r.target:r.target.parentElement;e=e&&e.closest('figcaption,.calc');if(e)els.add(e)});
+  els.forEach(el=>{if(el.querySelector('mark.chg'))[...el.querySelectorAll('mark.chg')].forEach(m=>m.replaceWith(m.textContent));el.normalize();
+    const cur=read(el),prev=ST.get(el);let idx=new Set();
+    if(prev){if(prev.sk===cur.sk){cur.v.forEach((x,i)=>{if(x!==prev.v[i]||prev.live.has(i))idx.add(i)})}else{const pv=new Set(prev.v);cur.v.forEach((x,i)=>{if(!pv.has(x))idx.add(i)})}}
+    ST.set(el,{...cur,live:idx});mark(el,idx)});obs.takeRecords()});
+const watch=()=>document.querySelectorAll('figcaption,.calc').forEach(el=>{if(!ST.has(el))ST.set(el,{...read(el),live:new Set()});obs.observe(el,{childList:true,subtree:true,characterData:true})});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',watch);else setTimeout(watch,0);
+}

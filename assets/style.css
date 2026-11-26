@@ -268,3 +268,13 @@ button:disabled{opacity:.4;cursor:default}
 .ancres{display:flex;flex-wrap:wrap;gap:6px 8px;margin:4px 0 8px}.ancres a{font-size:14px;padding:5px 11px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink)}.ancres a:hover{border-color:var(--blue);color:var(--blue)}
 .part[id]{scroll-margin-top:16px}
 mark.nv{background:var(--org);color:#fff;font-weight:700;padding:0 6px;border-radius:4px}
+.gchips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:6px}
+.gchips button{display:flex;align-items:center;gap:10px;text-align:left;padding:8px 10px;color:var(--ink)}
+.gchips button span{display:flex;flex-direction:column;gap:2px}.gchips button small{font-size:13px;color:var(--mute);font-weight:400;line-height:1.3}
+.gchips button[aria-pressed="true"] small{color:inherit;opacity:.85}
+.gp{width:64px;height:30px;flex:none}
+.gx{display:flex;align-items:center;gap:12px;margin-top:8px;padding:8px 10px;border-left:3px solid var(--org);background:var(--orgsoft);border-radius:4px}.gx p{margin:0}
+#gestes{scroll-margin-top:16px}
+@media(max-width:700px){.gchips{grid-template-columns:minmax(0,1fr)}}
+.gchips button[aria-pressed=true]{color:var(--bg)}.rec .gchips button.ok,.rec .gchips button.ko{color:#fff}
+mark.chg{background:var(--org);color:#fff;font-weight:700;padding:0 4px;border-radius:4px}
