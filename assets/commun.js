@@ -80,7 +80,7 @@ const mark=(el,idx)=>{if(!idx.size)return;let k=0;nodes(el).forEach(n=>{const t=
 const obs=new MutationObserver(recs=>{const els=new Set();recs.forEach(r=>{let e=r.target.nodeType===1?r.target:r.target.parentElement;e=e&&e.closest('figcaption,.calc');if(e)els.add(e)});
   els.forEach(el=>{if(el.querySelector('mark.chg'))[...el.querySelectorAll('mark.chg')].forEach(m=>m.replaceWith(m.textContent));el.normalize();
     const cur=read(el),prev=ST.get(el);let idx=new Set();
-    if(prev){if(prev.sk===cur.sk){cur.v.forEach((x,i)=>{if(x!==prev.v[i]||prev.live.has(i))idx.add(i)})}else{const pv=new Set(prev.v);cur.v.forEach((x,i)=>{if(!pv.has(x))idx.add(i)})}}
+    if(prev){if(prev.sk===cur.sk){cur.v.forEach((x,i)=>{if(x!==prev.v[i])idx.add(i)})}else{const pv=new Set(prev.v);cur.v.forEach((x,i)=>{if(!pv.has(x))idx.add(i)})}}
     ST.set(el,{...cur,live:idx});mark(el,idx)});obs.takeRecords()});
 const watch=()=>document.querySelectorAll('figcaption,.calc').forEach(el=>{if(!ST.has(el))ST.set(el,{...read(el),live:new Set()});obs.observe(el,{childList:true,subtree:true,characterData:true})});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',watch);else setTimeout(watch,0);

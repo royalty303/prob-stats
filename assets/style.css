@@ -277,4 +277,4 @@ mark.nv{background:var(--org);color:#fff;font-weight:700;padding:0 6px;border-ra
 #gestes{scroll-margin-top:16px}
 @media(max-width:700px){.gchips{grid-template-columns:minmax(0,1fr)}}
 .gchips button[aria-pressed=true]{color:var(--bg)}.rec .gchips button.ok,.rec .gchips button.ko{color:#fff}
-mark.chg{background:var(--org);color:#fff;font-weight:700;padding:0 4px;border-radius:4px}
+mark.chg{color:inherit;padding:0 2px;border-radius:3px;animation:chg 1.4s ease-out forwards}@keyframes chg{0%{background:var(--orgsoft);box-shadow:0 0 0 2px var(--orgsoft)}100%{background:transparent;box-shadow:none}}@media(prefers-reduced-motion:reduce){mark.chg{animation:none;background:transparent}}
