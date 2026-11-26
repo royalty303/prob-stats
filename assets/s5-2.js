@@ -1,30 +1,29 @@
 {
 const {fr,fx,$,C,txt,fig,npdf,tpdf11,cpdf,gauss,path,area}=SITE;
 // Figure a : un échantillon, une moyenne
-  const expo=()=>Math.max(1,Math.round(-10*Math.log(1-Math.random())));
-  let cur=[2,5,17],means=[8];
-  const fa=fig('f52a',(W,H,m)=>{
-    const pl=16,pr=16,xm=40,X=v=>pl+Math.min(v,xm)/xm*(W-pl-pr),y1=70,y2=H-36;let s='';
-    s+=txt(pl,22,'3 temps d\'attente (min)',{c:C.mute,fs:13})+`<line x1="${pl}" x2="${W-pr}" y1="${y1}" y2="${y1}" stroke="${C.line}" stroke-width="2"/>`;
-    s+=txt(W-pr,y1+52,'Moyennes déjà calculées',{c:C.mute,fs:13,a:'end'});
-    [0,10,20,30,40].forEach(t=>s+=txt(X(t),y1+20,t,{a:'middle',fs:12,c:C.mute})+txt(X(t),H-12,t,{a:'middle',fs:12,c:C.mute}));
-    s+=`<line x1="${pl}" x2="${W-pr}" y1="${y2}" y2="${y2}" stroke="${C.line}" stroke-width="2"/>`;
-    const mu=cur.reduce((a,b)=>a+b,0)/3;
-    cur.forEach(v=>s+=`<circle cx="${X(v)}" cy="${y1-10}" r="7" fill="${C.ink}"/>`+txt(X(v),y1-24,v,{a:'middle',fs:12,w:600}));
-    const cnt={};means.forEach(v=>{const b=Math.round(v*2)/2;cnt[b]=(cnt[b]||0)+1});const mk=Math.max(1,...Object.values(cnt)),avail=y2-(y1+60);
-    const r0=m?3:4,stp=Math.min(2*r0+1,avail/mk),r=Math.max(.8,Math.min(r0,stp*.45)),col={};const bars=stp<3,bw=Math.max(1.5,(X(.5)-X(0))*.8);
-    if(bars)Object.entries(cnt).forEach(([b,c])=>{const h=c*stp;s+=`<rect x="${X(+b)-bw/2}" y="${y2-h}" width="${bw}" height="${h}" fill="${C.ink}" opacity=".85"/>`});
-    means.forEach((v,i)=>{const b=Math.round(v*2)/2;col[b]=(col[b]||0)+1;const k=col[b];const last=i===means.length-1;
-      if(!bars||last)s+=`<circle cx="${X(b)}" cy="${y2-r-(k-1)*stp}" r="${last?Math.max(r,3.5):r}" fill="${last?C.org:C.ink}"/>`});
-    const lk=col[Math.round(mu*2)/2]||1;
-    s+=`<line x1="${X(mu)}" x2="${X(mu)}" y1="${y1-2}" y2="${y2-r*2-(lk-1)*stp-4}" stroke="${C.org}" stroke-width="1.5" stroke-dasharray="4 3"/>`;
-    s+=`<path d="M${X(mu)-7},${y1-14}l7,10l7,-10z" fill="${C.org}"/>`+txt(X(mu)+10,y1+(m?33:38),`moyenne ${fr(mu,1)}`,{c:C.org,fs:14,w:700,it:1,halo:1});
+  const expo=()=>-10*Math.log(1-Math.random()),MAXS=300;
+  let cur=[2.4,5.1,16.8],obs=[...cur],means=[(2.4+5.1+16.8)/3];
+  const stack=(vals,X,base,avail,r0,col,hiFrom)=>{let s='';const cnt={};vals.forEach(v=>{const b=Math.min(39.5,Math.floor(v)+.5);cnt[b]=(cnt[b]||0)+1});
+    const mk=Math.max(1,...Object.values(cnt)),stp=Math.min(2*r0+1,avail/mk),r=Math.max(.9,Math.min(r0,stp*.45)),k={};let top=base;
+    vals.forEach((v,i)=>{const b=Math.min(39.5,Math.floor(v)+.5);k[b]=(k[b]||0)+1;const y=base-r-(k[b]-1)*stp,hi=i>=hiFrom;
+      s+=`<circle cx="${X(b)}" cy="${y}" r="${hi?Math.max(r,3.5):r}" fill="${hi?col[1]:col[0]}"/>`;if(hi)top=Math.min(top,y)});return {s,stp,r,cnt,top}};
+  const sd=a=>{const m=a.reduce((x,y)=>x+y,0)/a.length;return Math.sqrt(a.reduce((x,y)=>x+(y-m)**2,0)/Math.max(1,a.length-1))};
+  const fa=fig('f52a',(W,H,m)=>{const pl=16,pr=16,xm=40,X=v=>pl+Math.min(v,xm)/xm*(W-pl-pr),yT=Math.round(H*.44),yB=H-34;let s='';
+    s+=txt(pl,16,`Temps d'attente individuels : ${obs.length}`,{c:C.mute,fs:13})+txt(W-pr,yT+50,`Moyennes de 3 temps : ${means.length}`,{c:C.mute,fs:13,a:'end'});
+    [yT,yB].forEach(y=>{s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="${C.line}" stroke-width="2"/>`;[0,10,20,30,40].forEach(t=>s+=txt(X(t),y+18,t===40?'40+':t,{a:'middle',fs:12,c:C.mute}))});
+    s+=stack(obs,X,yT,yT-36,m?2.5:3.2,[C.mute,C.ink],obs.length-3).s;
+    const SB=stack(means,X,yB,yB-yT-70,m?3:4,[C.ink,C.org],means.length-1);s+=SB.s;
+    const mu=means[means.length-1];
+    s+=`<path d="M${X(mu)-7},${yT+24}l7,-10l7,10z" fill="${C.org}"/><line x1="${X(mu)}" x2="${X(mu)}" y1="${yT+26}" y2="${SB.top-6}" stroke="${C.org}" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+    s+=txt(X(mu)+(mu>30?-12:12),yT+38,`moyenne ${fr(mu,1)}`,{a:mu>30?'end':'start',c:C.org,fs:14,w:700,it:1,halo:1});
     return s});
-  const cap=()=>{const mu=cur.reduce((a,b)=>a+b,0)/3;$('c52a').innerHTML=`<span class="fn">Figure 5.2-a</span>(${cur.join(' + ')}) ÷ 3 = ${fr(mu,1)} min. Chaque échantillon ajoute <b>un seul point</b> en bas. ${means.length} moyenne${means.length>1?'s':''} jusqu'ici : elles s'entassent autour de 10 min, beaucoup moins dispersées que les temps eux-mêmes.`};
-  const draw=()=>{cur=[expo(),expo(),expo()];means.push(cur.reduce((a,b)=>a+b,0)/3)};
+  const cap=()=>{const mu=means[means.length-1],mm=means.reduce((a,b)=>a+b,0)/means.length;
+    $('c52a').innerHTML=`<span class="fn">Figure 5.2-a</span>(${cur.map(v=>fr(v,1)).join(' + ')}) ÷ 3 = ${fr(mu,1)} min. Chaque échantillon ajoute <b>3 temps</b> en haut, mais <b>un seul point</b> en bas.${means.length>=30?` Après ${means.length} échantillons : les temps individuels ont un écart type d'environ ${fr(sd(obs),1)} min; les moyennes, d'environ ${fr(sd(means),1)} min. Elles se tassent autour de ${fr(mm,1)} min, près de la moyenne de la population (10 min); avec seulement 3 temps, leur distribution reste asymétrique.`:' Tirez d\'autres échantillons : les moyennes s\'étalent beaucoup moins que les temps eux-mêmes.'}${means.length>=MAXS?' (Maximum atteint : effacez pour recommencer.)':''}`;
+    $('b52a1').disabled=$('b52a2').disabled=means.length>=MAXS};
+  const draw=()=>{if(means.length>=MAXS)return;cur=[expo(),expo(),expo()];obs.push(...cur);means.push(cur.reduce((a,b)=>a+b,0)/3)};
   $('b52a1').onclick=()=>{draw();fa();cap()};
   $('b52a2').onclick=()=>{for(let i=0;i<100;i++)draw();fa();cap()};
-  $('b52a3').onclick=()=>{cur=[2,5,17];means=[8];fa();cap()};
+  $('b52a3').onclick=()=>{cur=[2.4,5.1,16.8];obs=[...cur];means=[(2.4+5.1+16.8)/3];fa();cap()};
   cap();
 
   // Figure b : laboratoire
