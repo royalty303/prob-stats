@@ -13,7 +13,7 @@ header.top nav a[aria-current=page]{color:var(--ink);text-decoration:underline;t
 .ancres a:hover{border-color:var(--org);color:var(--org)}
 
 
-&{color-scheme:light;--bg:#f6f5ef;--ink:#142921;--mute:#5b6b62;--line:#d9dccd;--soft:#e8eadd;--sauge:#a9b6a0;--chartreuse:#ddea70;--blue:#2f5bd3;--bluesoft:#dfe6f3;--org:#f45732;--orgsoft:#fde0d6}
+&{color-scheme:light;--bg:#f6f5ef;--ink:#142921;--mute:#5b6b62;--line:#d9dccd;--soft:#fbfaf5;--panel:#e8eadd;--sauge:#a9b6a0;--chartreuse:#ddea70;--blue:#2f5bd3;--bluesoft:#dfe6f3;--org:#f45732;--orgsoft:#fde0d6}
 body{background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 header.top{background:var(--bg);border-bottom:1px solid var(--line)}
 .brand{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-style:normal;font-weight:700;letter-spacing:-.04em;font-size:20px}
@@ -28,7 +28,7 @@ h2{font-size:clamp(26px,3.4vw,38px);line-height:1.05}
 .lead{color:#34463d;font-size:17px}
 .code{border-top:1px solid var(--line);padding-top:14px}
 section.part{border-top:1px solid var(--line)}
-section.part figure{background:var(--soft);border-radius:22px;padding:20px 22px 14px}
+section.part figure{background:var(--panel);border-radius:22px;padding:20px 22px 14px}
 .fig{background:transparent}
 figcaption{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14.5px;color:#34463d;border-top:1px solid #cfd3bf}
 .fn{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:18px;font-weight:400;color:var(--ink)}

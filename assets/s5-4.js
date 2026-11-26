@@ -40,7 +40,7 @@ const fd=fig('f54d',(W,H,m)=>{const pl=40,pr=16,pt=24,pb=36,X=r=>pl+r*(W-pl-pr),
   [0,.5,1].forEach(t=>s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(t)}" y2="${Y(t)}" stroke="${C.line}"/>`+txt(pl-6,Y(t)+4,fx(t,1),{a:'end',fs:12,c:C.mute}));
   for(let i=0;i<=200;i++){const r=i/200;d+=(d?'L':'M')+X(r).toFixed(1)+','+Y(Math.sqrt(Math.max(0,(N0-r*N0)/(N0-1)))).toFixed(1)}
   s+=`<path d="${d}" fill="none" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/>`;
-  [[.05,'0,975'],[.25,'0,87'],[1,'0']].forEach(([r,l])=>{const v=Math.sqrt(Math.max(0,1-r));s+=`<circle cx="${X(r)}" cy="${Y(v)}" r="4" fill="${C.blue}"/>`+txt(X(r)+(r===1?-8:8),Y(v)-8,l,{fs:12,c:C.blue,a:r===1?'end':'start',halo:1})});
+  [[.05,'0,975'],[.25,'0,87'],[1,'0']].forEach(([r,l])=>{const v=Math.sqrt(Math.max(0,1-r)),near=Math.abs(r-n0/N0)<.07;s+=`<circle cx="${X(r)}" cy="${Y(v)}" r="4" fill="${C.blue}"/>`+(near?'':txt(X(r)+(r===1?-8:8),Y(v)-8,l,{fs:12,c:C.blue,a:r===1?'end':'start',halo:1}))});
   const r=n0/N0,f=Math.sqrt((N0-n0)/(N0-1));
   s+=`<line x1="${X(r)}" x2="${X(r)}" y1="${Y(f)}" y2="${H-pb}" stroke="${C.ink}" stroke-dasharray="3 3"/><circle cx="${X(r)}" cy="${Y(f)}" r="8" fill="${C.ink}"/>`;
   s+=txt(X(r)+(r>.6?-14:14),Y(f)-14,`facteur ${fx(f,3)}`,{a:r>.6?'end':'start',w:700,fs:15,halo:1});
