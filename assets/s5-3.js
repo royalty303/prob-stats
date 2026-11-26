@@ -41,20 +41,6 @@ function upd(){document.querySelectorAll('#niv53 button').forEach(b=>b.setAttrib
 $('niv53').onclick=e=>{const v=e.target.dataset.v;if(v){niv=+v;upd()}};
 $('re53').onclick=()=>{tirer();upd()};tirer();upd();
 
-/* Figure d : t selon n */
-const T95=[12.706,4.303,3.182,2.776,2.571,2.447,2.365,2.306,2.262,2.228,2.201,2.179,2.16,2.145,2.131,2.12,2.11,2.101,2.093,2.086,2.08,2.074,2.069,2.064,2.06,2.056,2.052,2.048,2.045,2.042,2.04,2.037,2.035,2.032,2.03,2.028,2.026,2.024,2.023,2.021,2.02,2.018,2.017,2.015,2.014,2.013,2.012,2.011,2.01,2.009,2.008,2.007,2.006,2.005,2.004,2.003,2.002,2.002,2.001];
-fig('f53d',(W,H,m)=>{const pl=40,pr=16,pt=24,pb=36,X=n=>pl+(n-2)/58*(W-pl-pr),Y=v=>pt+(1-(v-1.8)/(3.4-1.8))*(H-pt-pb);let s='';
-  [2,2.5,3].forEach(t=>s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(t)}" y2="${Y(t)}" stroke="${C.line}"/>`+txt(pl-6,Y(t)+4,fx(t,1),{a:'end',fs:12,c:C.mute}));
-  s+=`<rect x="${X(2)}" y="${pt}" width="${X(30)-X(2)}" height="${H-pt-pb}" fill="var(--soft)"/>`;
-  s+=txt(X(16),pt+16,'Student',{a:'middle',fs:13,c:C.mute,w:600})+txt((X(30)+X(60))/2,pt+16,'loi normale',{a:'middle',fs:13,c:C.mute,w:600});
-  s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(1.96)}" y2="${Y(1.96)}" stroke="${C.blue}" stroke-width="2.5" stroke-dasharray="7 5"/>`+txt(W-pr,Y(1.96)+18,'z = 1,96',{a:'end',c:C.blue,w:700});
-  let d='';for(let n=4;n<=60;n++){const v=T95[n-2];d+=(d?'L':'M')+X(n)+','+Y(Math.min(v,3.4))}
-  s+=`<path d="${d}" fill="none" stroke="${C.ink}" stroke-width="3"/>`;
-  s+=`<line x1="${X(30)}" x2="${X(30)}" y1="${pt}" y2="${H-pb}" stroke="${C.ink}" stroke-width="1.5"/>`+txt(X(30)+6,Y(3.2),'n = 30',{w:700,fs:13});
-  [[5,2.776,'n = 5 : t = 2,78 (+42 %)'],[30,2.045,'n = 30 : t = 2,05']].forEach(([n,v,l])=>{s+=`<circle cx="${X(n)}" cy="${Y(v)}" r="6" fill="${C.org}"/>`+txt(X(n)+10,Y(v)-10,l,{it:1,c:C.org,fs:m?13:15,halo:1})});
-  [5,10,20,30,40,50,60].forEach(t=>s+=txt(X(t),H-pb+18,t,{a:'middle',fs:12,c:C.mute}));
-  s+=txt(W-pr,H-4,'taille de l\'échantillon n',{a:'end',fs:12,c:C.mute});
-  return s});
 
 /* Figure e : facteur de correction */
 const N0=300,s0=220;let n0=40;
