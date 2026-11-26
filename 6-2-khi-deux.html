@@ -7,8 +7,8 @@
 <title>6.2 · Tests du khi-deux</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&family=Public+Sans:wght@400;600;700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=26">
-<link rel="stylesheet" href="assets/theme.css?v=26">
+<link rel="stylesheet" href="assets/style.css?v=27">
+<link rel="stylesheet" href="assets/theme.css?v=27">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -61,15 +61,15 @@
     <table class="stack"><thead><tr><th></th><th>Indépendance</th><th>Ajustement</th></tr></thead><tbody>
       <tr><td>H₀</td><td>Les deux variables sont indépendantes.</td><td>La variable suit le modèle proposé.</td></tr>
       <tr><td>f<sub>t</sub></td><td>total de ligne × total de colonne ÷ grand total</td><td>n × probabilité du modèle</td></tr>
-      <tr><td>ddl</td><td>(lignes − 1)(colonnes − 1)</td><td>classes − 1 − paramètres estimés</td></tr>
+      <tr><td>ddl</td><td>(lignes − 1)(colonnes − 1)</td><td>nombre de modalités − paramètres estimés − 1</td></tr>
       <tr><td>Si f<sub>t</sub> &lt; 5</td><td>fusionner des lignes ou des colonnes qui ont un sens ensemble</td><td>réunir des classes voisines, puis revérifier</td></tr>
     </tbody></table>
     <h3 style="margin-top:26px">Pièges</h3>
-    <ul><li>La règle des 5 porte sur f<sub>t</sub>, jamais sur f<sub>o</sub>.</li><li>Chaque paramètre estimé retire 1 ddl : λ (Poisson), p (binomiale), μ et σ (normale, donc 2).</li><li>Ajustement à une normale : ouvrir les classes extrêmes jusqu'à −∞ et +∞.</li><li>Rejeter l'indépendance ne dit pas <i>pourquoi</i> les variables sont liées.</li></ul>
+    <ul><li>La règle des 5 porte sur f<sub>t</sub>, jamais sur f<sub>o</sub>.</li><li>Le nombre de modalités se calcule <b>après</b> les regroupements.</li><li>Chaque paramètre estimé retire 1 ddl : λ (Poisson), p (binomiale), μ et σ (normale, donc 2).</li><li>Ajustement à une normale : ouvrir les classes extrêmes jusqu'à −∞ et +∞.</li><li>Rejeter l'indépendance ne dit pas <i>pourquoi</i> les variables sont liées.</li></ul>
   </section>
   <div class="foot">Données : R. J. M. Dawson (1995), « The “Unusual Episode” Data Revisited », <i>Journal of Statistics Education</i>, 3(3) · L. von Bortkiewicz (1898), <i>Das Gesetz der kleinen Zahlen</i>. Colis : situation fictive, simulée.</div>
 </div></main>
-<script src="assets/commun.js?v=26"></script>
-<script src="assets/s6-2.js?v=26"></script>
+<script src="assets/commun.js?v=27"></script>
+<script src="assets/s6-2.js?v=27"></script>
 </body>
 </html>

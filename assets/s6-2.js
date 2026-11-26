@@ -73,7 +73,7 @@ const ff=fig('ff',(W,H,m)=>{
   return s});
 function capF(){const st=ST[ps];$('pbtn').textContent=st.b;let t=st.t;
   if(ps===2){const R=st.c.map(c=>({o:c.reduce((a,k)=>a+O[k],0),t:c.reduce((a,k)=>a+Ft[k],0)}));const x=R.reduce((a,r)=>a+(r.t-r.o)**2/r.t,0);
-    t=`Toutes les f<sub>t</sub> ≥ 5. ddl = 3 classes − 1 − 1 (λ estimé) = 1. χ² = ${fr(x,3)} &lt; 3,84 (α = 5 %) : <b>on ne rejette pas H₀</b> : au seuil de 5 %, les écarts observés ne suffisent pas à écarter le modèle de Poisson.`}
+    t=`Toutes les f<sub>t</sub> ≥ 5. ddl = 3 modalités (après regroupement) − 1 paramètre estimé (λ) − 1 = 1. χ² = ${fr(x,3)} &lt; 3,84 (α = 5 %) : <b>on ne rejette pas H₀</b> : au seuil de 5 %, les écarts observés ne suffisent pas à écarter le modèle de Poisson.`}
   $('ffcap').innerHTML=`<span class="fn">Figure 6.2-f</span>${t}`}
 $('pbtn').addEventListener('click',()=>{ps=(ps+1)%3;ff();capF()});capF();
 }
